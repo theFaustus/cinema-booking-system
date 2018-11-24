@@ -1,6 +1,6 @@
 # Cinema Booking System
 
-![CBS](https://i.imgur.com/MGZj7AZ.png)
+![CBS](https://imgur.com/BBKj6Jk)
 
 ## Intro
 
