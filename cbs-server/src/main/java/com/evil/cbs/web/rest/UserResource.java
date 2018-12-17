@@ -1,5 +1,7 @@
 package com.evil.cbs.web.rest;
 
+import com.evil.cbs.domain.Customer;
+import com.evil.cbs.domain.Movie;
 import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,7 +19,6 @@ public class UserResource {
 
     @RequestMapping(value = "/list/", method = RequestMethod.GET)
     public List<String> list() {
-        LOGGER.info("Accessed.");
         return new ArrayList<>();
     }
 

@@ -1,6 +1,5 @@
 package com.evil.cbs;
 
-import com.evil.cbs.config.CbsApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

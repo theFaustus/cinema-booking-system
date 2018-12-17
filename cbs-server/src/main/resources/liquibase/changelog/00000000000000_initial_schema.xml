@@ -1,0 +1,155 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+ <property name="now" value="current_timestamp" dbms="postgresql"/>
+ <changeSet author="ipascari (generated)" id="1544975740381-1">
+  <createSequence sequenceName="hibernate_sequence"/>
+ </changeSet>
+ <changeSet author="ipascari (generated)" id="1544975740381-2">
+  <createTable tableName="customers" schemaName="cbs">
+   <column name="id" type="BIGINT">
+    <constraints primaryKey="true" primaryKeyName="customers_pkey"/>
+   </column>
+  </createTable>
+ </changeSet>
+ <changeSet author="ipascari (generated)" id="1544975740381-3">
+  <createTable tableName="customers_tickets" schemaName="cbs">
+   <column name="customer_id" type="BIGINT">
+    <constraints nullable="false"/>
+   </column>
+   <column name="tickets_id" type="BIGINT">
+    <constraints nullable="false"/>
+   </column>
+  </createTable>
+ </changeSet>
+ <changeSet author="ipascari (generated)" id="1544975740381-4" >
+  <createTable tableName="halls" schemaName="cbs">
+   <column name="id" type="BIGINT">
+    <constraints primaryKey="true" primaryKeyName="halls_pkey"/>
+   </column>
+   <column name="name" type="VARCHAR(255)"/>
+  </createTable>
+ </changeSet>
+ <changeSet author="ipascari (generated)" id="1544975740381-5">
+  <createTable tableName="movie_actors" schemaName="cbs">
+   <column name="movie_id" type="BIGINT">
+    <constraints nullable="false"/>
+   </column>
+   <column name="actors" type="VARCHAR(255)"/>
+  </createTable>
+ </changeSet>
+ <changeSet author="ipascari (generated)" id="1544975740381-6">
+  <createTable tableName="movie_directors" schemaName="cbs">
+   <column name="movie_id" type="BIGINT">
+    <constraints nullable="false"/>
+   </column>
+   <column name="directors" type="VARCHAR(255)"/>
+  </createTable>
+ </changeSet>
+ <changeSet author="ipascari (generated)" id="1544975740381-7">
+  <createTable tableName="movie_sessions" schemaName="cbs">
+   <column name="id" type="BIGINT">
+    <constraints primaryKey="true" primaryKeyName="movie_sessions_pkey"/>
+   </column>
+   <column name="show_time" type="TIMESTAMP WITHOUT TIME ZONE"/>
+   <column name="hall_id" type="BIGINT"/>
+   <column name="movie_id" type="BIGINT"/>
+  </createTable>
+ </changeSet>
+ <changeSet author="ipascari (generated)" id="1544975740381-8">
+  <createTable tableName="movies" schemaName="cbs">
+   <column name="id" type="BIGINT">
+    <constraints primaryKey="true" primaryKeyName="movies_pkey"/>
+   </column>
+   <column name="description" type="VARCHAR(255)"/>
+   <column name="imdb_rating" type="VARCHAR(255)"/>
+   <column name="movie_duration" type="BIGINT"/>
+   <column name="name" type="VARCHAR(255)"/>
+  </createTable>
+ </changeSet>
+ <changeSet author="ipascari (generated)" id="1544975740381-9">
+  <createTable tableName="orders" schemaName="cbs">
+   <column name="id" type="BIGINT">
+    <constraints primaryKey="true" primaryKeyName="orders_pkey"/>
+   </column>
+   <column name="order_date" type="TIMESTAMP WITHOUT TIME ZONE"/>
+   <column name="ticket_id" type="BIGINT"/>
+  </createTable>
+ </changeSet>
+ <changeSet author="ipascari (generated)" id="1544975740381-10">
+  <createTable tableName="seats" schemaName="cbs">
+   <column name="id" type="BIGINT">
+    <constraints primaryKey="true" primaryKeyName="seats_pkey"/>
+   </column>
+   <column name="price" type="INTEGER"/>
+   <column name="seat_number" type="VARCHAR(255)"/>
+   <column name="seat_status" type="VARCHAR(255)"/>
+   <column name="hall_id" type="BIGINT"/>
+   <column name="ticket_id" type="BIGINT"/>
+  </createTable>
+ </changeSet>
+ <changeSet author="ipascari (generated)" id="1544975740381-11">
+  <createTable tableName="tickets" schemaName="cbs">
+   <column name="id" type="BIGINT">
+    <constraints primaryKey="true" primaryKeyName="tickets_pkey"/>
+   </column>
+   <column name="ticket_status" type="VARCHAR(255)"/>
+   <column name="ticket_type" type="VARCHAR(255)"/>
+   <column name="movie_session_id" type="BIGINT"/>
+  </createTable>
+ </changeSet>
+ <changeSet author="ipascari (generated)" id="1544975740381-12">
+  <createTable tableName="users" schemaName="cbs">
+   <column name="id" type="BIGINT">
+    <constraints primaryKey="true" primaryKeyName="users_pkey"/>
+   </column>
+   <column name="email" type="VARCHAR(255)"/>
+   <column name="enabled" type="INTEGER">
+    <constraints nullable="false"/>
+   </column>
+   <column name="first_name" type="VARCHAR(255)"/>
+   <column name="last_name" type="VARCHAR(255)"/>
+   <column name="password" type="VARCHAR(255)"/>
+   <column name="role" type="VARCHAR(255)"/>
+   <column name="telephone_number" type="VARCHAR(255)"/>
+  </createTable>
+ </changeSet>
+ <changeSet author="ipascari (generated)" id="1544975740381-13">
+  <addUniqueConstraint columnNames="tickets_id" constraintName="uk_54qnj146um5wsb86y7txk4nyh" tableName="customers_tickets"/>
+ </changeSet>
+ <changeSet author="ipascari (generated)" id="1544975740381-14">
+  <addUniqueConstraint columnNames="email" constraintName="uk_6dotkott2kjsp8vw4d0m25fb7" tableName="users"/>
+ </changeSet>
+ <changeSet author="ipascari (generated)" id="1544975740381-15">
+  <addForeignKeyConstraint baseColumnNames="hall_id" baseTableName="seats" constraintName="fk3jtfe0f60bcpbavj4mctjeasw" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="halls" />
+ </changeSet>
+ <changeSet author="ipascari (generated)" id="1544975740381-16">
+  <addForeignKeyConstraint baseColumnNames="ticket_id" baseTableName="orders" constraintName="fk56s83c9boy7i8d9v4kf9a9979" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="tickets" />
+ </changeSet>
+ <changeSet author="ipascari (generated)" id="1544975740381-17">
+  <addForeignKeyConstraint baseColumnNames="movie_id" baseTableName="movie_directors" constraintName="fk90u08nnfro53e8vy5bgkkf77o" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="movies" />
+ </changeSet>
+ <changeSet author="ipascari (generated)" id="1544975740381-18">
+  <addForeignKeyConstraint baseColumnNames="tickets_id" baseTableName="customers_tickets" constraintName="fka5kxt3xsjqkij1wfoqt24towb" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="tickets" />
+ </changeSet>
+ <changeSet author="ipascari (generated)" id="1544975740381-19">
+  <addForeignKeyConstraint baseColumnNames="movie_id" baseTableName="movie_sessions" constraintName="fkatpmn0h31nwhwdgd0ogr8q6kj" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="movies" />
+ </changeSet>
+ <changeSet author="ipascari (generated)" id="1544975740381-20">
+  <addForeignKeyConstraint baseColumnNames="hall_id" baseTableName="movie_sessions" constraintName="fkhmfd7dxjsafk5v7wv9uy6ss0s" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="halls" />
+ </changeSet>
+ <changeSet author="ipascari (generated)" id="1544975740381-21">
+  <addForeignKeyConstraint baseColumnNames="movie_session_id" baseTableName="tickets" constraintName="fkidxabarcn97kf9acrcqokf1r9" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="movie_sessions" />
+ </changeSet>
+ <changeSet author="ipascari (generated)" id="1544975740381-22">
+  <addForeignKeyConstraint baseColumnNames="customer_id" baseTableName="customers_tickets" constraintName="fkod7tg0rbk53byta8i9mhqkc0u" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="customers" />
+ </changeSet>
+ <changeSet author="ipascari (generated)" id="1544975740381-23">
+  <addForeignKeyConstraint baseColumnNames="id" baseTableName="customers" constraintName="fkpog72rpahj62h7nod9wwc28if" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users" />
+ </changeSet>
+ <changeSet author="ipascari (generated)" id="1544975740381-24">
+  <addForeignKeyConstraint baseColumnNames="ticket_id" baseTableName="seats" constraintName="fkr7k7a0hteqrp71r8w1eup1dfu" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="tickets" />
+ </changeSet>
+ <changeSet author="ipascari (generated)" id="1544975740381-25">
+  <addForeignKeyConstraint baseColumnNames="movie_id" baseTableName="movie_actors" constraintName="fks4rlt03tdf55rwso4uyrwm0oq" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="movies" />
+ </changeSet>
+</databaseChangeLog>
