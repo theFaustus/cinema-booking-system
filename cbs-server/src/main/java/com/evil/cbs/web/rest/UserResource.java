@@ -2,7 +2,8 @@ package com.evil.cbs.web.rest;
 
 import com.evil.cbs.domain.Customer;
 import com.evil.cbs.domain.Movie;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +15,8 @@ import java.util.List;
 @RequestMapping("/v1/user")
 public class UserResource {
 
-    private final Logger LOGGER = Logger.getLogger(this.getClass());
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+
 
 
     @RequestMapping(value = "/list/", method = RequestMethod.GET)
