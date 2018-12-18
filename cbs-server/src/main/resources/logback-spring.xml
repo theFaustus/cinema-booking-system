@@ -17,6 +17,7 @@
     <property scope="context" name="log.stdout.fileName" value="cbs.out"/>
     <property scope="context" name="log.stderr.fileName" value="cbs.err"/>
     <property scope="context" name="log.fileName" value="cbs"/>
+    <property scope="context" name="log.filter.fileName" value="cbs.filter"/>
 
     <!-- default standard out appender -->
     <appender name="consoleAudit" class="ch.qos.logback.core.ConsoleAppender">
@@ -32,6 +33,23 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- rollover daily -->
             <fileNamePattern>${log.directory}/${log.fileName}.%d{yyyy-MM-dd}.%i.${FILE_EXTENSION}
+            </fileNamePattern>
+            <!-- each file should be at most ${MAX_FILE_SIZE}, keep ${MAX_HISTORY} days worth of history, but at most ${TOTAL_FILE_SIZE} -->
+            <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+            <totalSizeCap>${TOTAL_FILE_SIZE}</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{dd.MM.yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <!-- standard out redirect to file -->
+    <appender name="filterAudit" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${log.directory}/${log.filter.fileName}.%d{yyyy-MM-dd}.%i.${FILE_EXTENSION}
             </fileNamePattern>
             <!-- each file should be at most ${MAX_FILE_SIZE}, keep ${MAX_HISTORY} days worth of history, but at most ${TOTAL_FILE_SIZE} -->
             <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
@@ -151,10 +169,40 @@
         <appender-ref ref="fileAudit"/>
     </logger>
 
-    <logger name="com.evil.cbs" level="DEBUG"
+    <logger name="com.evil.cbs.config" level="DEBUG"
             additivity="false">
         <appender-ref ref="consoleAudit"/>
         <appender-ref ref="fileAudit"/>
+    </logger>
+
+    <logger name="com.evil.cbs.domain" level="DEBUG"
+            additivity="false">
+        <appender-ref ref="consoleAudit"/>
+        <appender-ref ref="fileAudit"/>
+    </logger>
+
+    <logger name="com.evil.cbs.repository" level="DEBUG"
+            additivity="false">
+        <appender-ref ref="consoleAudit"/>
+        <appender-ref ref="fileAudit"/>
+    </logger>
+
+    <logger name="com.evil.cbs.service" level="DEBUG"
+            additivity="false">
+        <appender-ref ref="consoleAudit"/>
+        <appender-ref ref="fileAudit"/>
+    </logger>
+
+    <logger name="com.evil.cbs.web" level="DEBUG"
+            additivity="false">
+        <appender-ref ref="consoleAudit"/>
+        <appender-ref ref="fileAudit"/>
+    </logger>
+
+    <logger name="com.evil.cbs.filter" level="DEBUG"
+            additivity="false">
+        <appender-ref ref="consoleAudit"/>
+        <appender-ref ref="filterAudit"/>
     </logger>
 
     <root level="DEBUG">

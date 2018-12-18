@@ -1,8 +1,15 @@
 package com.evil.cbs.config;
 
+import com.evil.cbs.filter.RequestResponseLoggingFilter;
+import com.evil.cbs.filter.TransactionFilter;
+import com.evil.cbs.security.MySavedRequestAwareAuthenticationSuccessHandler;
+import com.evil.cbs.security.RestAuthenticationEntryPoint;
+import com.evil.cbs.web.rest.error.CustomAccessDeniedHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import liquibase.integration.spring.SpringLiquibase;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +21,10 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
@@ -22,9 +32,52 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 @EnableWebSecurity
 public class CbsConfiguration extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private CustomAccessDeniedHandler accessDeniedHandler;
+
+    @Autowired
+    private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+
+    @Autowired
+    private MySavedRequestAwareAuthenticationSuccessHandler mySuccessHandler;
+
+    private SimpleUrlAuthenticationFailureHandler myFailureHandler = new SimpleUrlAuthenticationFailureHandler();
+
     @Bean
     public static NoOpPasswordEncoder passwordEncoder() {
         return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+                .authorizeRequests()
+                .and()
+                .exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler)
+                .authenticationEntryPoint(restAuthenticationEntryPoint)
+                .and()
+                .authorizeRequests()
+                .antMatchers("/v1/api/csrfAttacker*").permitAll()
+                .antMatchers("/v1/api/user/**").permitAll()
+                .antMatchers("/v1/api/movie/**").authenticated()
+                .antMatchers("/v1/api/admin/**").hasRole("ADMIN")
+                .and()
+                .formLogin()
+                .successHandler(mySuccessHandler)
+                .failureHandler(myFailureHandler)
+                .and()
+                .httpBasic()
+                .and()
+                .logout();
+    }
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+                .withUser("admin").password(encoder().encode("adminPass")).roles("ADMIN")
+                .and()
+                .withUser("user").password(encoder().encode("userPass")).roles("USER");
     }
 
     @Override
@@ -74,6 +127,26 @@ public class CbsConfiguration extends WebSecurityConfigurerAdapter {
         liquibase.setDataSource(dataSource());
         liquibase.setDefaultSchema("cbs");
         return liquibase;
+    }
+
+
+    @Bean
+    public FilterRegistrationBean<RequestResponseLoggingFilter> requestResponseLoggingFilterRegistrationBean() {
+        FilterRegistrationBean<RequestResponseLoggingFilter> registrationBean = new FilterRegistrationBean<>();
+        registrationBean.setFilter(new RequestResponseLoggingFilter());
+        return registrationBean;
+    }
+
+    @Bean
+    public FilterRegistrationBean<TransactionFilter> transactionFilterRegistrationBean() {
+        FilterRegistrationBean<TransactionFilter> registrationBean = new FilterRegistrationBean<>();
+        registrationBean.setFilter(new TransactionFilter());
+        return registrationBean;
+    }
+
+    @Bean
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
     }
 
 }
