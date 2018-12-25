@@ -1,5 +1,6 @@
 package com.evil.cbs.domain;
 
+import com.evil.cbs.service.util.UserRole;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -78,6 +79,7 @@ public class Customer extends User {
 
         public Customer build() {
             Customer customer = new Customer();
+            customer.setRole(UserRole.USER_ROLE.getValue());
             customer.setTickets(tickets);
             customer.setEmail(email);
             customer.setPassword(password);

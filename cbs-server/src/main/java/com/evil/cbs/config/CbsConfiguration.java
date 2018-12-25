@@ -22,6 +22,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
@@ -43,11 +44,6 @@ public class CbsConfiguration extends WebSecurityConfigurerAdapter {
 
     private SimpleUrlAuthenticationFailureHandler myFailureHandler = new SimpleUrlAuthenticationFailureHandler();
 
-    @Bean
-    public static NoOpPasswordEncoder passwordEncoder() {
-        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
@@ -60,6 +56,8 @@ public class CbsConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/v1/api/csrfAttacker*").permitAll()
                 .antMatchers("/v1/api/user/**").permitAll()
+                .antMatchers("/v1/api/authentication/**").permitAll()
+                .antMatchers("/v1/api/customer/**").permitAll()
                 .antMatchers("/v1/api/movie/**").authenticated()
                 .antMatchers("/v1/api/admin/**").hasRole("ADMIN")
                 .and()
@@ -72,18 +70,12 @@ public class CbsConfiguration extends WebSecurityConfigurerAdapter {
                 .logout();
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin").password(encoder().encode("adminPass")).roles("ADMIN")
-                .and()
-                .withUser("user").password(encoder().encode("userPass")).roles("USER");
-    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
                 .dataSource(dataSource())
+                .passwordEncoder(encoder())
                 .usersByUsernameQuery("select email, password, enabled from cbs.users where email = ?")
                 .authoritiesByUsernameQuery("select email, role from cbs.users where email = ?");
     }
