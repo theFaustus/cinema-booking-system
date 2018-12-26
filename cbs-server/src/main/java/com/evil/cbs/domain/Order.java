@@ -6,11 +6,8 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@EqualsAndHashCode
-@ToString
+@Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "orders")
 public class Order extends AbstractEntity {

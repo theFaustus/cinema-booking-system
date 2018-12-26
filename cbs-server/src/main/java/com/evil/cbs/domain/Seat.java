@@ -5,10 +5,8 @@ import lombok.*;
 import javax.persistence.*;
 
 
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
+@Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "seats", schema = "cbs")
 public class Seat extends AbstractEntity{

@@ -6,11 +6,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
-@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
+@Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "halls", schema = "cbs")
 public class Hall extends AbstractEntity{

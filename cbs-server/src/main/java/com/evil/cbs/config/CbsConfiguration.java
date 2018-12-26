@@ -56,7 +56,7 @@ public class CbsConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/v1/api/user/**").permitAll()
                 .antMatchers("/v1/api/authentication/**").permitAll()
                 .antMatchers("/v1/api/customer/**").permitAll()
-                .antMatchers("/v1/api/movie/**").authenticated()
+                .antMatchers("/v1/api/movie/**").permitAll()
                 .antMatchers("/v1/api/admin/**").hasRole("ADMIN")
                 .and()
                 .formLogin()

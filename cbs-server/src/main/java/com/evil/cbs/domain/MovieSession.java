@@ -7,11 +7,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
-@EqualsAndHashCode
+@Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "movie_sessions", schema = "cbs")
 public class MovieSession extends AbstractEntity{

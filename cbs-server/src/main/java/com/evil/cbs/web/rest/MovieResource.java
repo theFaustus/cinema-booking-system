@@ -1,25 +1,16 @@
 package com.evil.cbs.web.rest;
 
-import com.evil.cbs.domain.Customer;
 import com.evil.cbs.domain.Movie;
-import com.evil.cbs.service.CustomerService;
 import com.evil.cbs.service.MovieService;
 import com.evil.cbs.web.form.AddMovieFormBean;
-import com.evil.cbs.web.form.RegisterCustomerFormBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

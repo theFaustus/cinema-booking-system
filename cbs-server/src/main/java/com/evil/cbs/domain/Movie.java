@@ -10,11 +10,8 @@ import java.util.List;
 import java.util.Set;
 
 
-@Getter
-@Setter
-@NoArgsConstructor
-@ToString
-@EqualsAndHashCode
+@Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "movies", schema = "cbs")
 public class Movie extends AbstractEntity {
