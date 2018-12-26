@@ -1,0 +1,473 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="ipascari (generated)" id="1545848517717-1">
+        <insert tableName="halls">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="Hall 1"/>
+        </insert>
+        <insert tableName="halls">
+            <column name="id" valueNumeric="32"/>
+            <column name="name" value="Hall 2"/>
+        </insert>
+    </changeSet>
+    <changeSet author="ipascari (generated)" id="1545848517717-5">
+        <insert tableName="movies">
+            <column name="id" valueNumeric="63"/>
+            <column name="description" value="The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son."/>
+            <column name="imdb_rating" value="9.2"/>
+            <column name="movie_duration" valueNumeric="10500000000000"/>
+            <column name="name" value="The Godfather"/>
+        </insert>
+    </changeSet>
+    <changeSet author="ipascari (generated)" id="1545848517717-2">
+        <insert tableName="movie_actors">
+            <column name="movie_id" valueNumeric="63"/>
+            <column name="actors" value="Al Pacino"/>
+        </insert>
+        <insert tableName="movie_actors">
+            <column name="movie_id" valueNumeric="63"/>
+            <column name="actors" value="James Caan"/>
+        </insert>
+        <insert tableName="movie_actors">
+            <column name="movie_id" valueNumeric="63"/>
+            <column name="actors" value="Marlon Brando"/>
+        </insert>
+    </changeSet>
+    <changeSet author="ipascari (generated)" id="1545848517717-3">
+        <insert tableName="movie_directors">
+            <column name="movie_id" valueNumeric="63"/>
+            <column name="directors" value="Francis Ford Coppola"/>
+        </insert>
+    </changeSet>
+    <changeSet author="ipascari (generated)" id="1545848517717-4">
+        <insert tableName="movie_sessions">
+            <column name="id" valueNumeric="64"/>
+            <column name="show_time" valueDate="2018-12-26T20:17:15.291"/>
+            <column name="hall_id" valueNumeric="1"/>
+            <column name="movie_id" valueNumeric="63"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="ipascari (generated)" id="1545848517717-6">
+        <insert tableName="seats">
+            <column name="id" valueNumeric="2"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A0"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="3"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A1"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="4"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A2"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="5"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A3"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="6"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A4"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="7"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A5"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="8"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A6"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="9"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A7"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="10"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A8"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="11"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A9"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="12"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A10"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="13"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A11"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="14"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A12"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="15"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A13"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="16"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A14"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="17"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A15"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="18"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A16"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="19"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A17"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="20"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A18"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="21"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A19"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="22"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A20"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="23"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A21"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="24"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A22"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="25"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A23"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="26"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A24"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="27"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A25"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="28"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A26"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="29"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A27"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="30"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A28"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="31"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="A29"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="33"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B0"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="34"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B1"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="35"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B2"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="36"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B3"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="37"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B4"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="38"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B5"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="39"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B6"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="40"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B7"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="41"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B8"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="42"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B9"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="43"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B10"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="44"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B11"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="45"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B12"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="46"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B13"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="47"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B14"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="48"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B15"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="49"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B16"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="50"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B17"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="51"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B18"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="52"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B19"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="53"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B20"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="54"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B21"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="55"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B22"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="56"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B23"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="57"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B24"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="58"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B25"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="59"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B26"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="60"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B27"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="61"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B28"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+        <insert tableName="seats">
+            <column name="id" valueNumeric="62"/>
+            <column name="price" valueNumeric="45"/>
+            <column name="seat_number" value="B29"/>
+            <column name="seat_status" value="FREE"/>
+            <column name="hall_id" valueNumeric="32"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

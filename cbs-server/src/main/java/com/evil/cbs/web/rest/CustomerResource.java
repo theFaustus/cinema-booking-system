@@ -33,7 +33,7 @@ public class CustomerResource {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity registerCustomer(@Valid @RequestBody RegisterCustomerFormBean r, BindingResult bindingResult){
+    public ResponseEntity registerCustomer(@Valid @RequestBody RegisterCustomerFormBean registerCustomerFormBean, BindingResult bindingResult){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(!(authentication instanceof AnonymousAuthenticationToken))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
@@ -41,7 +41,7 @@ public class CustomerResource {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors());
         else {
             try {
-                Customer c = customerService.saveCustomer(r);
+                Customer c = customerService.saveCustomer(registerCustomerFormBean);
                 return  ResponseEntity.status(HttpStatus.CREATED).body(c);
             } catch (Exception e){
                 LOGGER.error("Customer not registered!", e);
