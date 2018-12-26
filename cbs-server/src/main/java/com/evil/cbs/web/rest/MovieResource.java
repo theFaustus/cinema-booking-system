@@ -20,7 +20,6 @@ public class MovieResource {
 
     private final MovieService movieService;
 
-
     @PostMapping
     public ResponseEntity<Movie> addMovie(@Valid @RequestBody MovieDTO movieDTO){
         Movie movie;
@@ -40,7 +39,6 @@ public class MovieResource {
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(movie);
     }
-
 
     @GetMapping
     public ResponseEntity<List<Movie>> getAllMovies(){

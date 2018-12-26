@@ -13,4 +13,10 @@ public interface HallService {
     Hall findHallByName(String name);
 
     List<Hall> findAll();
+
+    Hall findById(Long hallId);
+
+    void deleteById(Long hallId);
+
+    Hall saveHall(Hall hall, Integer numberOfSeats);
 }

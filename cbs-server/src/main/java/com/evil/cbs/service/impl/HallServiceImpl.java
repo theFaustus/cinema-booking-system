@@ -1,8 +1,11 @@
 package com.evil.cbs.service.impl;
 
 import com.evil.cbs.domain.Hall;
+import com.evil.cbs.domain.Seat;
+import com.evil.cbs.domain.SeatStatus;
 import com.evil.cbs.repository.HallRepository;
 import com.evil.cbs.service.HallService;
+import com.evil.cbs.web.common.HallNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,5 +31,30 @@ public class HallServiceImpl implements HallService {
     @Override
     public List<Hall> findAll() {
         return hallRepository.findAll();
+    }
+
+    @Override
+    public Hall findById(Long hallId) {
+        return hallRepository.findById(hallId).orElseThrow(HallNotFoundException::new);
+    }
+
+    @Override
+    public void deleteById(Long hallId) {
+        hallRepository.deleteById(hallId);
+    }
+
+    @Override
+    public Hall saveHall(Hall hall, Integer numberOfSeats) {
+        for(int i = 0; i < numberOfSeats; i++){
+            Seat s = Seat.SeatBuilder.aSeat()
+                    .seatStatus(SeatStatus.FREE)
+                    .price(150)
+                    .hall(hall)
+                    .seatNumber("A" + i)
+                    .build();
+            hall.addSeat(s);
+        }
+        hallRepository.save(hall);
+        return hall;
     }
 }

@@ -19,16 +19,12 @@ public class Seat extends AbstractEntity{
     private SeatStatus seatStatus = SeatStatus.FREE;
     @ManyToOne
     private Hall hall;
-    @OneToOne(mappedBy = "bookedSeat")
-    private Ticket ticket;
-
 
     public static final class SeatBuilder {
         private int price;
         private String seatNumber;
         private SeatStatus seatStatus = SeatStatus.FREE;
         private Hall hall;
-        private Ticket ticket;
 
         private SeatBuilder() {
         }
@@ -57,10 +53,6 @@ public class Seat extends AbstractEntity{
             return this;
         }
 
-        public SeatBuilder ticket(Ticket ticket) {
-            this.ticket = ticket;
-            return this;
-        }
 
         public Seat build() {
             Seat seat = new Seat();
@@ -68,7 +60,6 @@ public class Seat extends AbstractEntity{
             seat.setSeatNumber(seatNumber);
             seat.setSeatStatus(seatStatus);
             seat.setHall(hall);
-            seat.setTicket(ticket);
             return seat;
         }
     }
