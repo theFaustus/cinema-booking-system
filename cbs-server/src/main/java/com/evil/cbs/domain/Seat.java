@@ -19,6 +19,8 @@ public class Seat extends AbstractEntity{
     private SeatStatus seatStatus = SeatStatus.FREE;
     @ManyToOne
     private Hall hall;
+    @Version
+    private Long version;
 
     public static final class SeatBuilder {
         private int price;
