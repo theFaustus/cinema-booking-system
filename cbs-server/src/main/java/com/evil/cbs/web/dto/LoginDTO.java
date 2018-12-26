@@ -1,11 +1,11 @@
-package com.evil.cbs.web.form;
+package com.evil.cbs.web.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class LoginFormBean {
+public class LoginDTO {
     private String email;
     private String password;
 }

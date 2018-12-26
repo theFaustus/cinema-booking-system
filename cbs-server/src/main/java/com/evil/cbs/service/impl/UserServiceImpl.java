@@ -1,41 +1,47 @@
 package com.evil.cbs.service.impl;
 
-import com.evil.cbs.domain.Ticket;
 import com.evil.cbs.domain.User;
 import com.evil.cbs.repository.UserRepository;
 import com.evil.cbs.service.UserService;
 import com.evil.cbs.service.util.UserRole;
-import com.evil.cbs.service.util.UserState;
-import com.evil.cbs.web.form.RegisterUserFormBean;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.evil.cbs.web.common.UserNotFoundException;
+import com.evil.cbs.web.dto.UserDTO;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
-    public User saveUser(RegisterUserFormBean registerUserFormBean) {
+    public User saveUser(UserDTO userDTO) {
         User u = User.UserBuilder.anUser()
-                .firstName(registerUserFormBean.getFirstName())
-                .lastName(registerUserFormBean.getLastName())
-                .email(registerUserFormBean.getEmail())
-                .password(passwordEncoder.encode(registerUserFormBean.getUserPassword()))
-                .telephoneNumber(registerUserFormBean.getTelephoneNumber())
+                .firstName(userDTO.getFirstName())
+                .lastName(userDTO.getLastName())
+                .email(userDTO.getEmail())
+                .password(passwordEncoder.encode(userDTO.getUserPassword()))
+                .telephoneNumber(userDTO.getTelephoneNumber())
                 .role(UserRole.USER_ROLE.getValue())
                 .build();
 
         userRepository.save(u);
         return u;
+    }
+
+    public User saveUser(User user) {
+        userRepository.save(user);
+        return user;
+    }
+
+    @Override
+    public void deleteById(Long userId) {
+        userRepository.deleteById(userId);
     }
 
     @Override
@@ -48,16 +54,9 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
-    @Transactional
     @Override
-    public void enableUser(String email) {
-        userRepository.updateEnabledValue(email, UserState.ENABLED.getValue());
-    }
-
-    @Transactional
-    @Override
-    public void disableUser(String email) {
-        userRepository.updateEnabledValue(email, UserState.DISABLED.getValue());
+    public User findById(Long id) {
+        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.evil.cbs.aop.logging;
 
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -16,10 +17,8 @@ import java.util.Arrays;
 
 @Component
 @Aspect
+@Slf4j
 public class LoggingAspect {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(LoggingAspect.class);
-
     /**
      * Pointcut that matches all repositories, services and Web REST endpoints.
      */
@@ -48,7 +47,7 @@ public class LoggingAspect {
      */
     @AfterThrowing(pointcut = "applicationPackagePointcut() && springBeanPointcut()", throwing = "e")
     public void logAfterThrowing(JoinPoint joinPoint, Throwable e) {
-        LOGGER.error("Exception in " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "() with cause = \'" + ((e.getCause() != null) ? e.getCause() : "NULL") + "\' and exception = \'" + e.getMessage() + "\'", e);
+        log.error("Exception in " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "() with cause = \'" + ((e.getCause() != null) ? e.getCause() : "NULL") + "\' and exception = \'" + e.getMessage() + "\'", e);
     }
 
     /**
@@ -60,17 +59,17 @@ public class LoggingAspect {
      */
     @Around("applicationPackagePointcut() && springBeanPointcut()")
     public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Enter: " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "() with argument[s] = " + Arrays.toString(joinPoint.getArgs()));
+        if (log.isDebugEnabled()) {
+            log.debug("Enter: " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "() with argument[s] = " + Arrays.toString(joinPoint.getArgs()));
         }
         try {
             Object result = joinPoint.proceed();
-            if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("Exit: " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "() with result = " + result);
+            if (log.isDebugEnabled()) {
+                log.debug("Exit: " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "() with result = " + result);
             }
             return result;
         } catch (IllegalArgumentException e) {
-            LOGGER.error("Illegal argument: " + Arrays.toString(joinPoint.getArgs()) + " in " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "()");
+            log.error("Illegal argument: " + Arrays.toString(joinPoint.getArgs()) + " in " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "()");
 
             throw e;
         }

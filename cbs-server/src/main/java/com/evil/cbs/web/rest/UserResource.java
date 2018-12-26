@@ -1,11 +1,12 @@
 package com.evil.cbs.web.rest;
 
+import com.evil.cbs.domain.Ticket;
 import com.evil.cbs.domain.User;
+import com.evil.cbs.service.TicketService;
 import com.evil.cbs.service.UserService;
-import com.evil.cbs.web.form.RegisterUserFormBean;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.evil.cbs.web.dto.UserDTO;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -15,64 +16,75 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
+import java.awt.print.Pageable;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/v1/api/users")
+@Slf4j
 public class UserResource {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserResource.class);
+    private final UserService userService;
+    private final TicketService ticketService;
 
-    @Autowired
-    private UserService userService;
-
-    @GetMapping("/{user-id}/booked-tickets")
-    public List<String> getBookedTickets() {
-        return new ArrayList<>();
+    @GetMapping("/{userId}/booked-tickets")
+    public ResponseEntity<List<Ticket>> getBookedTickets(@PathVariable("userId") Long userId) {
+        return ResponseEntity.status(HttpStatus.OK).body(ticketService.findByUserId(userId));
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity registerUser(@Valid @RequestBody RegisterUserFormBean registerUserFormBean, BindingResult bindingResult){
+    @PostMapping
+    public ResponseEntity registerUser(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(!(authentication instanceof AnonymousAuthenticationToken))
+        if (!(authentication instanceof AnonymousAuthenticationToken))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        if(bindingResult.hasErrors())
+        if (bindingResult.hasErrors())
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors());
         else {
             try {
-                User u = userService.saveUser(registerUserFormBean);
-                return  ResponseEntity.status(HttpStatus.CREATED).body(u);
-            } catch (Exception e){
-                LOGGER.error("User not registered!", e);
+                User u = userService.saveUser(userDTO);
+                return ResponseEntity.status(HttpStatus.CREATED).body(u);
+            } catch (Exception e) {
+                log.error("User not registered!", e);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
             }
         }
     }
 
-    @RequestMapping(value = "/{userEmail}/enable", method = RequestMethod.POST)
-    public ResponseEntity enableUser(@PathVariable String userEmail){
-        try {
-            userService.enableUser(userEmail);
+    @PutMapping(value = "/{userId}/")
+    public ResponseEntity updateUser(@PathVariable("userId") Long userId, @Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors());
+        else {
+            User user = userService.findById(userId);
+            if (userDTO.getFirstName() != null)
+                user.setFirstName(userDTO.getFirstName());
+            if (userDTO.getLastName() != null)
+                user.setLastName(userDTO.getLastName());
+            if (userDTO.getTelephoneNumber() != null)
+                user.setTelephoneNumber(userDTO.getTelephoneNumber());
+            if (userDTO.getEnabled() != null)
+                user.setEnabled(userDTO.getEnabled());
+            userService.saveUser(user);
             return ResponseEntity.status(HttpStatus.OK).build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
         }
     }
 
-    @RequestMapping(value = "/{userEmail}/disable", method = RequestMethod.POST)
-    public ResponseEntity disableUser(@PathVariable String userEmail){
-        try {
-            userService.disableUser(userEmail);
-            return ResponseEntity.status(HttpStatus.OK).build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
-        }
+    @GetMapping
+    public ResponseEntity<List<User>> getAllUsers() {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findAll());
     }
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public List<User> getAllUsers(){
-        return userService.findAll();
+    @DeleteMapping(value = "/{userId}/")
+    public ResponseEntity deleteUser(@PathVariable("userId") Long userId){
+        userService.deleteById(userId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @GetMapping(value = "/{userId}/")
+    public ResponseEntity<User> getUserById(@PathVariable("userId") Long userId){
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findById(userId));
     }
 
 }

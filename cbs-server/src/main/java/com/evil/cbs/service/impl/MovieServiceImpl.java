@@ -3,15 +3,17 @@ package com.evil.cbs.service.impl;
 import com.evil.cbs.domain.Movie;
 import com.evil.cbs.repository.MovieRepository;
 import com.evil.cbs.service.MovieService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class MovieServiceImpl implements MovieService {
-    @Autowired
-    private MovieRepository movieRepository;
+
+    private final MovieRepository movieRepository;
 
     @Override
     public Movie saveMovie(Movie m) {

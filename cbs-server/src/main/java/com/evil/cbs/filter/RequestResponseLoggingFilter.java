@@ -1,5 +1,6 @@
 package com.evil.cbs.filter;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
@@ -12,8 +13,8 @@ import java.io.IOException;
 
 @Component
 @Order(2)
+@Slf4j
 public class RequestResponseLoggingFilter implements Filter {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RequestResponseLoggingFilter.class);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -25,11 +26,11 @@ public class RequestResponseLoggingFilter implements Filter {
 
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-        LOGGER.info(
+        log.info(
                 "Logging Request  {} : {}", req.getMethod(),
                 req.getRequestURI());
         chain.doFilter(request, response);
-        LOGGER.info(
+        log.info(
                 "Logging Response :{}",
                 res.getContentType());
     }

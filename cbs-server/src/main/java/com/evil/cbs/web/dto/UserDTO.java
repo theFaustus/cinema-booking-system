@@ -1,16 +1,14 @@
-package com.evil.cbs.web.form;
+package com.evil.cbs.web.dto;
 
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Data
-public class RegisterUserFormBean {
+public class UserDTO {
     @NotNull(message = "You have to fill this element")
     @Size(min = 2, max = 30)
     private String firstName;
@@ -30,4 +28,8 @@ public class RegisterUserFormBean {
     @NotNull
     @Pattern(regexp = "0\\(\\d{2}\\)-\\d{3}-\\d{3}")
     private String telephoneNumber;
+
+    @Min(0)
+    @Max(1)
+    private Integer enabled;
 }

@@ -4,6 +4,8 @@ import com.evil.cbs.domain.User;
 import com.evil.cbs.repository.UserRepository;
 import com.evil.cbs.service.AuthenticationService;
 import com.evil.cbs.web.rest.AuthenticationResource;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +19,12 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class AuthenticationServiceImpl implements AuthenticationService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationServiceImpl.class);
 
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private UserRepository userRepository;
+    private final AuthenticationManager authenticationManager;
+    private final UserRepository userRepository;
 
     @Override
     public Optional<User> authenticate(String email, String password) {
@@ -38,7 +37,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             User userByEmail = userRepository.findUserByEmail(email);
             return Optional.of(userByEmail);
         } catch (Exception e) {
-            LOGGER.error("User not authenticated!", e);
+            log.error("User not authenticated!", e);
             return Optional.empty();
         }
     }

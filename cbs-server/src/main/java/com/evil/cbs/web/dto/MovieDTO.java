@@ -1,4 +1,4 @@
-package com.evil.cbs.web.form;
+package com.evil.cbs.web.dto;
 
 import com.evil.cbs.domain.MovieSession;
 import lombok.Getter;
@@ -16,7 +16,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-public class AddMovieFormBean {
+public class MovieDTO {
     private String name;
     private String description;
     private String imdbRating;

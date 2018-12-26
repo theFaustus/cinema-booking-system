@@ -2,32 +2,33 @@ package com.evil.cbs.web.rest;
 
 import com.evil.cbs.domain.User;
 import com.evil.cbs.service.AuthenticationService;
-import com.evil.cbs.web.form.LoginFormBean;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.evil.cbs.web.dto.LoginDTO;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/api/authentication")
+@RequiredArgsConstructor
+@Slf4j
 public class AuthenticationResource {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationResource.class);
-
-    @Autowired
-    private AuthenticationService authenticationService;
+    private final AuthenticationService authenticationService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity authenticate(@RequestBody LoginFormBean loginFormBean){
-        Optional<User> user = authenticationService.authenticate(loginFormBean.getEmail(), loginFormBean.getPassword());
+    public ResponseEntity authenticate(@RequestBody LoginDTO loginDTO){
+        Optional<User> user = authenticationService.authenticate(loginDTO.getEmail(), loginDTO.getPassword());
         if(user.isPresent()){
-            LOGGER.info("Successfully logged user : " + loginFormBean.getEmail());
+            log.info("Successfully logged user : " + loginDTO.getEmail());
             return ResponseEntity.status(HttpStatus.OK).build();
         }
-        LOGGER.error("Failed to authenticate user : " + loginFormBean.getEmail());
+        log.error("Failed to authenticate user : " + loginDTO.getEmail());
         return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 }

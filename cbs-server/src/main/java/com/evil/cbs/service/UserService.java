@@ -1,21 +1,21 @@
 package com.evil.cbs.service;
 
-import com.evil.cbs.domain.Ticket;
 import com.evil.cbs.domain.User;
-import com.evil.cbs.web.form.RegisterUserFormBean;
+import com.evil.cbs.web.dto.UserDTO;
 
 import java.util.List;
 
 public interface UserService {
 
-    User saveUser(RegisterUserFormBean registerUserFormBean);
+    User saveUser(UserDTO userDTO);
 
     User findUserByEmail(String email);
 
     List<User> findAll();
 
-    void enableUser(String email);
+    User findById(Long id);
 
-    void disableUser(String email);
+    User saveUser(User user);
 
+    void deleteById(Long userId);
 }
