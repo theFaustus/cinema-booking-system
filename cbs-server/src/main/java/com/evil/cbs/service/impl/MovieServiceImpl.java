@@ -3,6 +3,7 @@ package com.evil.cbs.service.impl;
 import com.evil.cbs.domain.Movie;
 import com.evil.cbs.repository.MovieRepository;
 import com.evil.cbs.service.MovieService;
+import com.evil.cbs.web.common.MovieNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,5 +29,15 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public List<Movie> findAll() {
         return movieRepository.findAll();
+    }
+
+    @Override
+    public Movie findById(Long movieId) {
+        return movieRepository.findById(movieId).orElseThrow(MovieNotFoundException::new);
+    }
+
+    @Override
+    public void deleteById(Long movieId) {
+        movieRepository.deleteById(movieId);
     }
 }

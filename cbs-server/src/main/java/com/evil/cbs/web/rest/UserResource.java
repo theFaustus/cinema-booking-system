@@ -52,7 +52,7 @@ public class UserResource {
         }
     }
 
-    @PutMapping(value = "/{userId}/")
+    @PutMapping("/{userId}/")
     public ResponseEntity updateUser(@PathVariable("userId") Long userId, @Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors());
@@ -76,13 +76,13 @@ public class UserResource {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findAll());
     }
 
-    @DeleteMapping(value = "/{userId}/")
+    @DeleteMapping("/{userId}/")
     public ResponseEntity deleteUser(@PathVariable("userId") Long userId){
         userService.deleteById(userId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @GetMapping(value = "/{userId}/")
+    @GetMapping("/{userId}/")
     public ResponseEntity<User> getUserById(@PathVariable("userId") Long userId){
         return ResponseEntity.status(HttpStatus.OK).body(userService.findById(userId));
     }

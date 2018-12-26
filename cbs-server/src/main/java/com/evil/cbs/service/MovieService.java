@@ -10,4 +10,8 @@ public interface MovieService {
     Movie findMovieByName(String name);
 
     List<Movie> findAll();
+
+    Movie findById(Long movieId);
+
+    void deleteById(Long movieId);
 }

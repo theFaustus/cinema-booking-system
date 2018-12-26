@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity handleUserNotFoundException(){
+    @ExceptionHandler({UserNotFoundException.class, MovieNotFoundException.class})
+    public ResponseEntity handleNotFoundExceptions(){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 }

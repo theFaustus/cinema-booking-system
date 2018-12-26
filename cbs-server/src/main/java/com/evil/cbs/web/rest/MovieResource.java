@@ -43,10 +43,19 @@ public class MovieResource {
 
 
     @GetMapping
-    public List<Movie> getAllMovies(){
-        return movieService.findAll();
+    public ResponseEntity<List<Movie>> getAllMovies(){
+        return ResponseEntity.status(HttpStatus.OK).body(movieService.findAll());
     }
 
+    @GetMapping("/{movieId}/")
+    public ResponseEntity<Movie> getMovieById(@PathVariable("movieId") Long movieId){
+        return ResponseEntity.status(HttpStatus.OK).body(movieService.findById(movieId));
+    }
 
+    @DeleteMapping("/{movieId}/")
+    public ResponseEntity<Movie> deleteMovieById(@PathVariable("movieId") Long movieId){
+        movieService.deleteById(movieId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 
 }
