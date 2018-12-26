@@ -19,4 +19,9 @@ public class TicketServiceImpl implements TicketService {
     public List<Ticket> findByUserId(Long userId) {
         return ticketRepository.findByUserId(userId);
     }
+
+    @Override
+    public Ticket saveTicket(Ticket ticket) {
+        return ticketRepository.save(ticket);
+    }
 }

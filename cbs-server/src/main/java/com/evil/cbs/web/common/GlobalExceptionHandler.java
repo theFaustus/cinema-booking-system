@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler({UserNotFoundException.class, MovieNotFoundException.class, HallNotFoundException.class})
+    @ExceptionHandler({UserNotFoundException.class, MovieNotFoundException.class, HallNotFoundException.class, MovieSessionNotFoundException.class})
     public ResponseEntity handleNotFoundExceptions(){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
