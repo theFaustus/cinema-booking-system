@@ -17,8 +17,16 @@ import java.util.List;
 @Entity
 @Table(name = "customers", schema = "cbs")
 public class Customer extends User {
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany
     private List<Ticket> tickets = new ArrayList<>();
+
+    public void addTicket(Ticket ticket){
+        tickets.add(ticket);
+    }
+
+    public void removeTicket(Ticket ticket){
+        tickets.remove(ticket);
+    }
 
     public static final class CustomerBuilder {
         private List<Ticket> tickets = new ArrayList<>();

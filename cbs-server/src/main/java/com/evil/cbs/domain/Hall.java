@@ -21,6 +21,13 @@ public class Hall extends AbstractEntity{
     @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MovieSession> movieSessions = new ArrayList<>();
 
+    public void addMovieSession(MovieSession movieSession){
+        movieSessions.add(movieSession);
+    }
+
+    public void addSeat(Seat seat){
+        seats.add(seat);
+    }
 
     public static final class HallBuilder {
         private String name;

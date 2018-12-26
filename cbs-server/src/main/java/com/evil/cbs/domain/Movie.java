@@ -5,7 +5,9 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Getter
@@ -24,22 +26,18 @@ public class Movie extends AbstractEntity {
     private String imdbRating;
     @Column(name = "movie_duration")
     private Duration movieDuration;
-    @OneToOne(mappedBy = "movie", cascade = CascadeType.ALL)
-    private MovieSession movieSession;
     @ElementCollection
-    private List<String> directors = new ArrayList<>();
+    private Set<String> directors = new HashSet<>();
     @ElementCollection
-    private List<String> actors = new ArrayList<>();
-
+    private Set<String> actors = new HashSet<>();
 
     public static final class MovieBuilder {
         private String name;
         private String description;
         private String imdbRating;
         private Duration movieDuration;
-        private MovieSession movieSession;
-        private List<String> directors = new ArrayList<>();
-        private List<String> actors = new ArrayList<>();
+        private Set<String> directors = new HashSet<>();
+        private Set<String> actors = new HashSet<>();
 
         private MovieBuilder() {
         }
@@ -68,17 +66,12 @@ public class Movie extends AbstractEntity {
             return this;
         }
 
-        public MovieBuilder movieSession(MovieSession movieSession) {
-            this.movieSession = movieSession;
-            return this;
-        }
-
-        public MovieBuilder directors(List<String> directors) {
+        public MovieBuilder directors(Set<String> directors) {
             this.directors = directors;
             return this;
         }
 
-        public MovieBuilder actors(List<String> actors) {
+        public MovieBuilder actors(Set<String> actors) {
             this.actors = actors;
             return this;
         }
@@ -89,7 +82,6 @@ public class Movie extends AbstractEntity {
             movie.setDescription(description);
             movie.setImdbRating(imdbRating);
             movie.setMovieDuration(movieDuration);
-            movie.setMovieSession(movieSession);
             movie.setDirectors(directors);
             movie.setActors(actors);
             return movie;

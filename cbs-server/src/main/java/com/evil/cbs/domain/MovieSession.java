@@ -21,14 +21,13 @@ public class MovieSession extends AbstractEntity{
     private Movie movie;
     @Column(name = "show_time")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy hh:mm:ss")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date showTime;
+    private LocalDateTime showTime;
 
 
     public static final class MovieSessionBuilder {
         private Hall hall;
         private Movie movie;
-        private Date showTime;
+        private LocalDateTime showTime;
 
         private MovieSessionBuilder() {
         }
@@ -47,7 +46,7 @@ public class MovieSession extends AbstractEntity{
             return this;
         }
 
-        public MovieSessionBuilder showTime(Date showTime) {
+        public MovieSessionBuilder showTime(LocalDateTime showTime) {
             this.showTime = showTime;
             return this;
         }

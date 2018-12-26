@@ -15,15 +15,14 @@ import java.util.Date;
 @Table(name = "orders")
 public class Order extends AbstractEntity {
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "order_date")
-    private Date orderDate = new Date();
+    private LocalDate orderDate = LocalDate.now();
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     private Ticket ticket;
 
 
     public static final class OrderBuilder {
-        private Date orderDate = new Date();
+        private LocalDate orderDate = LocalDate.now();
         private Ticket ticket;
 
         private OrderBuilder() {
@@ -33,7 +32,7 @@ public class Order extends AbstractEntity {
             return new OrderBuilder();
         }
 
-        public OrderBuilder orderDate(Date orderDate) {
+        public OrderBuilder orderDate(LocalDate orderDate) {
             this.orderDate = orderDate;
             return this;
         }

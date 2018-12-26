@@ -21,7 +21,7 @@ public class Seat extends AbstractEntity{
     private SeatStatus seatStatus = SeatStatus.FREE;
     @ManyToOne
     private Hall hall;
-    @ManyToOne
+    @OneToOne(mappedBy = "bookedSeat")
     private Ticket ticket;
 
 

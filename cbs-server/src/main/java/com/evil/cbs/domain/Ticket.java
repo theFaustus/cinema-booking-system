@@ -20,17 +20,17 @@ public class Ticket extends AbstractEntity{
     @Column(name = "ticket_type")
     @Enumerated(EnumType.STRING)
     private TicketType ticketType = TicketType.SIMPLE;
-    @ManyToOne
+    @OneToOne
     private MovieSession movieSession;
-    @OneToMany(mappedBy = "ticket", cascade = {CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE})
-    private List<Seat> bookedSeats = new ArrayList<>();
+    @OneToOne
+    private Seat bookedSeat;
 
 
     public static final class TicketBuilder {
         private TicketStatus ticketStatus = TicketStatus.NOT_USED;
         private TicketType ticketType = TicketType.SIMPLE;
         private MovieSession movieSession;
-        private List<Seat> bookedSeats = new ArrayList<>();
+        private Seat bookedSeat;
 
         private TicketBuilder() {
         }
@@ -54,8 +54,8 @@ public class Ticket extends AbstractEntity{
             return this;
         }
 
-        public TicketBuilder bookedSeats(List<Seat> bookedSeats) {
-            this.bookedSeats = bookedSeats;
+        public TicketBuilder bookedSeat(Seat bookedSeat) {
+            this.bookedSeat = bookedSeat;
             return this;
         }
 
@@ -64,7 +64,7 @@ public class Ticket extends AbstractEntity{
             ticket.setTicketStatus(ticketStatus);
             ticket.setTicketType(ticketType);
             ticket.setMovieSession(movieSession);
-            ticket.setBookedSeats(bookedSeats);
+            ticket.setBookedSeat(bookedSeat);
             return ticket;
         }
     }
