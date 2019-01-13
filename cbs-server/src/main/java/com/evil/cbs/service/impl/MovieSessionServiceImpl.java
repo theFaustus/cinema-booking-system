@@ -1,15 +1,17 @@
 package com.evil.cbs.service.impl;
 
+import com.evil.cbs.common.SeatAlreadyBookedException;
 import com.evil.cbs.domain.*;
 import com.evil.cbs.repository.MovieSessionRepository;
 import com.evil.cbs.service.*;
 import com.evil.cbs.web.common.MovieSessionNotFoundException;
 import com.evil.cbs.web.dto.BookedMovieDTO;
 import com.evil.cbs.web.dto.MovieSessionDTO;
+import com.evil.cbs.web.dto.TicketDTO;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -35,12 +37,12 @@ public class MovieSessionServiceImpl implements MovieSessionService {
 
     @Override
     public List<MovieSession> findMovieSessionByMovieId(Long movieId) {
-        return movieSessionRepository.findByMovieId(movieId);
+        return movieSessionRepository.getDistinctByMovieId(movieId);
     }
 
     @Override
     public MovieSession findById(Long movieSessionId) {
-        return movieSessionRepository.findById(movieSessionId).orElseThrow(MovieSessionNotFoundException::new);
+        return movieSessionRepository.getDistinctById(movieSessionId).orElseThrow(MovieSessionNotFoundException::new);
     }
 
     @Override
@@ -49,10 +51,14 @@ public class MovieSessionServiceImpl implements MovieSessionService {
     }
 
     @Override
-    public Ticket bookMovie(BookedMovieDTO bookedMovieDTO) {
-        MovieSession movieSessionById = movieSessionRepository.findById(bookedMovieDTO.getMovieSessionId())
+    @Transactional
+    public TicketDTO bookMovie(BookedMovieDTO bookedMovieDTO) throws SeatAlreadyBookedException {
+        MovieSession movieSessionById = movieSessionRepository.getDistinctById(bookedMovieDTO.getMovieSessionId())
                 .orElseThrow(MovieSessionNotFoundException::new);
         Seat seatBySeatNumber = seatService.findSeatBySeatNumber(bookedMovieDTO.getSeatNumber());
+        if(seatBySeatNumber.isBooked()){
+            throw new SeatAlreadyBookedException("Seat already was booked!");
+        }
         seatBySeatNumber.setSeatStatus(SeatStatus.BOOKED);
         seatService.saveSeat(seatBySeatNumber);
         Ticket ticket = Ticket.TicketBuilder.aTicket()
@@ -64,9 +70,7 @@ public class MovieSessionServiceImpl implements MovieSessionService {
                 .build();
         ticketService.saveTicket(ticket);
 
-
-
-        return null;
+        return TicketDTO.from(ticket);
     }
 
 

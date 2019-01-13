@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/v1/api/halls")
@@ -23,26 +24,32 @@ public class HallResource {
 
 
     @PostMapping
-    public ResponseEntity<Hall> addMovie(@Valid @RequestBody HallDTO hallDTO, @RequestParam(name = "numberOfSeats", defaultValue = "40") Integer numberOfSeats){
+    public ResponseEntity<?> addHall(@Valid @RequestBody HallDTO hallDTO, @RequestParam(name = "numberOfSeats", defaultValue = "40") Integer numberOfSeats) {
         Hall hall;
+        try {
             hall = Hall.HallBuilder.aHall()
                     .name(hallDTO.getName())
                     .build();
+        } catch (Exception e) {
+            log.error("Hall not saved!", e);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(hallService.saveHall(hall, numberOfSeats));
     }
 
     @GetMapping
-    public ResponseEntity<List<Hall>> getAllHalls(){
-        return ResponseEntity.status(HttpStatus.OK).body(hallService.findAll());
+    public ResponseEntity<List<HallDTO>> getAllHalls() {
+        List<HallDTO> halls = hallService.findAll().stream().map(HallDTO::from).collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.OK).body(halls);
     }
 
     @GetMapping("/{hallId}/")
-    public ResponseEntity<Hall> getHallById(@PathVariable("hallId") Long hallId){
+    public ResponseEntity<Hall> getHallById(@PathVariable("hallId") Long hallId) {
         return ResponseEntity.status(HttpStatus.OK).body(hallService.findById(hallId));
     }
 
     @DeleteMapping("/{hallId}/")
-    public ResponseEntity<Movie> deleteMovieById(@PathVariable("hallId") Long hallId){
+    public ResponseEntity<Movie> deleteHallById(@PathVariable("hallId") Long hallId) {
         hallService.deleteById(hallId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

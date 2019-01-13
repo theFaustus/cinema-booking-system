@@ -23,7 +23,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Movie findMovieByName(String name) {
-        return movieRepository.findByName(name);
+        return movieRepository.findByName(name).orElseThrow(MovieNotFoundException::new);
     }
 
     @Override

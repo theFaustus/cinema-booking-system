@@ -1,22 +1,26 @@
 package com.evil.cbs.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "halls", schema = "cbs")
 public class Hall extends AbstractEntity{
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     private String name;
     @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Seat> seats = new ArrayList<>();
+    private Set<Seat> seats = new HashSet<>();
     @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MovieSession> movieSessions = new ArrayList<>();
+    @JsonIgnore
+    private Set<MovieSession> movieSessions = new HashSet<>();
 
     public void addMovieSession(MovieSession movieSession){
         movieSessions.add(movieSession);
@@ -28,8 +32,8 @@ public class Hall extends AbstractEntity{
 
     public static final class HallBuilder {
         private String name;
-        private List<Seat> seats = new ArrayList<>();
-        private List<MovieSession> movieSessions = new ArrayList<>();
+        private Set<Seat> seats = new HashSet<>();
+        private Set<MovieSession> movieSessions = new HashSet<>();
 
         private HallBuilder() {
         }
@@ -43,12 +47,12 @@ public class Hall extends AbstractEntity{
             return this;
         }
 
-        public HallBuilder seats(List<Seat> seats) {
+        public HallBuilder seats(Set<Seat> seats) {
             this.seats = seats;
             return this;
         }
 
-        public HallBuilder movieSessions(List<MovieSession> movieSessions) {
+        public HallBuilder movieSessions(Set<MovieSession> movieSessions) {
             this.movieSessions = movieSessions;
             return this;
         }

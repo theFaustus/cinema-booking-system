@@ -6,8 +6,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface HallRepository extends JpaRepository<Hall, Long> {
     @Query("select h from Hall h join fetch h.seats where h.name = :name")
-    Hall findByName(@Param("name") String name);
+    Optional<Hall> findByName(@Param("name") String name);
+
+    @Query("select h from Hall h join fetch h.seats where h.id = :id")
+    Optional<Hall> findById(@Param("id") Long id);
 }

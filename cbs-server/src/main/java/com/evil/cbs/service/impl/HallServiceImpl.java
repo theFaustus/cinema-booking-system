@@ -25,7 +25,7 @@ public class HallServiceImpl implements HallService {
 
     @Override
     public Hall findHallByName(String name) {
-        return hallRepository.findByName(name);
+        return hallRepository.findByName(name).orElseThrow(HallNotFoundException::new);
     }
 
     @Override

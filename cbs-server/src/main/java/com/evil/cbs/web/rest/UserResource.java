@@ -35,7 +35,7 @@ public class UserResource {
     }
 
     @PostMapping
-    public ResponseEntity registerUser(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
@@ -47,7 +47,7 @@ public class UserResource {
                 return ResponseEntity.status(HttpStatus.CREATED).body(u);
             } catch (Exception e) {
                 log.error("User not registered!", e);
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
             }
         }
     }

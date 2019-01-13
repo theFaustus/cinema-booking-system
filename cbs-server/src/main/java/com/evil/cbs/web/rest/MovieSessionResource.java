@@ -7,6 +7,7 @@ import com.evil.cbs.service.HallService;
 import com.evil.cbs.service.MovieSessionService;
 import com.evil.cbs.web.dto.BookedMovieDTO;
 import com.evil.cbs.web.dto.MovieSessionDTO;
+import com.evil.cbs.web.dto.TicketDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -25,13 +26,15 @@ public class MovieSessionResource {
     private final MovieSessionService movieSessionService;
 
     @PostMapping
-    public ResponseEntity<MovieSession> addMovie(@Valid @RequestBody MovieSessionDTO movieSessionDTO){
-        return ResponseEntity.status(HttpStatus.CREATED).body(movieSessionService.saveMovieSession(movieSessionDTO));
-    }
-
-    @GetMapping("/{movieId}")
-    public ResponseEntity<List<MovieSession>> getAllMovieSessionsByMovieId(@PathVariable("movieId") Long movieId){
-        return ResponseEntity.status(HttpStatus.OK).body(movieSessionService.findMovieSessionByMovieId(movieId));
+    public ResponseEntity<?> addMovieSession(@Valid @RequestBody MovieSessionDTO movieSessionDTO){
+        MovieSession movieSession;
+        try {
+            movieSession = movieSessionService.saveMovieSession(movieSessionDTO);
+        } catch (Exception e){
+            log.error("Movie session not saved!", e);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(movieSession);
     }
 
     @GetMapping("/{movieSessionId}/")
@@ -47,7 +50,7 @@ public class MovieSessionResource {
 
 
     @PostMapping("/{movieSessionId}/booked-movies")
-    public ResponseEntity<Ticket> bookMovie(@Valid @RequestBody BookedMovieDTO bookedMovieDTO){
+    public ResponseEntity<TicketDTO> bookMovie(@Valid @RequestBody BookedMovieDTO bookedMovieDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(movieSessionService.bookMovie(bookedMovieDTO));
     }
 

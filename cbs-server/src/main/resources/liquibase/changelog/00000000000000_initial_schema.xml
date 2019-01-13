@@ -1,7 +1,10 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
     <changeSet author="ipascari (generated)" id="1545863787402-1">
-        <createSequence sequenceName="hibernate_sequence"/>
+        <createSequence sequenceName="hibernate_sequence"
+                        incrementBy="1"
+                        maxValue="9223372036854775807"
+                        minValue="1000"/>
     </changeSet>
     <changeSet author="ipascari (generated)" id="1545863787402-2">
         <createTable tableName="halls">
@@ -65,7 +68,7 @@
             <column name="price" type="INTEGER"/>
             <column name="seat_number" type="VARCHAR(255)"/>
             <column name="seat_status" type="VARCHAR(255)"/>
-            <column name="version" type="BIGINT"/>
+            <column name="version" type="BIGINT" defaultValue="0"/>
             <column name="hall_id" type="BIGINT"/>
         </createTable>
     </changeSet>
@@ -101,30 +104,30 @@
         <addUniqueConstraint columnNames="email" constraintName="uk_6dotkott2kjsp8vw4d0m25fb7" tableName="users"/>
     </changeSet>
     <changeSet author="ipascari (generated)" id="1545863787402-12">
-        <addForeignKeyConstraint baseColumnNames="hall_id" baseTableName="seats" constraintName="fk3jtfe0f60bcpbavj4mctjeasw" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="halls" />
+        <addForeignKeyConstraint baseColumnNames="hall_id" baseTableName="seats" constraintName="fk3jtfe0f60bcpbavj4mctjeasw" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="halls" validate="true"/>
     </changeSet>
     <changeSet author="ipascari (generated)" id="1545863787402-13">
-        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="tickets" constraintName="fk4eqsebpimnjen0q46ja6fl2hl" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users" />
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="tickets" constraintName="fk4eqsebpimnjen0q46ja6fl2hl" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users" validate="true"/>
     </changeSet>
     <changeSet author="ipascari (generated)" id="1545863787402-14">
-        <addForeignKeyConstraint baseColumnNames="ticket_id" baseTableName="orders" constraintName="fk56s83c9boy7i8d9v4kf9a9979" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="tickets" />
+        <addForeignKeyConstraint baseColumnNames="ticket_id" baseTableName="orders" constraintName="fk56s83c9boy7i8d9v4kf9a9979" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="tickets" validate="true"/>
     </changeSet>
     <changeSet author="ipascari (generated)" id="1545863787402-15">
-        <addForeignKeyConstraint baseColumnNames="movie_id" baseTableName="movie_directors" constraintName="fk90u08nnfro53e8vy5bgkkf77o" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="movies" />
+        <addForeignKeyConstraint baseColumnNames="movie_id" baseTableName="movie_directors" constraintName="fk90u08nnfro53e8vy5bgkkf77o" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="movies" validate="true"/>
     </changeSet>
     <changeSet author="ipascari (generated)" id="1545863787402-16">
-        <addForeignKeyConstraint baseColumnNames="movie_id" baseTableName="movie_sessions" constraintName="fkatpmn0h31nwhwdgd0ogr8q6kj" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="movies" />
+        <addForeignKeyConstraint baseColumnNames="movie_id" baseTableName="movie_sessions" constraintName="fkatpmn0h31nwhwdgd0ogr8q6kj" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="movies" validate="true"/>
     </changeSet>
     <changeSet author="ipascari (generated)" id="1545863787402-17">
-        <addForeignKeyConstraint baseColumnNames="hall_id" baseTableName="movie_sessions" constraintName="fkhmfd7dxjsafk5v7wv9uy6ss0s" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="halls" />
+        <addForeignKeyConstraint baseColumnNames="hall_id" baseTableName="movie_sessions" constraintName="fkhmfd7dxjsafk5v7wv9uy6ss0s" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="halls" validate="true"/>
     </changeSet>
     <changeSet author="ipascari (generated)" id="1545863787402-18">
-        <addForeignKeyConstraint baseColumnNames="movie_session_id" baseTableName="tickets" constraintName="fkidxabarcn97kf9acrcqokf1r9" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="movie_sessions" />
+        <addForeignKeyConstraint baseColumnNames="movie_session_id" baseTableName="tickets" constraintName="fkidxabarcn97kf9acrcqokf1r9" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="movie_sessions" validate="true"/>
     </changeSet>
     <changeSet author="ipascari (generated)" id="1545863787402-19">
-        <addForeignKeyConstraint baseColumnNames="booked_seat_id" baseTableName="tickets" constraintName="fkmik43teom4oi19l8krt8ck6qn" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="seats" />
+        <addForeignKeyConstraint baseColumnNames="booked_seat_id" baseTableName="tickets" constraintName="fkmik43teom4oi19l8krt8ck6qn" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="seats" validate="true"/>
     </changeSet>
     <changeSet author="ipascari (generated)" id="1545863787402-20">
-        <addForeignKeyConstraint baseColumnNames="movie_id" baseTableName="movie_actors" constraintName="fks4rlt03tdf55rwso4uyrwm0oq" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="movies" />
+        <addForeignKeyConstraint baseColumnNames="movie_id" baseTableName="movie_actors" constraintName="fks4rlt03tdf55rwso4uyrwm0oq" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="movies" validate="true"/>
     </changeSet>
 </databaseChangeLog>

@@ -1,7 +1,9 @@
 package com.evil.cbs.web.rest;
 
 import com.evil.cbs.domain.Movie;
+import com.evil.cbs.domain.MovieSession;
 import com.evil.cbs.service.MovieService;
+import com.evil.cbs.service.MovieSessionService;
 import com.evil.cbs.web.dto.MovieDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,23 +21,15 @@ import java.util.List;
 public class MovieResource {
 
     private final MovieService movieService;
+    private final MovieSessionService movieSessionService;
 
     @PostMapping
-    public ResponseEntity<Movie> addMovie(@Valid @RequestBody MovieDTO movieDTO){
-        Movie movie;
+    public ResponseEntity<?> addMovie(@Valid @RequestBody Movie movie){
         try {
-            movie = Movie.MovieBuilder.aMovie()
-                    .name(movieDTO.getName())
-                    .description(movieDTO.getDescription())
-                    .imdbRating(movieDTO.getImdbRating())
-                    .movieDuration(movieDTO.getMovieDuration())
-                    .actors(movieDTO.getActors())
-                    .directors(movieDTO.getDirectors())
-                    .build();
             movieService.saveMovie(movie);
         } catch (Exception e) {
             log.error("Movie not saved!", e);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(movie);
     }
@@ -48,6 +42,11 @@ public class MovieResource {
     @GetMapping("/{movieId}/")
     public ResponseEntity<Movie> getMovieById(@PathVariable("movieId") Long movieId){
         return ResponseEntity.status(HttpStatus.OK).body(movieService.findById(movieId));
+    }
+
+    @GetMapping("/{movieId}/sessions")
+    public ResponseEntity<List<MovieSession>> getAllMovieSessionsByMovieId(@PathVariable("movieId") Long movieId){
+        return ResponseEntity.status(HttpStatus.OK).body(movieSessionService.findMovieSessionByMovieId(movieId));
     }
 
     @DeleteMapping("/{movieId}/")

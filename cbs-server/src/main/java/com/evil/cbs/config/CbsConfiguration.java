@@ -1,12 +1,9 @@
 package com.evil.cbs.config;
 
 import com.evil.cbs.filter.RequestResponseLoggingFilter;
-import com.evil.cbs.filter.TransactionFilter;
-import com.evil.cbs.security.MySavedRequestAwareAuthenticationSuccessHandler;
-import com.evil.cbs.security.RestAuthenticationEntryPoint;
-import com.evil.cbs.web.rest.error.CustomAccessDeniedHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -16,74 +13,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @Configuration
-@EnableWebSecurity
-public class CbsConfiguration extends WebSecurityConfigurerAdapter {
+public class CbsConfiguration {
 
-    @Autowired
-    private CustomAccessDeniedHandler accessDeniedHandler;
-
-    @Autowired
-    private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
-
-    @Autowired
-    private MySavedRequestAwareAuthenticationSuccessHandler mySuccessHandler;
-
-    private SimpleUrlAuthenticationFailureHandler myFailureHandler = new SimpleUrlAuthenticationFailureHandler();
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
-                .and()
-                .exceptionHandling()
-                .accessDeniedHandler(accessDeniedHandler)
-                .authenticationEntryPoint(restAuthenticationEntryPoint)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/v1/api/csrfAttacker*").permitAll()
-                .antMatchers("/v1/api/users/**").hasRole("ADMIN")
-                .antMatchers("/v1/api/halls/**").hasRole("ADMIN")
-                .antMatchers("/v1/api/auth/**").permitAll()
-                .antMatchers("/v1/api/movies/**").authenticated()
-                .antMatchers("/v1/api/movie-sessions/**").permitAll()
-                .antMatchers("/v1/api/admin/**").hasRole("ADMIN")
-                .and()
-                .formLogin()
-                .successHandler(mySuccessHandler)
-                .failureHandler(myFailureHandler)
-                .and()
-                .httpBasic()
-                .and()
-                .logout();
-    }
-
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-                .dataSource(dataSource())
-                .passwordEncoder(encoder())
-                .usersByUsernameQuery("select email, password, enabled from cbs.users where email = ?")
-                .authoritiesByUsernameQuery("select email, role from cbs.users where email = ?");
-    }
-
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
 
     @Bean
     public DriverManagerDataSource dataSource() {
@@ -108,6 +45,8 @@ public class CbsConfiguration extends WebSecurityConfigurerAdapter {
         ObjectMapper objectMapper = builder.createXmlMapper(false).build();
         objectMapper.findAndRegisterModules();
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        objectMapper.configure(SerializationFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS, false);
+        objectMapper.registerModule(new JavaTimeModule());
         return objectMapper;
     }
 
@@ -125,13 +64,6 @@ public class CbsConfiguration extends WebSecurityConfigurerAdapter {
     public FilterRegistrationBean<RequestResponseLoggingFilter> requestResponseLoggingFilterRegistrationBean() {
         FilterRegistrationBean<RequestResponseLoggingFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new RequestResponseLoggingFilter());
-        return registrationBean;
-    }
-
-    @Bean
-    public FilterRegistrationBean<TransactionFilter> transactionFilterRegistrationBean() {
-        FilterRegistrationBean<TransactionFilter> registrationBean = new FilterRegistrationBean<>();
-        registrationBean.setFilter(new TransactionFilter());
         return registrationBean;
     }
 

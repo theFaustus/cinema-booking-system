@@ -4,6 +4,7 @@ import com.evil.cbs.domain.MovieSession;
 import com.evil.cbs.domain.Ticket;
 import com.evil.cbs.web.dto.BookedMovieDTO;
 import com.evil.cbs.web.dto.MovieSessionDTO;
+import com.evil.cbs.web.dto.TicketDTO;
 
 import java.util.List;
 
@@ -16,5 +17,5 @@ public interface MovieSessionService {
 
     void deleteById(Long movieSessionId);
 
-    Ticket bookMovie(BookedMovieDTO bookedMovieDTO);
+    TicketDTO bookMovie(BookedMovieDTO bookedMovieDTO);
 }

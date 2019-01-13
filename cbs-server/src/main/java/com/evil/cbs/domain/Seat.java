@@ -1,12 +1,13 @@
 package com.evil.cbs.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 
 
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(exclude = "hall", callSuper = true)
 @Entity
 @Table(name = "seats", schema = "cbs")
 public class Seat extends AbstractEntity{
@@ -18,9 +19,14 @@ public class Seat extends AbstractEntity{
     @Column(name = "seat_status")
     private SeatStatus seatStatus = SeatStatus.FREE;
     @ManyToOne
+    @JsonIgnore
     private Hall hall;
     @Version
-    private Long version;
+    private long version;
+
+    public boolean isBooked(){
+        return seatStatus.equals(SeatStatus.BOOKED);
+    }
 
     public static final class SeatBuilder {
         private int price;

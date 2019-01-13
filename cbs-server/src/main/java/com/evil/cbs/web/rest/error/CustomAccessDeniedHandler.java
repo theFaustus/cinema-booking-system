@@ -14,9 +14,8 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
     public void handle(final HttpServletRequest request, final HttpServletResponse response, final AccessDeniedException ex) throws IOException, ServletException {
-        response.getOutputStream().print("Error Message Goes Here");
+        response.getOutputStream().print("Apparently not enough rights! :(");
         response.setStatus(403);
-        // response.sendRedirect("/my-error-page");
     }
 
 }
