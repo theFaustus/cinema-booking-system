@@ -5,6 +5,8 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Data
@@ -12,6 +14,8 @@ import javax.persistence.*;
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "users", schema = "cbs")
 public class User extends AbstractEntity {
+    @Column(name = "username")
+    private String username;
     @Column(name = "email", unique = true)
     private String email;
     @JsonIgnore
@@ -28,6 +32,7 @@ public class User extends AbstractEntity {
 
 
     public static final class UserBuilder {
+        private String username;
         private String email;
         private String password;
         private String role;
@@ -41,6 +46,11 @@ public class User extends AbstractEntity {
 
         public static UserBuilder anUser() {
             return new UserBuilder();
+        }
+
+        public UserBuilder username(String username) {
+            this.username = username;
+            return this;
         }
 
         public UserBuilder email(String email) {
@@ -80,6 +90,7 @@ public class User extends AbstractEntity {
 
         public User build() {
             User user = new User();
+            user.setUsername(username);
             user.setEmail(email);
             user.setPassword(password);
             user.setRole(role);

@@ -22,14 +22,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public User saveUser(UserDTO userDTO) {
         User u = User.UserBuilder.anUser()
+                .username(userDTO.getUsername())
                 .firstName(userDTO.getFirstName())
                 .lastName(userDTO.getLastName())
                 .email(userDTO.getEmail())
                 .password(passwordEncoder.encode(userDTO.getUserPassword()))
                 .telephoneNumber(userDTO.getTelephoneNumber())
-                .role(UserRole.USER_ROLE.getValue())
+                .role(UserRole.USER.getValue())
                 .build();
-
         userRepository.save(u);
         return u;
     }
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserByEmail(String email) {
-        return userRepository.findUserByEmail(email);
+        return userRepository.findUserByEmail(email).orElseThrow(UserNotFoundException::new);
     }
 
     @Override
@@ -59,4 +59,13 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
     }
 
+    @Override
+    public Boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    @Override
+    public Boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
 }

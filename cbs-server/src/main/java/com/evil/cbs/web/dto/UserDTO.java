@@ -11,6 +11,10 @@ import javax.validation.constraints.*;
 public class UserDTO {
     @NotNull(message = "You have to fill this element")
     @Size(min = 2, max = 30)
+    private String username;
+
+    @NotNull(message = "You have to fill this element")
+    @Size(min = 2, max = 30)
     private String firstName;
 
     @NotNull

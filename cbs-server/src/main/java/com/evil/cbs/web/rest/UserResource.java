@@ -34,24 +34,6 @@ public class UserResource {
         return ResponseEntity.status(HttpStatus.OK).body(ticketService.findByUserId(userId));
     }
 
-    @PostMapping
-    public ResponseEntity<?> registerUser(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (!(authentication instanceof AnonymousAuthenticationToken))
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        if (bindingResult.hasErrors())
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors());
-        else {
-            try {
-                User u = userService.saveUser(userDTO);
-                return ResponseEntity.status(HttpStatus.CREATED).body(u);
-            } catch (Exception e) {
-                log.error("User not registered!", e);
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-            }
-        }
-    }
-
     @PutMapping("/{userId}/")
     public ResponseEntity updateUser(@PathVariable("userId") Long userId, @Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors())

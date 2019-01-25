@@ -1,6 +1,7 @@
 package com.evil.cbs.web.common;
 
 import com.evil.cbs.common.SeatAlreadyBookedException;
+import com.evil.cbs.common.UserNotAuthenticatedException;
 import org.hibernate.annotations.OptimisticLock;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,4 +20,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({SeatAlreadyBookedException.class, OptimisticLockException.class})
     public ResponseEntity handleSeatAlreadyBookedException(RuntimeException e) {return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body(e.getMessage()); }
+
+    @ExceptionHandler({UserNotAuthenticatedException.class})
+    public ResponseEntity handleUserNotAuthenticatedException(RuntimeException e) {return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()); }
+
 }
