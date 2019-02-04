@@ -1,0 +1,15 @@
+<mat-toolbar>
+  <span>BOARD</span>
+</mat-toolbar>
+<mat-tab-group color="accent" [selectedIndex]="1" mat-stretch-tabs>
+  <mat-tab label="NEWS">
+  </mat-tab>
+  <mat-tab label="MOVIES" active>
+    <app-movie-table></app-movie-table>
+  </mat-tab>
+  <mat-tab label="HALLS">
+  </mat-tab>
+  <mat-tab label="PROMOTIONS">
+  </mat-tab>
+</mat-tab-group>
+

@@ -1,0 +1,53 @@
+<mat-card style="margin: 20px;">
+<div class="example-header">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+</div>
+
+<div >
+  <mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="poster">
+      <mat-header-cell *matHeaderCellDef> Poster</mat-header-cell>
+      <mat-cell *matCellDef="let movie" >
+        <div class="mat-cell-center-image"><img class="small-poster" src="{{movie.imagePath}}"></div>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
+      <mat-cell *matCellDef="let movie"> {{movie.name}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef> Description</mat-header-cell>
+      <mat-cell *matCellDef="let movie"> {{movie.description}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="imdbRating">
+      <mat-header-cell *matHeaderCellDef> IMDB</mat-header-cell>
+      <mat-cell *matCellDef="let movie"> {{movie.imdbRating}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="duration">
+      <mat-header-cell *matHeaderCellDef> Duration</mat-header-cell>
+      <mat-cell *matCellDef="let movie"> {{movie.movieDuration}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="actors">
+      <mat-header-cell *matHeaderCellDef> Actors</mat-header-cell>
+      <mat-cell *matCellDef="let movie"> {{movie.actors}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="directors">
+      <mat-header-cell *matHeaderCellDef> Directors</mat-header-cell>
+      <mat-cell *matCellDef="let movie"> {{movie.directors}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="sessions">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let movie">
+        <button mat-raised-button color="primary">View sessions</button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+</div>
+
+</mat-card>

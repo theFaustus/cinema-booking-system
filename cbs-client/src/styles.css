@@ -1,4 +1,5 @@
-@import "@fuse/scss/core.scss";
-@import "app/app.theme.scss";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-
+body {
+  margin: 0;
+}

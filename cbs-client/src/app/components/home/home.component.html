@@ -1,0 +1,15 @@
+<div *ngIf="info.token; else loggedOut">
+  <mat-toolbar>
+  <p>
+    <strong>Username:</strong> {{info.username}}<br/>
+  </p>
+  </mat-toolbar>
+</div>
+
+<ng-template #loggedOut>
+  <mat-toolbar>
+    <p>
+      <strong>  Please login. </strong> <br/>
+    </p>
+  </mat-toolbar>
+</ng-template>
