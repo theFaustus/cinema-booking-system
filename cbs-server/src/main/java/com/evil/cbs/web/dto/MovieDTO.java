@@ -24,4 +24,5 @@ public class MovieDTO {
     private MovieSession movieSession;
     private Set<String> directors = new HashSet<>();
     private Set<String> actors = new HashSet<>();
+    private String imagePath;
 }

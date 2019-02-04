@@ -10,6 +10,7 @@ import javax.persistence.*;
 @EqualsAndHashCode(exclude = "hall", callSuper = true)
 @Entity
 @Table(name = "seats", schema = "cbs")
+@ToString(exclude = "hall")
 public class Seat extends AbstractEntity{
     @Column(name = "price")
     private int price;

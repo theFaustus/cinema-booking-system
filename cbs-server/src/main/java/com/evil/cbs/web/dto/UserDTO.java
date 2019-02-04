@@ -27,7 +27,7 @@ public class UserDTO {
 
     @NotNull
     @Pattern(regexp = "(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$")
-    private String userPassword;
+    private String password;
 
     @NotNull
     @Pattern(regexp = "0\\(\\d{2}\\)-\\d{3}-\\d{3}")

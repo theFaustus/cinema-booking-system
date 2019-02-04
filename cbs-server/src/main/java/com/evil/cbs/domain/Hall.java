@@ -13,6 +13,7 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "halls", schema = "cbs")
+@ToString(exclude = "movieSessions")
 public class Hall extends AbstractEntity{
     @Column(name = "name", unique = true)
     private String name;

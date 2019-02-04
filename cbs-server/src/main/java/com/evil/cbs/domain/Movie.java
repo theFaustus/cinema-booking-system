@@ -27,6 +27,9 @@ public class Movie extends AbstractEntity {
     private Set<String> directors = new HashSet<>();
     @ElementCollection
     private Set<String> actors = new HashSet<>();
+    @Column(name = "image_path", nullable = true)
+    private String imagePath;
+
 
     public static final class MovieBuilder {
         private String name;
@@ -35,6 +38,7 @@ public class Movie extends AbstractEntity {
         private Duration movieDuration;
         private Set<String> directors = new HashSet<>();
         private Set<String> actors = new HashSet<>();
+        private String imagePath;
 
         private MovieBuilder() {
         }
@@ -73,6 +77,11 @@ public class Movie extends AbstractEntity {
             return this;
         }
 
+        public MovieBuilder imagePath(String imagePath) {
+            this.imagePath = imagePath;
+            return this;
+        }
+
         public Movie build() {
             Movie movie = new Movie();
             movie.setName(name);
@@ -81,6 +90,7 @@ public class Movie extends AbstractEntity {
             movie.setMovieDuration(movieDuration);
             movie.setDirectors(directors);
             movie.setActors(actors);
+            movie.setImagePath(imagePath);
             return movie;
         }
     }

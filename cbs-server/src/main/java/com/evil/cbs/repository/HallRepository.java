@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -15,4 +16,8 @@ public interface HallRepository extends JpaRepository<Hall, Long> {
 
     @Query("select h from Hall h join fetch h.seats where h.id = :id")
     Optional<Hall> findById(@Param("id") Long id);
+
+    @Query("select distinct h from Hall h join fetch h.seats join fetch h.movieSessions")
+    @Override
+    List<Hall> findAll();
 }

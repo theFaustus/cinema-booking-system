@@ -2,9 +2,11 @@ package com.evil.cbs.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Data
@@ -26,7 +28,7 @@ public class MovieSession extends AbstractEntity {
     @OneToOne(fetch = FetchType.LAZY)
     private Movie movie;
     @Column(name = "show_time")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy hh:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm")
     private LocalDateTime showTime;
 
 
