@@ -40,7 +40,7 @@
     <ng-container matColumnDef="sessions">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let movie">
-        <button mat-raised-button color="primary">View sessions</button>
+        <button mat-raised-button color="primary" (click)="viewSessions(movie)" style="margin-left:auto; margin-right:0;">View sessions</button>
       </mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

@@ -4,7 +4,10 @@ import 'rxjs/add/observable/of';
 import {DataSource} from '@angular/cdk/collections';
 import {MovieService} from "../../services/movie.service";
 import {Movie} from "../../model/movie";
-import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
+import {MovieSessionService} from "../../services/movie-session.service";
+import {MovieSession} from "../../model/movie-session";
+import {MovieSessionModalComponent} from "../movie-session-modal/movie-session-modal.component";
 
 @Component({
   selector: 'app-movie-table',
@@ -20,9 +23,10 @@ export class MovieTableComponent implements OnInit {
   displayedColumns = ['poster', 'name', 'description', 'imdbRating', 'duration','directors', 'actors', 'sessions'];
   dataSource: MatTableDataSource<Movie>;
   movies: Movie[];
+  movieSessions: MovieSession[];
 
 
-  constructor(private movieService: MovieService) {
+  constructor(private movieService: MovieService, private movieSessionService: MovieSessionService, public dialog : MatDialog) {
 
     this.dataSource = new MatTableDataSource();
   }
@@ -43,6 +47,20 @@ export class MovieTableComponent implements OnInit {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
+  }
+
+  viewSessions(movie: Movie) {
+    console.log(movie.id);
+    this.movieSessionService.getMovieSessionsByMovieId(movie.id).subscribe(data => {
+      console.log(data);
+      this.movieSessions = data;
+      console.log(this.movieSessions);
+      this.dialog.open(MovieSessionModalComponent, {
+        data: {movieId: movie.id,
+               movieName: movie.name},
+        width: "700px",
+      });
+    });
   }
 
 }

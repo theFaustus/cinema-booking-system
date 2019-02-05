@@ -43,6 +43,7 @@ import {
   MatListModule
 } from '@angular/material';
 import {FlexLayoutModule} from "@angular/flex-layout";
+import { MovieSessionModalComponent } from './components/movie-session-modal/movie-session-modal.component';
 
 
 
@@ -54,7 +55,8 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     HomeComponent,
     UserComponent,
     AdminComponent,
-    MovieTableComponent
+    MovieTableComponent,
+    MovieSessionModalComponent
   ],
   imports: [
     HttpModule,
@@ -92,7 +94,7 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 
   ],
   exports: [],
-  entryComponents: [],
+  entryComponents: [MovieSessionModalComponent],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })

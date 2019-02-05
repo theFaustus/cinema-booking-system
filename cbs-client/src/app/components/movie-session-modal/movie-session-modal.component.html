@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>{{matData.movieName}} - Sessions</h2>
+<mat-dialog-content class="mat-typography">
+    <div class="example-header">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </div>
+
+    <div >
+      <mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="hallName">
+          <mat-header-cell *matHeaderCellDef> Hall</mat-header-cell>
+          <mat-cell *matCellDef="let movieSession"> {{movieSession.hallName}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="showTime">
+          <mat-header-cell *matHeaderCellDef> Showtime</mat-header-cell>
+          <mat-cell *matCellDef="let movieSession"> {{movieSession.showTime}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="book">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let movieSession" >
+            <button mat-raised-button color="primary" (click)="foo()" style="margin-left:auto; margin-right:0;">Book</button>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close [mat-dialog-close]="true" cdkFocusInitial>Close</button>
+</mat-dialog-actions>
