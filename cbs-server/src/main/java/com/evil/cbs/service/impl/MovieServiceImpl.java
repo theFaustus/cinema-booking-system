@@ -3,9 +3,8 @@ package com.evil.cbs.service.impl;
 import com.evil.cbs.domain.Movie;
 import com.evil.cbs.repository.MovieRepository;
 import com.evil.cbs.service.MovieService;
-import com.evil.cbs.web.common.MovieNotFoundException;
+import com.evil.cbs.domain.common.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

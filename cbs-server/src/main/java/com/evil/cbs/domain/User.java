@@ -13,6 +13,9 @@ import java.util.Set;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "users", schema = "cbs")
+@Builder
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class User extends AbstractEntity {
     @Column(name = "username")
     private String username;
@@ -31,74 +34,4 @@ public class User extends AbstractEntity {
     private String telephoneNumber;
 
 
-    public static final class UserBuilder {
-        private String username;
-        private String email;
-        private String password;
-        private String role;
-        private int enabled = 1;
-        private String firstName;
-        private String lastName;
-        private String telephoneNumber;
-
-        private UserBuilder() {
-        }
-
-        public static UserBuilder anUser() {
-            return new UserBuilder();
-        }
-
-        public UserBuilder username(String username) {
-            this.username = username;
-            return this;
-        }
-
-        public UserBuilder email(String email) {
-            this.email = email;
-            return this;
-        }
-
-        public UserBuilder password(String password) {
-            this.password = password;
-            return this;
-        }
-
-        public UserBuilder role(String role) {
-            this.role = role;
-            return this;
-        }
-
-        public UserBuilder enabled(int enabled) {
-            this.enabled = enabled;
-            return this;
-        }
-
-        public UserBuilder firstName(String firstName) {
-            this.firstName = firstName;
-            return this;
-        }
-
-        public UserBuilder lastName(String lastName) {
-            this.lastName = lastName;
-            return this;
-        }
-
-        public UserBuilder telephoneNumber(String telephoneNumber) {
-            this.telephoneNumber = telephoneNumber;
-            return this;
-        }
-
-        public User build() {
-            User user = new User();
-            user.setUsername(username);
-            user.setEmail(email);
-            user.setPassword(password);
-            user.setRole(role);
-            user.setEnabled(enabled);
-            user.setFirstName(firstName);
-            user.setLastName(lastName);
-            user.setTelephoneNumber(telephoneNumber);
-            return user;
-        }
-    }
 }

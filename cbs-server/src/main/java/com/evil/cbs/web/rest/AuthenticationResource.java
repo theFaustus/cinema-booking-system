@@ -1,6 +1,5 @@
 package com.evil.cbs.web.rest;
 
-import com.evil.cbs.common.UserNotAuthenticatedException;
 import com.evil.cbs.domain.User;
 import com.evil.cbs.service.AuthenticationService;
 import com.evil.cbs.service.UserService;
@@ -12,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.evil.cbs.domain.common.*;
+
 
 import javax.validation.Valid;
 
@@ -25,13 +26,9 @@ public class AuthenticationResource {
     private final UserService userService;
 
     @PostMapping("/sign-in")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginDTO loginDTO) {
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginDTO loginDTO) throws UserNotAuthenticatedException {
         JwtResponse response = null;
-        try {
-            response = authenticationService.authenticate(loginDTO.getUsername(), loginDTO.getPassword());
-        } catch (UserNotAuthenticatedException e) {
-            e.printStackTrace();
-        }
+        response = authenticationService.authenticate(loginDTO.getUsername(), loginDTO.getPassword());
         return ResponseEntity.ok(response);
     }
 

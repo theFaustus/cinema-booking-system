@@ -1,7 +1,4 @@
-package com.evil.cbs.common;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+package com.evil.cbs.domain.common;
 
 public class UserNotAuthenticatedException extends Exception {
     public UserNotAuthenticatedException(String message) {

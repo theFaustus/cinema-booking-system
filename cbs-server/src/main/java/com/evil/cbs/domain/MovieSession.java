@@ -22,6 +22,9 @@ import java.util.Date;
                         @NamedAttributeNode(value = "directors"),
                         @NamedAttributeNode(value = "actors")}),
         })
+@Builder
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class MovieSession extends AbstractEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Hall hall;
@@ -32,39 +35,4 @@ public class MovieSession extends AbstractEntity {
     private LocalDateTime showTime;
 
 
-    public static final class MovieSessionBuilder {
-        private Hall hall;
-        private Movie movie;
-        private LocalDateTime showTime;
-
-        private MovieSessionBuilder() {
-        }
-
-        public static MovieSessionBuilder aMovieSession() {
-            return new MovieSessionBuilder();
-        }
-
-        public MovieSessionBuilder hall(Hall hall) {
-            this.hall = hall;
-            return this;
-        }
-
-        public MovieSessionBuilder movie(Movie movie) {
-            this.movie = movie;
-            return this;
-        }
-
-        public MovieSessionBuilder showTime(LocalDateTime showTime) {
-            this.showTime = showTime;
-            return this;
-        }
-
-        public MovieSession build() {
-            MovieSession movieSession = new MovieSession();
-            movieSession.setHall(hall);
-            movieSession.setMovie(movie);
-            movieSession.setShowTime(showTime);
-            return movieSession;
-        }
-    }
 }

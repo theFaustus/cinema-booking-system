@@ -1,8 +1,5 @@
-package com.evil.cbs.web.common;
+package com.evil.cbs.domain.common;
 
-import com.evil.cbs.common.SeatAlreadyBookedException;
-import com.evil.cbs.common.UserNotAuthenticatedException;
-import org.hibernate.annotations.OptimisticLock;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

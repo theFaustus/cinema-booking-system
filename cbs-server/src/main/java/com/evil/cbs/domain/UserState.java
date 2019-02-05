@@ -1,4 +1,4 @@
-package com.evil.cbs.service.util;
+package com.evil.cbs.domain;
 
 import lombok.Getter;
 

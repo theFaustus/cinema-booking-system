@@ -1,4 +1,4 @@
-package com.evil.cbs.web.common;
+package com.evil.cbs.domain.common;
 
 public class UserNotFoundException extends RuntimeException{
 }

@@ -5,9 +5,8 @@ import com.evil.cbs.domain.Seat;
 import com.evil.cbs.domain.SeatStatus;
 import com.evil.cbs.repository.HallRepository;
 import com.evil.cbs.service.HallService;
-import com.evil.cbs.web.common.HallNotFoundException;
+import com.evil.cbs.domain.common.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,7 +45,7 @@ public class HallServiceImpl implements HallService {
     @Override
     public Hall saveHall(Hall hall, Integer numberOfSeats) {
         for(int i = 0; i < numberOfSeats; i++){
-            Seat s = Seat.SeatBuilder.aSeat()
+            Seat s = Seat.builder()
                     .seatStatus(SeatStatus.FREE)
                     .price(150)
                     .hall(hall)

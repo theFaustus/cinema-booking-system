@@ -28,12 +28,7 @@ public class MovieSessionResource {
     @PostMapping
     public ResponseEntity<?> addMovieSession(@Valid @RequestBody MovieSessionDTO movieSessionDTO){
         MovieSession movieSession;
-        try {
-            movieSession = movieSessionService.saveMovieSession(movieSessionDTO);
-        } catch (Exception e){
-            log.error("Movie session not saved!", e);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
+        movieSession = movieSessionService.saveMovieSession(movieSessionDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(movieSession);
     }
 

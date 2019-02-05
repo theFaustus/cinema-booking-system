@@ -14,6 +14,9 @@ import java.util.Set;
 @Entity
 @Table(name = "halls", schema = "cbs")
 @ToString(exclude = "movieSessions")
+@Builder
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class Hall extends AbstractEntity{
     @Column(name = "name", unique = true)
     private String name;
@@ -31,39 +34,5 @@ public class Hall extends AbstractEntity{
         seats.add(seat);
     }
 
-    public static final class HallBuilder {
-        private String name;
-        private Set<Seat> seats = new HashSet<>();
-        private Set<MovieSession> movieSessions = new HashSet<>();
 
-        private HallBuilder() {
-        }
-
-        public static HallBuilder aHall() {
-            return new HallBuilder();
-        }
-
-        public HallBuilder name(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public HallBuilder seats(Set<Seat> seats) {
-            this.seats = seats;
-            return this;
-        }
-
-        public HallBuilder movieSessions(Set<MovieSession> movieSessions) {
-            this.movieSessions = movieSessions;
-            return this;
-        }
-
-        public Hall build() {
-            Hall hall = new Hall();
-            hall.setName(name);
-            hall.setSeats(seats);
-            hall.setMovieSessions(movieSessions);
-            return hall;
-        }
-    }
 }

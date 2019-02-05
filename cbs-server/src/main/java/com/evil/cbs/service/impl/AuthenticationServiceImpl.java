@@ -1,6 +1,5 @@
 package com.evil.cbs.service.impl;
 
-import com.evil.cbs.common.UserNotAuthenticatedException;
 import com.evil.cbs.security.jwt.JwtProvider;
 import com.evil.cbs.service.AuthenticationService;
 import com.evil.cbs.web.jwt.JwtResponse;
@@ -12,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import com.evil.cbs.domain.common.*;
 
 import java.util.Optional;
 

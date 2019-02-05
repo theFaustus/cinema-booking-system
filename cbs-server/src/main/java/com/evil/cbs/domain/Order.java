@@ -10,6 +10,9 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "orders")
+@Builder
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class Order extends AbstractEntity {
 
     @Column(name = "order_date")
@@ -17,33 +20,4 @@ public class Order extends AbstractEntity {
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     private Ticket ticket;
 
-
-    public static final class OrderBuilder {
-        private LocalDate orderDate = LocalDate.now();
-        private Ticket ticket;
-
-        private OrderBuilder() {
-        }
-
-        public static OrderBuilder anOrder() {
-            return new OrderBuilder();
-        }
-
-        public OrderBuilder orderDate(LocalDate orderDate) {
-            this.orderDate = orderDate;
-            return this;
-        }
-
-        public OrderBuilder ticket(Ticket ticket) {
-            this.ticket = ticket;
-            return this;
-        }
-
-        public Order build() {
-            Order order = new Order();
-            order.setOrderDate(orderDate);
-            order.setTicket(ticket);
-            return order;
-        }
-    }
 }

@@ -1,15 +1,14 @@
 package com.evil.cbs.service.impl;
 
-import com.evil.cbs.common.SeatAlreadyBookedException;
 import com.evil.cbs.domain.*;
 import com.evil.cbs.repository.MovieSessionRepository;
 import com.evil.cbs.service.*;
-import com.evil.cbs.web.common.MovieSessionNotFoundException;
 import com.evil.cbs.web.dto.BookedMovieDTO;
 import com.evil.cbs.web.dto.MovieSessionDTO;
 import com.evil.cbs.web.dto.TicketDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.evil.cbs.domain.common.*;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -27,7 +26,7 @@ public class MovieSessionServiceImpl implements MovieSessionService {
 
     @Override
     public MovieSession saveMovieSession(MovieSessionDTO movieSessionDTO) {
-        MovieSession movieSession = MovieSession.MovieSessionBuilder.aMovieSession()
+        MovieSession movieSession = MovieSession.builder()
                 .hall(hallService.findById(movieSessionDTO.getHallId()))
                 .movie(movieService.findById(movieSessionDTO.getMovieId()))
                 .showTime(movieSessionDTO.getShowTime())
@@ -61,7 +60,7 @@ public class MovieSessionServiceImpl implements MovieSessionService {
         }
         seatBySeatNumber.setSeatStatus(SeatStatus.BOOKED);
         seatService.saveSeat(seatBySeatNumber);
-        Ticket ticket = Ticket.TicketBuilder.aTicket()
+        Ticket ticket = Ticket.builder()
                 .ticketStatus(TicketStatus.NOT_USED)
                 .ticketType(TicketType.SIMPLE)
                 .bookedSeat(seatBySeatNumber)

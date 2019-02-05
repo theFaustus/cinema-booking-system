@@ -26,14 +26,9 @@ public class HallResource {
     @PostMapping
     public ResponseEntity<?> addHall(@Valid @RequestBody HallDTO hallDTO, @RequestParam(name = "numberOfSeats", defaultValue = "40") Integer numberOfSeats) {
         Hall hall;
-        try {
-            hall = Hall.HallBuilder.aHall()
+        hall = Hall.builder()
                     .name(hallDTO.getName())
                     .build();
-        } catch (Exception e) {
-            log.error("Hall not saved!", e);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
         return ResponseEntity.status(HttpStatus.CREATED).body(hallService.saveHall(hall, numberOfSeats));
     }
 

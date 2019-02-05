@@ -25,12 +25,7 @@ public class MovieResource {
 
     @PostMapping
     public ResponseEntity<?> addMovie(@Valid @RequestBody Movie movie){
-        try {
-            movieService.saveMovie(movie);
-        } catch (Exception e) {
-            log.error("Movie not saved!", e);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
+        movieService.saveMovie(movie);
         return ResponseEntity.status(HttpStatus.CREATED).body(movie);
     }
 
