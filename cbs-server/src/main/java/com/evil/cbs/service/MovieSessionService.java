@@ -11,7 +11,7 @@ import java.util.List;
 public interface MovieSessionService {
     MovieSession saveMovieSession(MovieSessionDTO movieSessionDTO);
 
-    List<MovieSession> findMovieSessionByMovieId(Long movieId);
+    List<MovieSessionDTO> findMovieSessionByMovieId(Long movieId);
 
     MovieSession findById(Long movieSessionId);
 

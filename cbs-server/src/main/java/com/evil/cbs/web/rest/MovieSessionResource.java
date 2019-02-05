@@ -38,7 +38,7 @@ public class MovieSessionResource {
     }
 
     @DeleteMapping("/{movieSessionId}/")
-    public ResponseEntity<Movie> deleteMovieSessionById(@PathVariable("movieSessionId") Long movieSessionId){
+    public ResponseEntity<MovieSession> deleteMovieSessionById(@PathVariable("movieSessionId") Long movieSessionId){
         movieSessionService.deleteById(movieSessionId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

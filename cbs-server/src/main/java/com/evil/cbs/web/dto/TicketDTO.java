@@ -23,6 +23,7 @@ public class TicketDTO {
                 new MovieSessionDTO(
                         ticket.getMovieSession().getHall().getId(),
                         ticket.getMovieSession().getMovie().getId(),
+                        ticket.getMovieSession().getHall().getName(),
                         ticket.getMovieSession().getShowTime()),
                 ticket.getBookedSeat(),
                 ticket.getUser());

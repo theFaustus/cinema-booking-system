@@ -12,6 +12,7 @@ import com.evil.cbs.domain.common.*;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -35,8 +36,9 @@ public class MovieSessionServiceImpl implements MovieSessionService {
     }
 
     @Override
-    public List<MovieSession> findMovieSessionByMovieId(Long movieId) {
-        return movieSessionRepository.getDistinctByMovieId(movieId);
+    public List<MovieSessionDTO> findMovieSessionByMovieId(Long movieId) {
+        return movieSessionRepository.getDistinctByMovieId(movieId).stream().map(
+                MovieSessionDTO::from).collect(Collectors.toList());
     }
 
     @Override

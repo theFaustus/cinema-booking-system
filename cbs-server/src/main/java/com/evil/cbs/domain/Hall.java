@@ -25,6 +25,8 @@ public class Hall extends AbstractEntity{
     @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private Set<MovieSession> movieSessions = new HashSet<>();
+    private String imagePath;
+    private String description;
 
     public void addMovieSession(MovieSession movieSession){
         movieSessions.add(movieSession);

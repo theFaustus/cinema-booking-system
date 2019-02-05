@@ -5,6 +5,7 @@ import com.evil.cbs.domain.MovieSession;
 import com.evil.cbs.service.MovieService;
 import com.evil.cbs.service.MovieSessionService;
 import com.evil.cbs.web.dto.MovieDTO;
+import com.evil.cbs.web.dto.MovieSessionDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -40,7 +41,7 @@ public class MovieResource {
     }
 
     @GetMapping("/{movieId}/sessions")
-    public ResponseEntity<List<MovieSession>> getAllMovieSessionsByMovieId(@PathVariable("movieId") Long movieId){
+    public ResponseEntity<List<MovieSessionDTO>> getAllMovieSessionsByMovieId(@PathVariable("movieId") Long movieId){
         return ResponseEntity.status(HttpStatus.OK).body(movieSessionService.findMovieSessionByMovieId(movieId));
     }
 

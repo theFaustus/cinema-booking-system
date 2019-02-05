@@ -27,8 +27,10 @@ public class HallResource {
     public ResponseEntity<?> addHall(@Valid @RequestBody HallDTO hallDTO, @RequestParam(name = "numberOfSeats", defaultValue = "40") Integer numberOfSeats) {
         Hall hall;
         hall = Hall.builder()
-                    .name(hallDTO.getName())
-                    .build();
+                .name(hallDTO.getName())
+                .imagePath(hallDTO.getImagePath())
+                .description(hallDTO.getDescription())
+                .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(hallService.saveHall(hall, numberOfSeats));
     }
 

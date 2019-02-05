@@ -1,5 +1,6 @@
 package com.evil.cbs.domain;
 
+import com.evil.cbs.web.dto.MovieSessionDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -33,6 +34,5 @@ public class MovieSession extends AbstractEntity {
     @Column(name = "show_time")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm")
     private LocalDateTime showTime;
-
 
 }
