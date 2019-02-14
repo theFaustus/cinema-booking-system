@@ -7,7 +7,9 @@ import java.util.List;
 public interface SeatService {
     Seat saveSeat(Seat s);
 
-    Seat findSeatBySeatNumber(String seatNumber);
+    Seat findBySeatNumber(String seatNumber);
 
     List<Seat> findAll();
+
+    List<Seat> findAllByHallId(Long hallId);
 }

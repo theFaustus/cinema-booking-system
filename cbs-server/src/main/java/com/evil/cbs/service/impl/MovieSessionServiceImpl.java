@@ -1,14 +1,25 @@
 package com.evil.cbs.service.impl;
 
-import com.evil.cbs.domain.*;
+import com.evil.cbs.domain.MovieSession;
+import com.evil.cbs.domain.Seat;
+import com.evil.cbs.domain.SeatStatus;
+import com.evil.cbs.domain.Ticket;
+import com.evil.cbs.domain.TicketStatus;
+import com.evil.cbs.domain.TicketType;
+import com.evil.cbs.domain.common.MovieSessionNotFoundException;
+import com.evil.cbs.domain.common.SeatAlreadyBookedException;
 import com.evil.cbs.repository.MovieSessionRepository;
-import com.evil.cbs.service.*;
+import com.evil.cbs.service.HallService;
+import com.evil.cbs.service.MovieService;
+import com.evil.cbs.service.MovieSessionService;
+import com.evil.cbs.service.SeatService;
+import com.evil.cbs.service.TicketService;
+import com.evil.cbs.service.UserService;
 import com.evil.cbs.web.dto.BookedMovieDTO;
 import com.evil.cbs.web.dto.MovieSessionDTO;
 import com.evil.cbs.web.dto.TicketDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import com.evil.cbs.domain.common.*;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -56,7 +67,7 @@ public class MovieSessionServiceImpl implements MovieSessionService {
     public TicketDTO bookMovie(BookedMovieDTO bookedMovieDTO) throws SeatAlreadyBookedException {
         MovieSession movieSessionById = movieSessionRepository.getDistinctById(bookedMovieDTO.getMovieSessionId())
                 .orElseThrow(MovieSessionNotFoundException::new);
-        Seat seatBySeatNumber = seatService.findSeatBySeatNumber(bookedMovieDTO.getSeatNumber());
+        Seat seatBySeatNumber = seatService.findBySeatNumber(bookedMovieDTO.getSeatNumber());
         if(seatBySeatNumber.isBooked()){
             throw new SeatAlreadyBookedException("Seat already was booked!");
         }

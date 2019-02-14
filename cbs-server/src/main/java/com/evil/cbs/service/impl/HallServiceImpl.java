@@ -3,9 +3,9 @@ package com.evil.cbs.service.impl;
 import com.evil.cbs.domain.Hall;
 import com.evil.cbs.domain.Seat;
 import com.evil.cbs.domain.SeatStatus;
+import com.evil.cbs.domain.common.HallNotFoundException;
 import com.evil.cbs.repository.HallRepository;
 import com.evil.cbs.service.HallService;
-import com.evil.cbs.domain.common.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

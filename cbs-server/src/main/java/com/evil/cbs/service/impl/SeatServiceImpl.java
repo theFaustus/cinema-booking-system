@@ -4,7 +4,6 @@ import com.evil.cbs.domain.Seat;
 import com.evil.cbs.repository.SeatRepository;
 import com.evil.cbs.service.SeatService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,12 +20,17 @@ public class SeatServiceImpl implements SeatService {
     }
 
     @Override
-    public Seat findSeatBySeatNumber(String seatNumber) {
+    public Seat findBySeatNumber(String seatNumber) {
         return seatRepository.findBySeatNumber(seatNumber);
     }
 
     @Override
     public List<Seat> findAll() {
         return seatRepository.findAll();
+    }
+
+    @Override
+    public List<Seat> findAllByHallId(Long hallId) {
+        return seatRepository.findAllByHallId(hallId);
     }
 }

@@ -4,7 +4,6 @@ import com.evil.cbs.domain.Ticket;
 import com.evil.cbs.repository.TicketRepository;
 import com.evil.cbs.service.TicketService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

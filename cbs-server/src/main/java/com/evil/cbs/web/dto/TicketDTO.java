@@ -1,6 +1,10 @@
 package com.evil.cbs.web.dto;
 
-import com.evil.cbs.domain.*;
+import com.evil.cbs.domain.Seat;
+import com.evil.cbs.domain.Ticket;
+import com.evil.cbs.domain.TicketStatus;
+import com.evil.cbs.domain.TicketType;
+import com.evil.cbs.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

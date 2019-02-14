@@ -1,14 +1,23 @@
 package com.evil.cbs.web.rest;
 
 import com.evil.cbs.domain.Hall;
-import com.evil.cbs.web.dto.HallDTO;
 import com.evil.cbs.domain.Movie;
+import com.evil.cbs.domain.Seat;
 import com.evil.cbs.service.HallService;
+import com.evil.cbs.service.SeatService;
+import com.evil.cbs.web.dto.HallDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -21,6 +30,7 @@ import java.util.stream.Collectors;
 public class HallResource {
 
     private final HallService hallService;
+    private final SeatService seatService;
 
 
     @PostMapping
@@ -44,6 +54,12 @@ public class HallResource {
     public ResponseEntity<Hall> getHallById(@PathVariable("hallId") Long hallId) {
         return ResponseEntity.status(HttpStatus.OK).body(hallService.findById(hallId));
     }
+
+    @GetMapping("/{hallId}/seats")
+    public ResponseEntity<List<Seat>> getSeatsByHallId(@PathVariable("hallId") Long hallId) {
+        return ResponseEntity.status(HttpStatus.OK).body(seatService.findAllByHallId(hallId));
+    }
+
 
     @DeleteMapping("/{hallId}/")
     public ResponseEntity<Movie> deleteHallById(@PathVariable("hallId") Long hallId) {
