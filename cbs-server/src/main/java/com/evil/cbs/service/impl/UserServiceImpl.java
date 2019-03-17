@@ -50,6 +50,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findUserByUsername(String email) {
+        return userRepository.findByUsername(email).orElseThrow(UserNotFoundException::new);
+    }
+
+    @Override
     public List<User> findAll() {
         return userRepository.findAll();
     }

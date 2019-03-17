@@ -55,6 +55,7 @@ public class SwaggerConfiguration extends WebMvcConfigurationSupport {
     }
 
     @Bean
+    @Override
     public RequestMappingHandlerMapping requestMappingHandlerMapping() {
         return new RequestMappingHandlerMapping();
     }

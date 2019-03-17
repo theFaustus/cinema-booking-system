@@ -3,6 +3,9 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatPaginator, MatSort, MatTabl
 import {MovieSession} from "../../model/movie-session";
 import {MovieService} from "../../services/movie.service";
 import {MovieSessionService} from "../../services/movie-session.service";
+import {HallService} from "../../services/hall.service";
+import {Movie} from "../../model/movie";
+import {SeatBookingModalComponent} from "../seat-booking-modal/seat-booking-modal.component";
 
 @Component({
   selector: 'app-movie-session-modal',
@@ -22,16 +25,18 @@ export class MovieSessionModalComponent implements OnInit {
 
 
   constructor(private dialogRef: MatDialogRef<MovieSessionModalComponent>,
-              @Inject(MAT_DIALOG_DATA) public matData : any,
+              @Inject(MAT_DIALOG_DATA) public matData: any,
               private movieService: MovieService,
-              private movieSessionService: MovieSessionService) {
+              private movieSessionService: MovieSessionService,
+              private hallService: HallService,
+              public dialog: MatDialog) {
 
     this.dataSource = new MatTableDataSource();
 
   }
 
 
-  public closeDialog(){
+  public closeDialog() {
     this.dialogRef.close();
   }
 
@@ -52,6 +57,22 @@ export class MovieSessionModalComponent implements OnInit {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
+  }
+
+  bookMovieSession(movieSession: MovieSession) {
+    console.log(movieSession.movieSessionId);
+    this.hallService.getSeatsByHallId(movieSession.hallId).subscribe(data => {
+      console.log(data);
+      this.dialog.open(SeatBookingModalComponent, {
+        data: {
+          hallId: movieSession.hallId,
+          movieName: movieSession.hallName,
+          showTime: movieSession.showTime,
+          movieSessionId: movieSession.movieSessionId
+        },
+        width: "700px",
+      });
+    });
   }
 
 }

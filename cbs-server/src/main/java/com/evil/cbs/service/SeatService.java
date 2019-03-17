@@ -9,6 +9,8 @@ public interface SeatService {
 
     Seat findBySeatNumber(String seatNumber);
 
+    Seat findBySeatNumberAndHallId(String seatNumber, Long hallId);
+
     List<Seat> findAll();
 
     List<Seat> findAllByHallId(Long hallId);

@@ -25,6 +25,11 @@ public class SeatServiceImpl implements SeatService {
     }
 
     @Override
+    public Seat findBySeatNumberAndHallId(String seatNumber, Long hallId) {
+        return seatRepository.findBySeatNumberAndHallId(seatNumber, hallId);
+    }
+
+    @Override
     public List<Seat> findAll() {
         return seatRepository.findAll();
     }

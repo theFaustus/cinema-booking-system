@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>{{matData.movieName}} - {{matData.showTime}} - Seats</h2>
+<mat-dialog-content class="mat-typography">
+
+  <mat-grid-list cols="10" rowHeight="2:1" style="margin-bottom: 10px">
+    <mat-grid-tile colspan="10" rowspan="1">
+      <button mat-raised-button disabled
+              style="margin-left:2px; margin-right:2px; margin-top: 2px; margin-bottom: 2px; width: 100%">SCREEN
+      </button>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <mat-grid-list cols="10" rowHeight="2:1">
+    <button matTooltip="{{seat.price}} MDL" *ngFor="let seat of retrieveData" mat-raised-button color="primary"
+            style="margin-left:2px; margin-right:2px; margin-top: 2px; margin-bottom: 2px;"
+            [disabled]="seat.seatStatus == 'FREE' ? false : true" (click)="openBookSeatConfirmModal(seat, matData.movieSessionId)">{{seat.seatNumber}}
+    </button>
+  </mat-grid-list>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close [mat-dialog-close]="true" cdkFocusInitial>Close</button>
+</mat-dialog-actions>

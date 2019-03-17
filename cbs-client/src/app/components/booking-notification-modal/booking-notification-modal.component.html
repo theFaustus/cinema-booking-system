@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Success</h2>
+<mat-dialog-content class="mat-typography">
+
+  <mat-grid-list cols="2" rowHeight="2:1" style="margin-bottom: 10px">
+    <mat-grid-tile colspan="2" rowspan="2">
+      <img src="https://cdn3.iconfinder.com/data/icons/flat-actions-icons-9/792/Tick_Mark_Dark-512.png"/>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2" rowspan="1">
+      <p>Successfully booked the seat, please check you email for ticket</p>
+    </mat-grid-tile>
+  </mat-grid-list>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close [mat-dialog-close]="true" cdkFocusInitial>Close</button>
+</mat-dialog-actions>

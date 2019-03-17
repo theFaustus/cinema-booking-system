@@ -8,5 +8,6 @@ import lombok.Setter;
 public class BookedMovieDTO {
     private Long movieSessionId;
     private String seatNumber;
-    private Long userId;
+    private String username;
+
 }

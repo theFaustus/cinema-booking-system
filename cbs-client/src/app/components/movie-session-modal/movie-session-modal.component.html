@@ -1,6 +1,12 @@
 <h2 mat-dialog-title>{{matData.movieName}} - Sessions</h2>
 <mat-dialog-content class="mat-typography">
-    <div class="example-header">
+
+  <mat-grid-list cols="2" rowHeight="1:1">
+    <mat-grid-tile><img class="small-poster" src="{{matData.movieImagePath}}"></mat-grid-tile>
+    <mat-grid-tile><p>{{matData.movieDescription}}</p></mat-grid-tile>
+  </mat-grid-list>
+
+  <div class="example-header">
       <mat-form-field>
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
       </mat-form-field>
@@ -19,7 +25,7 @@
         <ng-container matColumnDef="book">
           <mat-header-cell *matHeaderCellDef></mat-header-cell>
           <mat-cell *matCellDef="let movieSession" >
-            <button mat-raised-button color="primary" (click)="foo()" style="margin-left:auto; margin-right:0;">Book</button>
+            <button mat-raised-button color="primary" (click)="bookMovieSession(movieSession)" style="margin-left:auto; margin-right:0;">Book</button>
           </mat-cell>
         </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

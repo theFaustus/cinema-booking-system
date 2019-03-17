@@ -24,7 +24,7 @@ public class TicketDTO {
     public static TicketDTO from(Ticket ticket){
         return new TicketDTO(ticket.getTicketStatus(),
                 ticket.getTicketType(),
-                new MovieSessionDTO(
+                new MovieSessionDTO(ticket.getMovieSession().getId(),
                         ticket.getMovieSession().getHall().getId(),
                         ticket.getMovieSession().getMovie().getId(),
                         ticket.getMovieSession().getHall().getName(),

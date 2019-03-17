@@ -15,8 +15,8 @@ import {UserComponent} from './components/user/user.component';
 import {AdminComponent} from './components/admin/admin.component';
 import {httpInterceptorProviders} from './auth/auth-interceptor';
 import {MovieTableComponent} from './components/movie-table/movie-table.component';
-import { ReactiveFormsModule }         from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import {ReactiveFormsModule} from '@angular/forms';
+import {RouterModule} from '@angular/router';
 
 import 'hammerjs';
 
@@ -40,11 +40,14 @@ import {
   MatSortModule,
   MatCheckboxModule,
   MatSidenavModule,
-  MatListModule
+  MatListModule,
+  MatGridListModule
 } from '@angular/material';
 import {FlexLayoutModule} from "@angular/flex-layout";
-import { MovieSessionModalComponent } from './components/movie-session-modal/movie-session-modal.component';
-
+import {MovieSessionModalComponent} from './components/movie-session-modal/movie-session-modal.component';
+import {SeatBookingModalComponent} from './components/seat-booking-modal/seat-booking-modal.component';
+import {SeatBookingConfirmModalComponent} from './components/seat-booking-confirm-modal/seat-booking-confirm-modal.component';
+import {BookingNotificationModalComponent} from './components/booking-notification-modal/booking-notification-modal.component';
 
 
 @NgModule({
@@ -56,7 +59,10 @@ import { MovieSessionModalComponent } from './components/movie-session-modal/mov
     UserComponent,
     AdminComponent,
     MovieTableComponent,
-    MovieSessionModalComponent
+    MovieSessionModalComponent,
+    SeatBookingModalComponent,
+    SeatBookingConfirmModalComponent,
+    BookingNotificationModalComponent
   ],
   imports: [
     HttpModule,
@@ -90,11 +96,17 @@ import { MovieSessionModalComponent } from './components/movie-session-modal/mov
     MatSidenavModule,
     MatListModule,
     FlexLayoutModule,
-    RouterModule
+    RouterModule,
+    MatGridListModule
 
   ],
   exports: [],
-  entryComponents: [MovieSessionModalComponent],
+  entryComponents: [
+    MovieSessionModalComponent,
+    SeatBookingModalComponent,
+    SeatBookingConfirmModalComponent,
+    BookingNotificationModalComponent
+  ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })

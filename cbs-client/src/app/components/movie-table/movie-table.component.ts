@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import {DataSource} from '@angular/cdk/collections';
 import {MovieService} from "../../services/movie.service";
@@ -20,13 +20,13 @@ export class MovieTableComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
 
-  displayedColumns = ['poster', 'name', 'description', 'imdbRating', 'duration','directors', 'actors', 'sessions'];
+  displayedColumns = ['poster', 'name', 'description', 'imdbRating', 'duration', 'directors', 'actors', 'sessions'];
   dataSource: MatTableDataSource<Movie>;
   movies: Movie[];
   movieSessions: MovieSession[];
 
 
-  constructor(private movieService: MovieService, private movieSessionService: MovieSessionService, public dialog : MatDialog) {
+  constructor(private movieService: MovieService, private movieSessionService: MovieSessionService, public dialog: MatDialog) {
 
     this.dataSource = new MatTableDataSource();
   }
@@ -56,8 +56,12 @@ export class MovieTableComponent implements OnInit {
       this.movieSessions = data;
       console.log(this.movieSessions);
       this.dialog.open(MovieSessionModalComponent, {
-        data: {movieId: movie.id,
-               movieName: movie.name},
+        data: {
+          movieId: movie.id,
+          movieName: movie.name,
+          movieImagePath: movie.imagePath,
+          movieDescription: movie.description
+        },
         width: "700px",
       });
     });

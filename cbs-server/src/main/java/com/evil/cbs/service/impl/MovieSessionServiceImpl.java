@@ -67,7 +67,7 @@ public class MovieSessionServiceImpl implements MovieSessionService {
     public TicketDTO bookMovie(BookedMovieDTO bookedMovieDTO) throws SeatAlreadyBookedException {
         MovieSession movieSessionById = movieSessionRepository.getDistinctById(bookedMovieDTO.getMovieSessionId())
                 .orElseThrow(MovieSessionNotFoundException::new);
-        Seat seatBySeatNumber = seatService.findBySeatNumber(bookedMovieDTO.getSeatNumber());
+        Seat seatBySeatNumber = seatService.findBySeatNumberAndHallId(bookedMovieDTO.getSeatNumber(), movieSessionById.getHall().getId());
         if(seatBySeatNumber.isBooked()){
             throw new SeatAlreadyBookedException("Seat already was booked!");
         }
@@ -78,7 +78,7 @@ public class MovieSessionServiceImpl implements MovieSessionService {
                 .ticketType(TicketType.SIMPLE)
                 .bookedSeat(seatBySeatNumber)
                 .movieSession(movieSessionById)
-                .user(userService.findById(bookedMovieDTO.getUserId()))
+                .user(userService.findUserByUsername(bookedMovieDTO.getUsername()))
                 .build();
         ticketService.saveTicket(ticket);
 

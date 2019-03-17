@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MovieSessionDTO {
+    private Long movieSessionId;
     private Long hallId;
     private Long movieId;
     private String hallName;
@@ -21,7 +22,8 @@ public class MovieSessionDTO {
     private LocalDateTime showTime;
 
     public static MovieSessionDTO from(MovieSession movieSession){
-        return new MovieSessionDTO(movieSession.getHall().getId(),
+        return new MovieSessionDTO(movieSession.getId(),
+                movieSession.getHall().getId(),
                 movieSession.getMovie().getId(),
                 movieSession.getHall().getName(),
                 movieSession.getShowTime());

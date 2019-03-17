@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>{{matData.movieName}} - {{matData.showTime}} - Confirmation</h2>
+<mat-dialog-content class="mat-typography">
+
+  <mat-grid-list cols="2" rowHeight="2:1" style="margin-bottom: 10px">
+    <mat-grid-tile colspan="2" rowspan="1">
+      <p>Please confirm booking</p>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1" rowspan="1">
+      <p>Price</p>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1" rowspan="1">
+      <p>{{matData.price}}</p>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1" rowspan="1">
+      <p>Seat number</p>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1" rowspan="1">
+      <p>{{matData.seatSeatNumber}}</p>
+    </mat-grid-tile>
+  </mat-grid-list>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary"
+          (click)="bookSeat(matData.seat, matData.movieSessionId)">Book
+  </button>
+  <button mat-button mat-dialog-close [mat-dialog-close]="true" cdkFocusInitial>Close</button>
+</mat-dialog-actions>

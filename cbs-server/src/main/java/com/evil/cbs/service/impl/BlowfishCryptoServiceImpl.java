@@ -21,8 +21,7 @@ public class BlowfishCryptoServiceImpl implements BlowfishCryptoService {
             Cipher cipher = Cipher.getInstance("Blowfish");
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
             byte[] bytes = cipher.doFinal(dataToEncrypt.getBytes());
-            String encrypted = DatatypeConverter.printHexBinary(bytes);
-            return encrypted;
+            return DatatypeConverter.printHexBinary(bytes);
         } catch (Exception e){
             throw new RuntimeException(e);
         }

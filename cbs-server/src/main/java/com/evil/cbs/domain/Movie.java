@@ -1,11 +1,6 @@
 package com.evil.cbs.domain;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -20,7 +15,6 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "movies", schema = "cbs")
-@Builder
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class Movie extends AbstractEntity {
@@ -39,4 +33,63 @@ public class Movie extends AbstractEntity {
     @Column(name = "image_path", nullable = true)
     private String imagePath;
 
+    public static MovieBuilder builder() {
+        return new MovieBuilder();
+    }
+
+    public static class MovieBuilder {
+        private String name;
+        private String description;
+        private String imdbRating;
+        private Duration movieDuration;
+        private Set<String> directors;
+        private Set<String> actors;
+        private String imagePath;
+
+        MovieBuilder() {
+        }
+
+        public MovieBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public MovieBuilder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public MovieBuilder imdbRating(String imdbRating) {
+            this.imdbRating = imdbRating;
+            return this;
+        }
+
+        public MovieBuilder movieDuration(Duration movieDuration) {
+            this.movieDuration = movieDuration;
+            return this;
+        }
+
+        public MovieBuilder directors(Set<String> directors) {
+            this.directors = directors;
+            return this;
+        }
+
+        public MovieBuilder actors(Set<String> actors) {
+            this.actors = actors;
+            return this;
+        }
+
+        public MovieBuilder imagePath(String imagePath) {
+            this.imagePath = imagePath;
+            return this;
+        }
+
+        public Movie build() {
+            return new Movie(name, description, imdbRating, movieDuration, directors, actors, imagePath);
+        }
+
+        public String toString() {
+            return "Movie.MovieBuilder(name=" + this.name + ", description=" + this.description + ", imdbRating=" + this.imdbRating + ", movieDuration=" + this.movieDuration + ", directors=" + this.directors + ", actors=" + this.actors + ", imagePath=" + this.imagePath + ")";
+        }
+    }
 }
