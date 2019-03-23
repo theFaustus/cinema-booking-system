@@ -57,6 +57,7 @@ public class CbsSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/v2/**").permitAll()
                 .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll()
+                .antMatchers("/resources/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

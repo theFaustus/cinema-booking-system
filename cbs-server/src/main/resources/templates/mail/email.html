@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Reservation info</title>
+</head>
+<body>
+<p>Hey, thank you for choosing CBS! You just made a seat reservation, below are some important details and a printable
+    copy of your ticket.</p>
+
+<h3>Personal details.</h3>
+
+<p>Name: <span th:text="${order.ticket.user.firstName}">John</span> <span
+        th:text="${order.ticket.user.lastName}">Doe</span></p>
+<p>Phone: <span th:text="${order.ticket.user.telephoneNumber}">69952044</span></p>
+
+<p>Notes: -</p>
+
+<h3>Reservation details</h3>
+
+<p>Reservation ID: <span th:text="${order.id}">128820</span></p>
+<p>Movie: <span th:text="${order.ticket.movieSession.movie.name}">Pulp Fiction</span></p>
+<p>Showtime: <span  th:text="${#temporals.format(order.ticket.movieSession.showTime, 'yyyy-MM-dd HH:mm')}">2019-03-03@17:00</span></p>
+<p>Seat: <span th:text="${order.ticket.bookedSeat.seatNumber}">A35</span></p>
+<p>Hall: <span th:text="${order.ticket.movieSession.hall.name}">Hall 1</span></p>
+<p>Price: <span th:text="${order.ticket.bookedSeat.price}">1000.00</span> MDL</p>
+
+<h3>IMPORTANT:</h3>
+<p>Please print and bring this registration summary to the movie entrance!</p>
+
+<p>Thanks and see you at the movie!</p>
+<h4>//the CBS team </h4>
+<img src="./images/ticketData/logo_2x.png"/>
+</body>
+</html>

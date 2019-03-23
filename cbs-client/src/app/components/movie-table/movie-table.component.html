@@ -10,37 +10,37 @@
     <ng-container matColumnDef="poster">
       <mat-header-cell *matHeaderCellDef> Poster</mat-header-cell>
       <mat-cell *matCellDef="let movie" >
-        <div class="mat-cell-center-image"><img class="small-poster" src="{{movie.imagePath}}"></div>
+        <div class="mat-cell-center-image" style="margin: 10px;"><img class="small-poster" style="height: 100%; width: 100%; object-fit: contain" src="{{movie.imagePath}}"></div>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
-      <mat-cell *matCellDef="let movie"> {{movie.name}}</mat-cell>
+      <mat-cell *matCellDef="let movie"> <div style="margin: 10px"> {{movie.name}} </div></mat-cell>
     </ng-container>
     <ng-container matColumnDef="description">
       <mat-header-cell *matHeaderCellDef> Description</mat-header-cell>
-      <mat-cell *matCellDef="let movie"> {{movie.description}}</mat-cell>
+      <mat-cell *matCellDef="let movie"> <div style="margin: 10px">{{movie.description}}</div></mat-cell>
     </ng-container>
     <ng-container matColumnDef="imdbRating">
       <mat-header-cell *matHeaderCellDef> IMDB</mat-header-cell>
-      <mat-cell *matCellDef="let movie"> {{movie.imdbRating}}</mat-cell>
+      <mat-cell *matCellDef="let movie"><div style="margin: 10px"> {{movie.imdbRating}}</div></mat-cell>
     </ng-container>
     <ng-container matColumnDef="duration">
       <mat-header-cell *matHeaderCellDef> Duration</mat-header-cell>
-      <mat-cell *matCellDef="let movie"> {{movie.movieDuration}}</mat-cell>
+      <mat-cell *matCellDef="let movie"><div style="margin: 10px"> {{movie.movieDuration}}</div></mat-cell>
     </ng-container>
     <ng-container matColumnDef="actors">
       <mat-header-cell *matHeaderCellDef> Actors</mat-header-cell>
-      <mat-cell *matCellDef="let movie"> {{movie.actors}}</mat-cell>
+      <mat-cell *matCellDef="let movie"><div style="margin: 10px"> {{movie.actors}}</div></mat-cell>
     </ng-container>
     <ng-container matColumnDef="directors">
       <mat-header-cell *matHeaderCellDef> Directors</mat-header-cell>
-      <mat-cell *matCellDef="let movie"> {{movie.directors}}</mat-cell>
+      <mat-cell *matCellDef="let movie"><div style="margin: 10px"> {{movie.directors}}</div></mat-cell>
     </ng-container>
     <ng-container matColumnDef="sessions">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let movie">
-        <button mat-raised-button color="primary" (click)="viewSessions(movie)" style="margin-left:auto; margin-right:0;">View sessions</button>
+        <div style="margin: 10px"><button mat-raised-button color="primary" (click)="viewSessions(movie)" style="margin-left:auto; margin-right:0;">View sessions</button></div>
       </mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

@@ -14,9 +14,11 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 @Configuration
-public class CbsConfiguration {
+public class CbsConfiguration extends WebMvcConfigurationSupport {
 
     @Bean
     public DriverManagerDataSource dataSource() {
@@ -62,6 +64,7 @@ public class CbsConfiguration {
         registrationBean.setFilter(new RequestResponseLoggingFilter());
         return registrationBean;
     }
+
 
 
 }
