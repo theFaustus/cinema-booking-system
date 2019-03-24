@@ -48,6 +48,8 @@ import {MovieSessionModalComponent} from './components/movie-session-modal/movie
 import {SeatBookingModalComponent} from './components/seat-booking-modal/seat-booking-modal.component';
 import {SeatBookingConfirmModalComponent} from './components/seat-booking-confirm-modal/seat-booking-confirm-modal.component';
 import {BookingNotificationModalComponent} from './components/booking-notification-modal/booking-notification-modal.component';
+import { HallTableComponent } from './components/hall-table/hall-table.component';
+import { UserTableComponent } from './components/user-table/user-table.component';
 
 
 @NgModule({
@@ -62,7 +64,9 @@ import {BookingNotificationModalComponent} from './components/booking-notificati
     MovieSessionModalComponent,
     SeatBookingModalComponent,
     SeatBookingConfirmModalComponent,
-    BookingNotificationModalComponent
+    BookingNotificationModalComponent,
+    HallTableComponent,
+    UserTableComponent
   ],
   imports: [
     HttpModule,

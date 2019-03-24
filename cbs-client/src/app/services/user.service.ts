@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {Movie} from "../model/movie";
+import {User} from "../model/user";
+
+const httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
+};
 
 @Injectable({
   providedIn: 'root'
@@ -16,4 +22,7 @@ export class UserService {
   getAdminBoard(): Observable<string> {
     return this.http.get('/server/v1/api/test/admin', { responseType: 'text' });
   }
-}
+
+  getUsers() {
+    return this.http.get<User[]>('/server/v1/api/users', httpOptions);
+  }}

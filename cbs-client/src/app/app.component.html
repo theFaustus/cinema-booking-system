@@ -12,13 +12,13 @@
       </div>
       <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
         <ul fxLayout fxLayoutGap="20px" class="navigation-items">
-          <li *ngIf="authority !== 'user'" class="nav-item">
+          <li *ngIf="authority !== 'user' && authority !== 'admin'" class="nav-item">
             <a class="nav-link" routerLink="auth/login">
               <mat-icon class="icon">input</mat-icon>
               <span class="label">Log in</span>
             </a>
           </li>
-          <li>
+          <li *ngIf="authority === 'user'">
             <a class="nav-link" routerLink="home">
               <mat-icon class="icon">home</mat-icon>
               <span class="label">Home</span>
@@ -36,7 +36,7 @@
               <span class="label">Dashboard</span>
             </a>
           </li>
-          <li *ngIf="authority === 'user'" class="nav-item">
+          <li class="nav-item">
             <a>
               <mat-icon class="icon" (click)="logout()">input</mat-icon>
               <span class="label" (click)="logout()">Log out</span>

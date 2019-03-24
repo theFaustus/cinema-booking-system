@@ -1,5 +1,9 @@
 <mat-card style="margin: 20px;">
 <div class="example-header">
+  <button *ngIf="authority === 'admin'" mat-raised-button color="primary" style="margin-left: auto; margin-right:0;">Add</button>
+  <button *ngIf="authority === 'admin'" mat-raised-button color="accent" style="margin-left: 20px; margin-right:0;">Delete</button>
+  <div *ngIf="authority === 'admin'" style="margin-top: 20px"></div>
+
   <mat-form-field>
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
   </mat-form-field>

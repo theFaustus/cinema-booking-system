@@ -38,6 +38,6 @@ export class AppComponent implements OnInit {
       });
     }
 
-    console.log(this.authority)
+    console.log(this.authority);
   }
 }
