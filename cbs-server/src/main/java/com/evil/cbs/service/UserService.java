@@ -24,4 +24,10 @@ public interface UserService {
     Boolean existsByEmail(String email);
 
     Boolean existsByUsername(String username);
+
+    void enableUser(Long userId);
+
+    void disableUser(Long userId);
+
+
 }

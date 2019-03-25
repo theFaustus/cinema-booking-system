@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -72,5 +73,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public Boolean existsByUsername(String username) {
         return userRepository.existsByUsername(username);
+    }
+
+    @Override
+    @Transactional
+    public void enableUser(Long userId) {
+        userRepository.enableUser(userId);
+    }
+
+    @Override
+    @Transactional
+    public void disableUser(Long userId) {
+        userRepository.disableUser(userId);
     }
 }

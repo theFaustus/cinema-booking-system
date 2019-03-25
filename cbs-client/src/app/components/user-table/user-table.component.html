@@ -1,7 +1,6 @@
 <mat-card style="margin: 20px;">
   <div class="example-header">
     <button *ngIf="authority === 'admin'" mat-raised-button color="primary" style="margin-left: auto; margin-right:0;">Add</button>
-    <button *ngIf="authority === 'admin'" mat-raised-button color="accent" style="margin-left: 20px; margin-right:0;">Delete</button>
     <div *ngIf="authority === 'admin'" style="margin-top: 20px"></div>
 
     <mat-form-field>
@@ -39,7 +38,14 @@
         <mat-header-cell *matHeaderCellDef> Enabled</mat-header-cell>
         <mat-cell *matCellDef="let user"><div style="margin: 10px"> {{user.enabled}}</div></mat-cell>
       </ng-container>
-
+      <ng-container matColumnDef="activity">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let user">
+          <div *ngIf="user.enabled === 0" style="margin: 10px"><button mat-raised-button color="primary" (click)="enableUser(user)" style="margin-left:auto; margin-right:0;">Enable</button></div>
+          <div *ngIf="user.enabled === 1" style="margin: 10px"><button mat-raised-button color="primary" (click)="disableUser(user)" style="margin-left:auto; margin-right:0;">Disable</button></div>
+          <button *ngIf="authority === 'admin'" mat-raised-button color="accent" style="margin-left: 20px; margin-right:0;" (click)="deleteUser(user)">Delete</button>
+        </mat-cell>
+      </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>

@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,9 +66,16 @@ public class UserResource {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @GetMapping("/{userId}/")
-    public ResponseEntity<User> getUserById(@PathVariable("userId") Long userId){
-        return ResponseEntity.status(HttpStatus.OK).body(userService.findById(userId));
+    @PostMapping("/{userId}/enable")
+    public ResponseEntity enableUser(@PathVariable("userId") Long userId){
+        userService.enableUser(userId);
+        return ResponseEntity.status(HttpStatus.OK).body("Enabled " + userId);
+    }
+
+    @PostMapping("/{userId}/disable")
+    public ResponseEntity disableUser(@PathVariable("userId") Long userId){
+        userService.disableUser(userId);
+        return ResponseEntity.status(HttpStatus.OK).body("Disabled " + userId);
     }
 
 }

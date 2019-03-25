@@ -3,6 +3,7 @@ import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from "@angular/mat
 import {TokenStorageService} from "../../auth/token-storage.service";
 import {User} from "../../model/user";
 import {UserService} from "../../services/user.service";
+import {BookingNotificationModalComponent} from "../booking-notification-modal/booking-notification-modal.component";
 
 @Component({
   selector: 'app-user-table',
@@ -18,7 +19,7 @@ export class UserTableComponent  implements OnInit {
   public authority: string;
   private info: any;
 
-  displayedColumns = ['username', 'firstName', 'lastName', 'telephone', 'email', 'role', 'enabled'];
+  displayedColumns = ['username', 'firstName', 'lastName', 'telephone', 'email', 'role', 'enabled', 'activity'];
   dataSource: MatTableDataSource<User>;
   users: User[];
 
@@ -63,4 +64,17 @@ export class UserTableComponent  implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
+  enableUser(user: User) {
+    this.userService.enableUser(user).subscribe(data => {
+    });
+  }
+
+  disableUser(user: User) {
+    this.userService.disableUser(user).subscribe(data => {
+    });
+  }
+
+  deleteUser(user: User) {
+
+  }
 }

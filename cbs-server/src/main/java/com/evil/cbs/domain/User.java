@@ -28,7 +28,6 @@ public class User extends AbstractEntity {
     @JsonIgnore
     private String password;
     private String role;
-    @JsonIgnore
     private int enabled = 1;
     @Column(name = "first_name")
     private String firstName;
