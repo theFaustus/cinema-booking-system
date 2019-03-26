@@ -37,6 +37,6 @@ export class UserService {
   }
 
   deleteUser(user: User) {
-    return this.http.get<User>('/server/v1/api/users', httpOptions);
+    return this.http.delete('/server/v1/api/users/' + user.id + "/", httpOptions);
   }
 }

@@ -3,14 +3,14 @@ import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from "@angular/mat
 import {TokenStorageService} from "../../auth/token-storage.service";
 import {User} from "../../model/user";
 import {UserService} from "../../services/user.service";
-import {BookingNotificationModalComponent} from "../booking-notification-modal/booking-notification-modal.component";
+import {NotifierService} from "angular-notifier";
 
 @Component({
   selector: 'app-user-table',
   templateUrl: './user-table.component.html',
   styleUrls: ['./user-table.component.css']
 })
-export class UserTableComponent  implements OnInit {
+export class UserTableComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -19,13 +19,16 @@ export class UserTableComponent  implements OnInit {
   public authority: string;
   private info: any;
 
+  private readonly notifier: NotifierService;
+
+
   displayedColumns = ['username', 'firstName', 'lastName', 'telephone', 'email', 'role', 'enabled', 'activity'];
   dataSource: MatTableDataSource<User>;
   users: User[];
 
 
-  constructor(private userService: UserService, public dialog: MatDialog, private tokenStorage: TokenStorageService) {
-
+  constructor(notifierService: NotifierService, private userService: UserService, public dialog: MatDialog, private tokenStorage: TokenStorageService) {
+    this.notifier = notifierService;
     this.dataSource = new MatTableDataSource();
   }
 
@@ -67,14 +70,31 @@ export class UserTableComponent  implements OnInit {
   enableUser(user: User) {
     this.userService.enableUser(user).subscribe(data => {
     });
+    this.notifier.notify('success', 'User [' + user.username + '] enabled!');
+    this.redraw();
   }
 
   disableUser(user: User) {
     this.userService.disableUser(user).subscribe(data => {
     });
+    this.notifier.notify('success', 'User [' + user.username + ']  disabled!');
+    this.redraw();
   }
 
   deleteUser(user: User) {
+    this.userService.deleteUser(user).subscribe(data => {
+    });
+    this.notifier.notify('success', 'User [' + user.username + '] deleted!');
+    this.redraw();
+  }
 
+  redraw() {
+    this.dataSource = new MatTableDataSource();
+    this.userService.getUsers().subscribe(data => {
+      this.dataSource.data = data;
+      console.log(data);
+    });
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 }

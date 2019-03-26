@@ -50,6 +50,7 @@ import {SeatBookingConfirmModalComponent} from './components/seat-booking-confir
 import {BookingNotificationModalComponent} from './components/booking-notification-modal/booking-notification-modal.component';
 import { HallTableComponent } from './components/hall-table/hall-table.component';
 import { UserTableComponent } from './components/user-table/user-table.component';
+import {NotifierModule} from "angular-notifier";
 
 
 @NgModule({
@@ -101,8 +102,8 @@ import { UserTableComponent } from './components/user-table/user-table.component
     MatListModule,
     FlexLayoutModule,
     RouterModule,
-    MatGridListModule
-
+    MatGridListModule,
+    NotifierModule
   ],
   exports: [],
   entryComponents: [
