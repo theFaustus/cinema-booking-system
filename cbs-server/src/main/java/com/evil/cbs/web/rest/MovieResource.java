@@ -49,6 +49,15 @@ public class MovieResource {
         return ResponseEntity.status(HttpStatus.OK).body(movieSessionService.findMovieSessionByMovieId(movieId));
     }
 
+
+    @DeleteMapping("/{movieId}/sessions")
+    public ResponseEntity<List<MovieSessionDTO>> deleteAllMovieSessionsByMovieId(@PathVariable("movieId") Long movieId){
+        movieSessionService.findMovieSessionByMovieId(movieId)
+                .forEach(ms -> movieSessionService.deleteById(ms.getMovieSessionId()));
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+
     @DeleteMapping("/{movieId}/")
     public ResponseEntity<Movie> deleteMovieById(@PathVariable("movieId") Long movieId){
         movieService.deleteById(movieId);

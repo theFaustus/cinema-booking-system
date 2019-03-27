@@ -25,4 +25,12 @@ export class MovieSessionService {
   bookMovie(bookedMovie: BookedMovie): Observable<Ticket> {
     return this.http.post<Ticket>('/server/v1/api/movie-sessions/' + bookedMovie.movieSessionId + "/booked-movies", bookedMovie, httpOptions);
   }
+
+  deleteMovieSession(movieSession: MovieSession) {
+    return this.http.delete('/server/v1/api/movie-sessions/' + movieSession.movieSessionId + '/', httpOptions);
+  }
+
+  deleteMovieSessionsByMovieId(movie: Movie) {
+    return this.http.delete('/server/v1/api/movies/' + movie.id + '/sessions', httpOptions);
+  }
 }

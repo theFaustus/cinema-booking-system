@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import {DataSource} from '@angular/cdk/collections';
@@ -9,13 +9,16 @@ import {MovieSessionService} from '../../services/movie-session.service';
 import {MovieSession} from '../../model/movie-session';
 import {MovieSessionModalComponent} from '../movie-session-modal/movie-session-modal.component';
 import {TokenStorageService} from "../../auth/token-storage.service";
+import {User} from "../../model/user";
+import {AddUserModalComponent} from "../add-user-modal/add-user-modal.component";
+import {NotifierService} from "angular-notifier";
 
 @Component({
   selector: 'app-movie-table',
   templateUrl: './movie-table.component.html',
   styleUrls: ['./movie-table.component.css']
 })
-export class MovieTableComponent implements OnInit {
+export class MovieTableComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -23,6 +26,7 @@ export class MovieTableComponent implements OnInit {
   private roles: string[];
   public authority: string;
   private info: any;
+  private readonly notifier: NotifierService;
 
   displayedColumns = ['poster', 'name', 'description', 'imdbRating', 'duration', 'directors', 'actors', 'sessions'];
   dataSource: MatTableDataSource<Movie>;
@@ -30,9 +34,10 @@ export class MovieTableComponent implements OnInit {
   movieSessions: MovieSession[];
 
 
-  constructor(private movieService: MovieService, private movieSessionService: MovieSessionService, public dialog: MatDialog, private tokenStorage: TokenStorageService) {
+  constructor(notifierService: NotifierService, private changeDetectorRefs: ChangeDetectorRef, private movieService: MovieService, private movieSessionService: MovieSessionService, public dialog: MatDialog, private tokenStorage: TokenStorageService) {
 
     this.dataSource = new MatTableDataSource();
+    this.notifier = notifierService;
   }
 
   ngOnInit() {
@@ -86,6 +91,39 @@ export class MovieTableComponent implements OnInit {
         width: '700px',
       });
     });
+  }
+
+  deleteMovie(movie: Movie) {
+    this.movieSessionService.deleteMovieSessionsByMovieId(movie).subscribe(data => {
+    });
+    this.notifier.notify('success', 'All movie sessions for [' + movie.name + '] deleted!');
+    this.movieService.deleteMovie(movie).subscribe(data => {
+    });
+    this.notifier.notify('success', 'Movie [' + movie.name + '] deleted!');
+    this.redraw();
+  }
+
+  openAddMovieModal() {
+    this.dialog.open(AddUserModalComponent, {
+      data: {
+        userTableRef: this
+      },
+      width: "700px",
+    });
+  }
+
+  redraw() {
+    this.dataSource = new MatTableDataSource();
+    this.dataSource.data.concat([]);
+    this.movieService.getMovies().subscribe(data => {
+      this.dataSource.data = data;
+      console.log(data);
+    });
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.changeDetectorRefs.detectChanges();
+    this.dataSource._updateChangeSubscription();
+    this.paginator._changePageSize(this.paginator.pageSize);
   }
 
 }

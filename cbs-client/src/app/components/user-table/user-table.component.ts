@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {TokenStorageService} from "../../auth/token-storage.service";
 import {User} from "../../model/user";
@@ -30,7 +30,7 @@ export class UserTableComponent implements OnInit, AfterViewInit {
   users: User[];
 
 
-  constructor(notifierService: NotifierService, private userService: UserService, public dialog: MatDialog, private tokenStorage: TokenStorageService) {
+  constructor(private changeDetectorRefs: ChangeDetectorRef, notifierService: NotifierService, private userService: UserService, public dialog: MatDialog, private tokenStorage: TokenStorageService) {
     this.notifier = notifierService;
     this.dataSource = new MatTableDataSource();
   }
@@ -106,8 +106,12 @@ export class UserTableComponent implements OnInit, AfterViewInit {
     this.userService.getUsers().subscribe(data => {
       this.dataSource.data = data;
       console.log(data);
+      this.changeDetectorRefs.detectChanges();
     });
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.changeDetectorRefs.detectChanges();
+    this.dataSource._updateChangeSubscription();
+    this.paginator._changePageSize(this.paginator.pageSize);
   }
 }
