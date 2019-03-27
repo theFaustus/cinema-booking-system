@@ -1,7 +1,7 @@
 <notifier-container></notifier-container>
 <mat-card style="margin: 20px;">
   <div class="example-header">
-    <button *ngIf="authority === 'admin'" mat-raised-button color="primary" style="margin-left: auto; margin-right:0;">Add</button>
+    <button *ngIf="authority === 'admin'" (click)="openAddUserModal()" mat-raised-button color="primary" style="margin-left: auto; margin-right:0;">Add</button>
     <div *ngIf="authority === 'admin'" style="margin-top: 20px"></div>
 
     <mat-form-field>

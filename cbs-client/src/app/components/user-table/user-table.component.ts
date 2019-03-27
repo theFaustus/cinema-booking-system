@@ -1,16 +1,19 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {TokenStorageService} from "../../auth/token-storage.service";
 import {User} from "../../model/user";
 import {UserService} from "../../services/user.service";
 import {NotifierService} from "angular-notifier";
+import {Seat} from "../../model/seat";
+import {SeatBookingConfirmModalComponent} from "../seat-booking-confirm-modal/seat-booking-confirm-modal.component";
+import {AddUserModalComponent} from "../add-user-modal/add-user-modal.component";
 
 @Component({
   selector: 'app-user-table',
   templateUrl: './user-table.component.html',
   styleUrls: ['./user-table.component.css']
 })
-export class UserTableComponent implements OnInit {
+export class UserTableComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -88,8 +91,18 @@ export class UserTableComponent implements OnInit {
     this.redraw();
   }
 
+  openAddUserModal() {
+    this.dialog.open(AddUserModalComponent, {
+      data: {
+        userTableRef: this
+      },
+      width: "700px",
+    });
+  }
+
   redraw() {
     this.dataSource = new MatTableDataSource();
+    this.dataSource.data.concat([]);
     this.userService.getUsers().subscribe(data => {
       this.dataSource.data = data;
       console.log(data);

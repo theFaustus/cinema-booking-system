@@ -51,6 +51,7 @@ import {BookingNotificationModalComponent} from './components/booking-notificati
 import { HallTableComponent } from './components/hall-table/hall-table.component';
 import { UserTableComponent } from './components/user-table/user-table.component';
 import {NotifierModule} from "angular-notifier";
+import { AddUserModalComponent } from './components/add-user-modal/add-user-modal.component';
 
 
 @NgModule({
@@ -67,7 +68,8 @@ import {NotifierModule} from "angular-notifier";
     SeatBookingConfirmModalComponent,
     BookingNotificationModalComponent,
     HallTableComponent,
-    UserTableComponent
+    UserTableComponent,
+    AddUserModalComponent
   ],
   imports: [
     HttpModule,
@@ -110,7 +112,8 @@ import {NotifierModule} from "angular-notifier";
     MovieSessionModalComponent,
     SeatBookingModalComponent,
     SeatBookingConfirmModalComponent,
-    BookingNotificationModalComponent
+    BookingNotificationModalComponent,
+    AddUserModalComponent
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]

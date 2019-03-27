@@ -15,7 +15,7 @@ import {SeatBookingConfirmModalComponent} from "../seat-booking-confirm-modal/se
   templateUrl: './seat-booking-modal.component.html',
   styleUrls: ['./seat-booking-modal.component.css']
 })
-export class SeatBookingModalComponent {
+export class SeatBookingModalComponent implements OnInit{
   retrieveData: Array<Seat> = [];
 
   constructor(private dialogRef: MatDialogRef<MovieSessionModalComponent>,
@@ -39,7 +39,7 @@ export class SeatBookingModalComponent {
       this.retrieveData.sort(function(a, b) {
         return a.seatNumber.localeCompare(b.seatNumber);
       });
-      console.log(this.retrieveData)
+      console.log(this.retrieveData);
     });
   }
 
