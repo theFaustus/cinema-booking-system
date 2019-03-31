@@ -12,6 +12,7 @@ import {TokenStorageService} from "../../auth/token-storage.service";
 import {User} from "../../model/user";
 import {AddUserModalComponent} from "../add-user-modal/add-user-modal.component";
 import {NotifierService} from "angular-notifier";
+import {AddMovieModalComponent} from "../add-movie-modal/add-movie-modal.component";
 
 @Component({
   selector: 'app-movie-table',
@@ -104,7 +105,7 @@ export class MovieTableComponent implements OnInit, AfterViewInit {
   }
 
   openAddMovieModal() {
-    this.dialog.open(AddUserModalComponent, {
+    this.dialog.open(AddMovieModalComponent, {
       data: {
         userTableRef: this
       },

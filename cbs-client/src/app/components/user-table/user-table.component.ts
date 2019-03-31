@@ -38,6 +38,7 @@ export class UserTableComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.userService.getUsers().subscribe(data => {
       this.dataSource.data = data;
+      console.log('DRAW');
       console.log(data);
     });
     this.info = {
@@ -105,13 +106,15 @@ export class UserTableComponent implements OnInit, AfterViewInit {
     this.dataSource.data.concat([]);
     this.userService.getUsers().subscribe(data => {
       this.dataSource.data = data;
+      console.log('REDRAW');
       console.log(data);
       this.changeDetectorRefs.detectChanges();
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.changeDetectorRefs.detectChanges();
+      this.dataSource._updateChangeSubscription();
+      this.paginator._changePageSize(this.paginator.pageSize);
     });
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    this.changeDetectorRefs.detectChanges();
-    this.dataSource._updateChangeSubscription();
-    this.paginator._changePageSize(this.paginator.pageSize);
+
   }
 }

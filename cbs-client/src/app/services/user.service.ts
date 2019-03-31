@@ -5,7 +5,12 @@ import {Movie} from "../model/movie";
 import {User} from "../model/user";
 
 const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json'})
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'If-Modified-Since': 'Mon, 26 Jul 1997 05:00:00 GMT',
+    'Cache-Control': 'no-cache',
+    'Pragma': 'no-cache'
+  })
 };
 
 @Injectable({

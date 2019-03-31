@@ -1,18 +1,18 @@
 import {MovieSession} from "./movie-session";
 
 export class Movie {
-  id: number
+  id: number;
   name: string;
   description: string;
   imdbRating: string;
-  movieDuration: number;
+  movieDuration: string;
   movieSession: MovieSession;
   directors: Array<string>;
   actors: Array<string>;
   imagePath: string;
 
 
-  constructor(id: number, name: string, description: string, imdbRating: string, movieDuration: number, movieSession: MovieSession, directors: Array<string>, actors: Array<string>, imagePath: string) {
+  constructor(id: number, name: string, description: string, imdbRating: string, movieDuration: string, movieSession: MovieSession, directors: Array<string>, actors: Array<string>, imagePath: string) {
     this.id = id;
     this.name = name;
     this.description = description;

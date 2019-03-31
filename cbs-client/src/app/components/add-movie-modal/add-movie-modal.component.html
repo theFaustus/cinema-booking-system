@@ -1,0 +1,62 @@
+<notifier-container></notifier-container>
+<mat-card-content>
+  <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+    <mat-list layout="column">
+      <mat-list-item>
+        <mat-form-field class="full-width">
+          <mat-label>Name</mat-label>
+          <input matInput type="text" class="form-control" name="name" [(ngModel)]="form.name"
+                 #name="ngModel"
+                 required/>
+        </mat-form-field>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-form-field class="full-width">
+          <mat-label>Description</mat-label>
+          <input matInput type="text" class="form-control" name="description" [(ngModel)]="form.description" #description="ngModel"
+                 required />
+        </mat-form-field>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-form-field class="full-width">
+          <mat-label>IMDB Rating</mat-label>
+          <input matInput type="text" class="form-control" name="imdbRating" [(ngModel)]="form.imdbRating" #name="ngModel"
+                 required/>
+        </mat-form-field>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-form-field class="full-width">
+          <mat-label>Movie Duration (seconds)</mat-label>
+          <input matInput type="text" class="form-control" name="movieDuration" [(ngModel)]="form.movieDuration" #name="ngModel"
+                 required/>
+        </mat-form-field>
+      </mat-list-item>
+      <mat-list-item>
+      <mat-form-field class="full-width">
+        <mat-label>Directors (,)</mat-label>
+        <input matInput type="text" class="form-control" name="directors" [(ngModel)]="form.directors"
+               #name="ngModel" required/>
+      </mat-form-field>
+    </mat-list-item>
+      <mat-list-item>
+        <mat-form-field class="full-width">
+          <mat-label>Actors (,)</mat-label>
+          <input matInput type="text" class="form-control" name="actors" [(ngModel)]="form.actors"
+                 #name="ngModel" required/>
+        </mat-form-field>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-form-field class="full-width">
+          <mat-label>Poster path</mat-label>
+          <input matInput type="imagePath" class="form-control" name="imagePath" [(ngModel)]="form.imagePath"
+                 #imagePath="ngModel"/>
+        </mat-form-field>
+      </mat-list-item>
+    </mat-list>
+    <div class="form-group" style="text-align:center;">
+      <mat-card-actions style="margin: 0 auto;">
+        <button mat-raised-button color="primary">Add</button>
+      </mat-card-actions>
+    </div>
+  </form>
+</mat-card-content>
