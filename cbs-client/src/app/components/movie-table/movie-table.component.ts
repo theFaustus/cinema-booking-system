@@ -99,9 +99,10 @@ export class MovieTableComponent implements OnInit, AfterViewInit {
     });
     this.notifier.notify('success', 'All movie sessions for [' + movie.name + '] deleted!');
     this.movieService.deleteMovie(movie).subscribe(data => {
+      this.notifier.notify('success', 'Movie [' + movie.name + '] deleted!');
+      this.redraw();
     });
-    this.notifier.notify('success', 'Movie [' + movie.name + '] deleted!');
-    this.redraw();
+
   }
 
   openAddMovieModal() {
@@ -111,6 +112,7 @@ export class MovieTableComponent implements OnInit, AfterViewInit {
       },
       width: "700px",
     });
+    this.redraw();
   }
 
   redraw() {

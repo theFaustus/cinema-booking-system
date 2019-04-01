@@ -60,6 +60,7 @@ export class AddMovieModalComponent implements OnInit {
     this.movieService.createMovie(this.movie).subscribe(
       data => {
         console.log(data);
+        this.matData.userTableRef.redraw();
       },
       error => {
         console.log(error);

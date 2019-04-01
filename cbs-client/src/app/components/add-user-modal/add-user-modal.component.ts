@@ -56,6 +56,7 @@ export class AddUserModalComponent implements OnInit {
       data => {
         console.log(data);
         this.isSignUpFailed = false;
+        this.matData.userTableRef.redraw();
       },
       error => {
         console.log(error);

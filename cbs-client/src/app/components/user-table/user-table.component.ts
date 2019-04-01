@@ -87,9 +87,10 @@ export class UserTableComponent implements OnInit, AfterViewInit {
 
   deleteUser(user: User) {
     this.userService.deleteUser(user).subscribe(data => {
+      this.notifier.notify('success', 'User [' + user.username + '] deleted!');
+      this.redraw();
     });
-    this.notifier.notify('success', 'User [' + user.username + '] deleted!');
-    this.redraw();
+
   }
 
   openAddUserModal() {
