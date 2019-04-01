@@ -1,3 +1,4 @@
+
 <h2 mat-dialog-title>{{matData.movieName}} - Sessions</h2>
 <mat-dialog-content class="mat-typography">
 
@@ -26,6 +27,7 @@
           <mat-header-cell *matHeaderCellDef></mat-header-cell>
           <mat-cell *matCellDef="let movieSession" >
             <button mat-raised-button color="primary" (click)="bookMovieSession(movieSession)" style="margin-left:auto; margin-right:0;">Book</button>
+            <button *ngIf="authority === 'admin'" (click)="deleteMovieSession(movieSession)" mat-raised-button color="accent" style="margin-left: 20px; margin-right:0;">Delete</button>
           </mat-cell>
         </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

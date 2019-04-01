@@ -33,4 +33,8 @@ export class MovieSessionService {
   deleteMovieSessionsByMovieId(movie: Movie) {
     return this.http.delete('/server/v1/api/movies/' + movie.id + '/sessions', httpOptions);
   }
+
+  deleteMovieSessionById(movieSession: MovieSession) {
+    return this.http.delete('/server/v1/api/movie-sessions/' + movieSession.movieSessionId + '/', httpOptions);
+  }
 }

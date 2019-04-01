@@ -96,19 +96,26 @@ export class MovieTableComponent implements OnInit, AfterViewInit {
 
   deleteMovie(movie: Movie) {
     this.movieSessionService.deleteMovieSessionsByMovieId(movie).subscribe(data => {
-    });
-    this.notifier.notify('success', 'All movie sessions for [' + movie.name + '] deleted!');
+        this.notifier.notify('success', 'All movie sessions for [' + movie.name + '] deleted!');
+      },
+      error => {
+        this.notifier.notify('error', 'Movie sessions for [' + movie.name + '] not deleted! There are booked tickets!');
+
+      });
     this.movieService.deleteMovie(movie).subscribe(data => {
-      this.notifier.notify('success', 'Movie [' + movie.name + '] deleted!');
-      this.redraw();
-    });
+        this.notifier.notify('success', 'Movie [' + movie.name + '] deleted!');
+        this.redraw();
+      },
+      error => {
+        this.notifier.notify('error', 'Movie [' + movie.name + '] not deleted! There are booked tickets!');
+      });
 
   }
 
   openAddMovieModal() {
     this.dialog.open(AddMovieModalComponent, {
       data: {
-        userTableRef: this
+        movieTableRef: this
       },
       width: "700px",
     });

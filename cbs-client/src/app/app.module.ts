@@ -53,6 +53,7 @@ import { UserTableComponent } from './components/user-table/user-table.component
 import {NotifierModule} from "angular-notifier";
 import { AddUserModalComponent } from './components/add-user-modal/add-user-modal.component';
 import { AddMovieModalComponent } from './components/add-movie-modal/add-movie-modal.component';
+import { AddMovieSessionModalComponent } from './components/add-movie-session-modal/add-movie-session-modal.component';
 
 
 @NgModule({
@@ -71,7 +72,8 @@ import { AddMovieModalComponent } from './components/add-movie-modal/add-movie-m
     HallTableComponent,
     UserTableComponent,
     AddUserModalComponent,
-    AddMovieModalComponent
+    AddMovieModalComponent,
+    AddMovieSessionModalComponent
   ],
   imports: [
     HttpModule,
@@ -116,7 +118,8 @@ import { AddMovieModalComponent } from './components/add-movie-modal/add-movie-m
     SeatBookingConfirmModalComponent,
     BookingNotificationModalComponent,
     AddUserModalComponent,
-    AddMovieModalComponent
+    AddMovieModalComponent,
+    AddMovieSessionModalComponent
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]

@@ -60,7 +60,7 @@ export class AddMovieModalComponent implements OnInit {
     this.movieService.createMovie(this.movie).subscribe(
       data => {
         console.log(data);
-        this.matData.userTableRef.redraw();
+        this.matData.movieTableRef.redraw();
       },
       error => {
         console.log(error);
@@ -69,7 +69,7 @@ export class AddMovieModalComponent implements OnInit {
 
     this.closeDialog();
     this.notifier.notify('success', 'Movie [' + this.form.name + '] created!');
-    this.matData.userTableRef.redraw();
+    this.matData.movieTableRef.redraw();
   }
 
 }
