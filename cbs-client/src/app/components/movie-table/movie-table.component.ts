@@ -87,7 +87,8 @@ export class MovieTableComponent implements OnInit, AfterViewInit {
           movieId: movie.id,
           movieName: movie.name,
           movieImagePath: movie.imagePath,
-          movieDescription: movie.description
+          movieDescription: movie.description,
+          movie: movie
         },
         width: '700px',
       });

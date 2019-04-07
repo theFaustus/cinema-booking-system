@@ -25,7 +25,7 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-public class Hall extends AbstractEntity{
+public class Hall extends AbstractEntity {
     @Column(name = "name", unique = true)
     private String name;
     @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL, orphanRemoval = true)

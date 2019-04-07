@@ -54,6 +54,7 @@ import {NotifierModule} from "angular-notifier";
 import { AddUserModalComponent } from './components/add-user-modal/add-user-modal.component';
 import { AddMovieModalComponent } from './components/add-movie-modal/add-movie-modal.component';
 import { AddMovieSessionModalComponent } from './components/add-movie-session-modal/add-movie-session-modal.component';
+import {OwlDateTimeModule, OwlNativeDateTimeModule} from "ng-pick-datetime";
 
 
 @NgModule({
@@ -109,7 +110,9 @@ import { AddMovieSessionModalComponent } from './components/add-movie-session-mo
     FlexLayoutModule,
     RouterModule,
     MatGridListModule,
-    NotifierModule
+    NotifierModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
   ],
   exports: [],
   entryComponents: [

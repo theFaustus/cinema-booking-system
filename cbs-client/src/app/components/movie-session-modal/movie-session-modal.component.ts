@@ -115,10 +115,11 @@ export class MovieSessionModalComponent implements OnInit, AfterViewInit {
       });
   }
 
-  openAddMovieModal() {
+  openAddMovieSessionModal() {
     this.dialog.open(AddMovieSessionModalComponent, {
       data: {
-        movieSessionTableRef: this
+        movieSessionTableRef: this,
+        movie: this.matData.movie,
       },
       width: "700px",
     });
