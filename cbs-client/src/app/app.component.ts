@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TokenStorageService} from './auth/token-storage.service';
 import {ActuatorService} from "./services/actuator.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -13,12 +14,12 @@ export class AppComponent implements OnInit {
   private info: any;
 
 
-  constructor(private tokenStorage: TokenStorageService, private actuatorService: ActuatorService) { }
+  constructor(private router: Router, private tokenStorage: TokenStorageService) { }
 
 
   logout() {
     this.tokenStorage.signOut();
-    window.location.reload();
+    this.router.navigate([('auth/login')]);
   }
 
   ngOnInit() {
@@ -38,22 +39,6 @@ export class AppComponent implements OnInit {
         return true;
       });
     }
-
-    this.actuatorService.getHealth().subscribe(value => {
-      console.log(value);
-    });
-
-    this.actuatorService.getHttpProcessUpTimeMetrics().subscribe(value => {
-      console.log(value);
-    });
-
-    this.actuatorService.getHttpServerRequestMetrics().subscribe(value => {
-      console.log(value);
-    });
-
-    this.actuatorService.getInfo().subscribe(value => {
-      console.log(value);
-    });
 
     console.log(this.authority);
   }

@@ -1,6 +1,9 @@
+import {App} from "./app";
+
 export class Info {
-  name: string;
-  description: string;
+  app: App;
 
-
+  constructor(app: App) {
+    this.app = app;
+  }
 }

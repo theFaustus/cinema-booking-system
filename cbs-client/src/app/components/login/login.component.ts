@@ -3,6 +3,13 @@ import {AuthLoginInfo} from "../../model/login-info";
 import {AuthService} from "../../auth/auth.service";
 import {TokenStorageService} from "../../auth/token-storage.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Router} from "@angular/router";
+import {ActuatorService} from "../../services/actuator.service";
+import {Health} from "../../model/actuator/health";
+import {HttpServerRequest} from "../../model/actuator/http-server-request";
+import {Info} from "../../model/actuator/info";
+import {ProcessUptime} from "../../model/actuator/process-uptime";
+import {App} from "../../model/actuator/app";
 
 
 @Component({
@@ -18,9 +25,20 @@ export class LoginComponent implements OnInit {
   roles: string[] = [];
   private loginInfo: AuthLoginInfo;
   loginForm: FormGroup;
+  private authority: string;
+
+  health: Health;
+  httpServerRequest: HttpServerRequest;
+  info: Info;
+  processUpTime: ProcessUptime;
 
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private formBuilder: FormBuilder
+
+  constructor(private actuatorService: ActuatorService,
+              private router: Router,
+              private authService: AuthService,
+              private tokenStorage: TokenStorageService,
+              private formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
@@ -31,6 +49,39 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       email   : ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
+    });
+
+    if (this.tokenStorage.getToken()) {
+      this.roles = this.tokenStorage.getAuthorities();
+      this.roles.every(role => {
+        if (role === 'ROLE_ADMIN') {
+          this.authority = 'admin';
+          return false;
+        }
+        this.authority = 'user';
+        return true;
+      });
+    }
+
+    this.actuatorService.getHealth().subscribe(value => {
+      console.log(value);
+      this.health = value;
+    });
+
+    this.actuatorService.getHttpProcessUpTimeMetrics().subscribe(value => {
+      console.log(value);
+      this.processUpTime = value;
+    });
+
+    this.actuatorService.getHttpServerRequestMetrics().subscribe(value => {
+      console.log(value);
+      this.httpServerRequest = value;
+    });
+
+    this.actuatorService.getInfo().subscribe(value => {
+      this.info = value;
+      console.log(value);
+
     });
   }
 
@@ -49,6 +100,18 @@ export class LoginComponent implements OnInit {
         console.log(data.username);
         this.tokenStorage.saveAuthorities(data.authorities);
         console.log(data.authorities);
+
+        if (this.tokenStorage.getToken()) {
+          this.roles = this.tokenStorage.getAuthorities();
+          this.roles.every(role => {
+            if (role === 'ROLE_ADMIN') {
+              this.authority = 'admin';
+              return false;
+            }
+            this.authority = 'user';
+            return true;
+          });
+        }
 
         this.isLoginFailed = false;
         this.isLoggedIn = true;

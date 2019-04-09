@@ -45,6 +45,11 @@
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let movie">
         <div style="margin: 10px"><button mat-raised-button color="primary" (click)="viewSessions(movie)" style="margin-left:auto; margin-right:0;">View sessions</button></div>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="delete">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let movie">
         <button *ngIf="authority === 'admin'" (click)="deleteMovie(movie)" mat-raised-button color="accent" style="margin-left: 20px; margin-right:0;">Delete</button>
       </mat-cell>
     </ng-container>

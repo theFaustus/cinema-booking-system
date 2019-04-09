@@ -29,7 +29,7 @@ export class MovieTableComponent implements OnInit, AfterViewInit {
   private info: any;
   private readonly notifier: NotifierService;
 
-  displayedColumns = ['poster', 'name', 'description', 'imdbRating', 'duration', 'directors', 'actors', 'sessions'];
+  displayedColumns = ['poster', 'name', 'description', 'imdbRating', 'duration', 'directors', 'actors', 'sessions', 'delete'];
   dataSource: MatTableDataSource<Movie>;
   movies: Movie[];
   movieSessions: MovieSession[];
