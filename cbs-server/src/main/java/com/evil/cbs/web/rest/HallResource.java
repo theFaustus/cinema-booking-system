@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,12 +36,15 @@ public class HallResource {
 
     @PostMapping
     public ResponseEntity<?> addHall(@Valid @RequestBody HallDTO hallDTO, @RequestParam(name = "numberOfSeats", defaultValue = "40") Integer numberOfSeats) {
+        log.info("" + numberOfSeats);
         Hall hall;
         hall = Hall.builder()
                 .name(hallDTO.getName())
                 .imagePath(hallDTO.getImagePath())
                 .description(hallDTO.getDescription())
+                .seats(new HashSet<>())
                 .build();
+        log.info("" + hall);
         return ResponseEntity.status(HttpStatus.CREATED).body(hallService.saveHall(hall, numberOfSeats));
     }
 

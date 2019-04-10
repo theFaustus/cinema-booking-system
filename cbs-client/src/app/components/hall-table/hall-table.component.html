@@ -1,7 +1,7 @@
+<notifier-container></notifier-container>
 <mat-card style="margin: 20px;">
   <div class="example-header">
-    <button *ngIf="authority === 'admin'" mat-raised-button color="primary" style="margin-left: auto; margin-right:0;">Add</button>
-    <button *ngIf="authority === 'admin'" mat-raised-button color="accent" style="margin-left: 20px; margin-right:0;">Delete</button>
+    <button *ngIf="authority === 'admin'" (click)="openAddHallModal()" mat-raised-button color="primary" style="margin-left: auto; margin-right:0;">Add</button>
     <div *ngIf="authority === 'admin'" style="margin-top: 20px"></div>
 
     <mat-form-field>
@@ -27,6 +27,12 @@
         <mat-header-cell *matHeaderCellDef> Poster</mat-header-cell>
         <mat-cell *matCellDef="let hall" >
           <div class="mat-cell-center-image" style="margin: 10px;"><img class="small-poster" style="height: 100%; width: 100%; object-fit: contain" src="{{hall.imagePath}}"></div>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="delete">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let hall">
+          <button *ngIf="authority === 'admin'" (click)="deleteHall(hall)" mat-raised-button color="accent" style="margin-left: 20px; margin-right:0;">Delete</button>
         </mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

@@ -17,7 +17,7 @@ public interface HallRepository extends JpaRepository<Hall, Long> {
     @Query("select h from Hall h join fetch h.seats where h.id = :id")
     Optional<Hall> findById(@Param("id") Long id);
 
-    @Query("select distinct h from Hall h join fetch h.seats join fetch h.movieSessions")
+    @Query("select distinct h from Hall h join fetch h.seats")
     @Override
     List<Hall> findAll();
 }

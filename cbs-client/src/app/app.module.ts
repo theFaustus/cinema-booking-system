@@ -55,6 +55,7 @@ import { AddUserModalComponent } from './components/add-user-modal/add-user-moda
 import { AddMovieModalComponent } from './components/add-movie-modal/add-movie-modal.component';
 import { AddMovieSessionModalComponent } from './components/add-movie-session-modal/add-movie-session-modal.component';
 import {OwlDateTimeModule, OwlNativeDateTimeModule} from "ng-pick-datetime";
+import { AddHallModalComponent } from './components/add-hall-modal/add-hall-modal.component';
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import {OwlDateTimeModule, OwlNativeDateTimeModule} from "ng-pick-datetime";
     UserTableComponent,
     AddUserModalComponent,
     AddMovieModalComponent,
-    AddMovieSessionModalComponent
+    AddMovieSessionModalComponent,
+    AddHallModalComponent
   ],
   imports: [
     HttpModule,
@@ -122,7 +124,8 @@ import {OwlDateTimeModule, OwlNativeDateTimeModule} from "ng-pick-datetime";
     BookingNotificationModalComponent,
     AddUserModalComponent,
     AddMovieModalComponent,
-    AddMovieSessionModalComponent
+    AddMovieSessionModalComponent,
+    AddHallModalComponent
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
