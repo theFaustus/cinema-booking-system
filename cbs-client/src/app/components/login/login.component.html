@@ -6,7 +6,8 @@
     <mat-card style="margin: 15px;">
       <mat-card-content>
         <h2>
-          <mat-icon>info</mat-icon> INFO
+          <mat-icon>info</mat-icon>
+          INFO
         </h2>
         <br>
         <h3>NAME : {{info.app.name}}</h3>
@@ -19,26 +20,29 @@
     <mat-card style="margin: 15px;">
       <mat-card-content>
         <h2>
-          <mat-icon>mood</mat-icon> STATUS
+          <mat-icon>mood</mat-icon>
+          STATUS
         </h2>
         <br>
         <h3>HEALTH : {{health.status}}</h3>
       </mat-card-content>
     </mat-card>
     <mat-card style="margin: 15px;">
-    <mat-card-content>
-      <h2>
-        <mat-icon>trending_up</mat-icon> UPTIME
-      </h2>
-      <br>
-      <h3>DESCRIPTION : {{processUpTime.description}}</h3>
-      <h3>VALUE : {{processUpTime.measurements[0].value}}  {{processUpTime.baseUnit}}</h3>
-    </mat-card-content>
-  </mat-card>
+      <mat-card-content>
+        <h2>
+          <mat-icon>trending_up</mat-icon>
+          UPTIME
+        </h2>
+        <br>
+        <h3>DESCRIPTION : {{processUpTime.description}}</h3>
+        <h3>VALUE : {{processUpTime.measurements[0].value}}  {{processUpTime.baseUnit}}</h3>
+      </mat-card-content>
+    </mat-card>
     <mat-card style="margin: 15px;">
       <mat-card-content>
         <h2>
-          <mat-icon>keyboard_tab</mat-icon> REQUESTS
+          <mat-icon>keyboard_tab</mat-icon>
+          REQUESTS
         </h2>
         <br>
         <h3>DESCRIPTION : {{httpServerRequest.description}}</h3>
@@ -48,7 +52,23 @@
       </mat-card-content>
     </mat-card>
   </div>
-
+  <div *ngIf="authority == 'user'">
+    <mat-card style="margin: 15px;">
+      <mat-card-content>
+        <h2>
+          <mat-icon>info</mat-icon>
+          PROFILE INFO
+        </h2>
+        <br>
+        <h3>USERNAME : {{user.username}}</h3>
+        <h3>EMAIL : {{user.email}}</h3>
+        <h3>ROLE : {{user.role}}</h3>
+        <h3>FIRST NAME : {{user.firstName}}</h3>
+        <h3>LAST NAME : {{user.lastName}}</h3>
+        <h3>TELEPHONE : {{user.telephoneNumber}}</h3>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
 
 <ng-template #loggedOut>

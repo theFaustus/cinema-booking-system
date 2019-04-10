@@ -10,6 +10,8 @@ import {HttpServerRequest} from "../../model/actuator/http-server-request";
 import {Info} from "../../model/actuator/info";
 import {ProcessUptime} from "../../model/actuator/process-uptime";
 import {App} from "../../model/actuator/app";
+import {UserService} from "../../services/user.service";
+import {User} from "../../model/user";
 
 
 @Component({
@@ -25,7 +27,8 @@ export class LoginComponent implements OnInit {
   roles: string[] = [];
   private loginInfo: AuthLoginInfo;
   loginForm: FormGroup;
-  private authority: string;
+  public authority: string;
+  user: User;
 
   health: Health;
   httpServerRequest: HttpServerRequest;
@@ -38,6 +41,7 @@ export class LoginComponent implements OnInit {
               private router: Router,
               private authService: AuthService,
               private tokenStorage: TokenStorageService,
+              private userService: UserService,
               private formBuilder: FormBuilder
   ) { }
 
@@ -62,6 +66,10 @@ export class LoginComponent implements OnInit {
         return true;
       });
     }
+
+    this.userService.getByUsername(this.tokenStorage.getUsername()).subscribe(value => {
+      this.user = value;
+    });
 
     this.actuatorService.getHealth().subscribe(value => {
       console.log(value);

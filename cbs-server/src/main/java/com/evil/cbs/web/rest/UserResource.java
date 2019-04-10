@@ -60,20 +60,25 @@ public class UserResource {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findAll());
     }
 
+    @GetMapping("/{username}/")
+    public ResponseEntity<User> getByUsername(@PathVariable("username") String username) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findUserByUsername(username));
+    }
+
     @DeleteMapping("/{userId}/")
-    public ResponseEntity deleteUser(@PathVariable("userId") Long userId){
+    public ResponseEntity deleteUser(@PathVariable("userId") Long userId) {
         userService.deleteById(userId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PostMapping("/{userId}/enable")
-    public ResponseEntity enableUser(@PathVariable("userId") Long userId){
+    public ResponseEntity enableUser(@PathVariable("userId") Long userId) {
         userService.enableUser(userId);
         return ResponseEntity.status(HttpStatus.OK).body("Enabled " + userId);
     }
 
     @PostMapping("/{userId}/disable")
-    public ResponseEntity disableUser(@PathVariable("userId") Long userId){
+    public ResponseEntity disableUser(@PathVariable("userId") Long userId) {
         userService.disableUser(userId);
         return ResponseEntity.status(HttpStatus.OK).body("Disabled " + userId);
     }

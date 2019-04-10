@@ -33,6 +33,10 @@ export class UserService {
     return this.http.get<User[]>('/server/v1/api/users', httpOptions);
   }
 
+  getByUsername(username: string) {
+    return this.http.get<User>('/server/v1/api/users/' + username + '/', httpOptions);
+  }
+
   enableUser(user: User) {
     return this.http.post<User>('/server/v1/api/users/' + user.id + '/enable', httpOptions);
   }
