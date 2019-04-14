@@ -5,7 +5,7 @@
       <mat-list-item>
         <mat-form-field class="full-width">
           <mat-label>Username</mat-label>
-          <input matInput type="text" class="form-control" name="username" [(ngModel)]="form.username"
+          <input matInput type="text" class="form-control" id="username" name="username" [(ngModel)]="form.username"
                  #username="ngModel"
                  required/>
           <div *ngIf="f.submitted && username.invalid">
@@ -16,7 +16,7 @@
       <mat-list-item>
         <mat-form-field class="full-width">
           <mat-label>Email</mat-label>
-          <input matInput type="text" class="form-control" name="email" [(ngModel)]="form.email" #email="ngModel"
+          <input matInput type="text" class="form-control" id="email" name="email" [(ngModel)]="form.email" #email="ngModel"
                  required email/>
           <div *ngIf="f.submitted && email.invalid">
             <div *ngIf="email.errors.required">Email is required</div>
@@ -27,7 +27,7 @@
       <mat-list-item>
         <mat-form-field class="full-width">
           <mat-label>First name</mat-label>
-          <input matInput type="text" class="form-control" name="firstName" [(ngModel)]="form.firstName" #name="ngModel"
+          <input matInput type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="form.firstName" #name="ngModel"
                  required/>
           <div *ngIf="f.submitted && firstName.invalid">
             <div *ngIf="firstName.errors.required">First name is required</div>
@@ -37,7 +37,7 @@
       <mat-list-item>
         <mat-form-field class="full-width">
           <mat-label>Last name</mat-label>
-          <input matInput type="text" class="form-control" name="lastName" [(ngModel)]="form.lastName" #name="ngModel"
+          <input matInput type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="form.lastName" #name="ngModel"
                  required/>
           <div *ngIf="f.submitted && lastName.invalid">
             <div *ngIf="lastName.errors.required">Last name is required</div>
@@ -47,7 +47,7 @@
       <mat-list-item>
         <mat-form-field class="full-width">
           <mat-label>Telephone number</mat-label>
-          <input matInput type="text" class="form-control" name="telephoneNumber" [(ngModel)]="form.telephoneNumber"
+          <input matInput type="text" class="form-control" id="telephoneNumber" name="telephoneNumber" [(ngModel)]="form.telephoneNumber"
                  #name="ngModel" required/>
           <div *ngIf="f.submitted && telephoneNumber.invalid">
             <div *ngIf="telephoneNumber.errors.required">Telephone is required</div>
@@ -57,7 +57,7 @@
       <mat-list-item>
         <mat-form-field class="full-width">
           <mat-label>Password</mat-label>
-          <input matInput type="password" class="form-control" name="password" [(ngModel)]="form.password"
+          <input matInput type="password" class="form-control" id="password" name="password" [(ngModel)]="form.password"
                  #password="ngModel"
                  required minlength="6"/>
           <div *ngIf="f.submitted && password.invalid">

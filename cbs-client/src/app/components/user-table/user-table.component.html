@@ -44,7 +44,7 @@
         <mat-cell *matCellDef="let user">
           <div *ngIf="user.enabled === 0" style="margin: 10px"><button mat-raised-button color="primary" (click)="enableUser(user)" style="margin-left:auto; margin-right:0;">Enable</button></div>
           <div *ngIf="user.enabled === 1" style="margin: 10px"><button mat-raised-button color="primary" (click)="disableUser(user)" style="margin-left:auto; margin-right:0;">Disable</button></div>
-          <button *ngIf="authority === 'admin'" mat-raised-button color="accent" style="margin-left: 20px; margin-right:0;" (click)="deleteUser(user)">Delete</button>
+          <button *ngIf="authority === 'admin'" id="delete-{{user.id}}" mat-raised-button color="accent" style="margin-left: 20px; margin-right:0;" (click)="deleteUser(user)">Delete</button>
         </mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

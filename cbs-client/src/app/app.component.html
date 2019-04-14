@@ -14,42 +14,42 @@
       <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
         <ul fxLayout fxLayoutGap="20px" class="navigation-items">
           <li *ngIf="authority !== 'user' && authority !== 'admin'" class="nav-item">
-            <a class="nav-link" routerLink="auth/login">
+            <a id="login" class="nav-link" routerLink="auth/login">
               <mat-icon class="icon">input</mat-icon>
               <span class="label">Log in</span>
             </a>
           </li>
-          <li *ngIf="authority === 'user'" class="nav-item">
+          <li id="profile"  *ngIf="authority === 'user'" class="nav-item">
             <a class="nav-link" routerLink="auth/login">
               <mat-icon class="icon">person</mat-icon>
               <span class="label">Profile</span>
             </a>
           </li>
-          <li *ngIf="authority === 'admin'" class="nav-item">
+          <li id="metrics"  *ngIf="authority === 'admin'" class="nav-item">
             <a class="nav-link" routerLink="auth/login">
               <mat-icon class="icon">equalizer</mat-icon>
               <span class="label">Metrics</span>
             </a>
           </li>
-          <li *ngIf="authority === 'user'">
+          <li id="home"  *ngIf="authority === 'user'">
             <a class="nav-link" routerLink="home">
               <mat-icon class="icon">home</mat-icon>
               <span class="label">Home</span>
             </a>
           </li>
-          <li *ngIf="authority === 'user'" class="nav-item">
+          <li id="board"  *ngIf="authority === 'user'" class="nav-item">
             <a class="nav-link" routerLink="user">
               <mat-icon class="icon">dashboard</mat-icon>
               <span class="label">Board</span>
             </a>
           </li>
-          <li *ngIf="authority === 'admin'" class="nav-item">
+          <li id="dashboard"  *ngIf="authority === 'admin'" class="nav-item">
             <a class="nav-link" routerLink="admin">
               <mat-icon class="icon">dashboard</mat-icon>
               <span class="label">Dashboard</span>
             </a>
           </li>
-          <li *ngIf="authority === 'user' || authority === 'admin'" class="nav-item">
+          <li id="logout"  *ngIf="authority === 'user' || authority === 'admin'" class="nav-item">
             <a>
               <mat-icon class="icon" (click)="logout()">input</mat-icon>
               <span class="label" (click)="logout()">Log out</span>
