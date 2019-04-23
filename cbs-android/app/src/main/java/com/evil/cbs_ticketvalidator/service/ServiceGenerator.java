@@ -1,10 +1,6 @@
 package com.evil.cbs_ticketvalidator.service;
 
-import android.content.Context;
-import android.util.Base64;
-
 import com.evil.cbs_ticketvalidator.BuildConfig;
-import com.evil.cbs_ticketvalidator.data.AccessToken;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.util.concurrent.TimeUnit;

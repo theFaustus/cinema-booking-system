@@ -1,4 +1,4 @@
-package com.evil.cbs_ticketvalidator.data;
+package com.evil.cbs_ticketvalidator.data.security;
 
 
 import java.util.Collection;

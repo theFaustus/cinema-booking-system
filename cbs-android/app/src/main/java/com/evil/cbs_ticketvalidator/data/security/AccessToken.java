@@ -1,4 +1,4 @@
-package com.evil.cbs_ticketvalidator.data;
+package com.evil.cbs_ticketvalidator.data.security;
 
 public class AccessToken {
     private String accessToken;
