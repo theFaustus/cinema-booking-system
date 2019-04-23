@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.evil.cbs_ticketvalidator.R;
 import com.evil.cbs_ticketvalidator.data.security.JwtResponse;
-import com.evil.cbs_ticketvalidator.data.model.UserDTO;
+import com.evil.cbs_ticketvalidator.data.model.User;
 import com.evil.cbs_ticketvalidator.service.LoginService;
 import com.evil.cbs_ticketvalidator.service.ServiceGenerator;
 
@@ -108,16 +108,16 @@ public class LoginActivity extends AppCompatActivity {
     private void login(String username, String password) {
 
         LoginService loginService = ServiceGenerator.createService(LoginService.class);
-        UserDTO userDTO = new UserDTO(username, password);
+        User user = new User(username, password);
 
-        loginService.login(userDTO).enqueue(new Callback<JwtResponse>() {
+        loginService.login(user).enqueue(new Callback<JwtResponse>() {
             @Override
             public void onResponse(Call<JwtResponse> call, Response<JwtResponse> response) {
                 if (response.isSuccessful()) {
                     jwtResponse = response.body();
-                    log.info("--> Response {}", response.body());
-                    log.info("--> JwtResponse {}", jwtResponse);
-                    getSharedPreferences(username, MODE_PRIVATE)
+                    log.info("\n--> Response {}", response.body());
+                    log.info("\n--> JwtResponse {}", jwtResponse);
+                    getSharedPreferences("session", MODE_PRIVATE)
                             .edit()
                             .putString("token", jwtResponse.getToken())
                             .putString("type", jwtResponse.getType())
@@ -140,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<JwtResponse> call, Throwable t) {
                 showLoginFailed("Error when log in : " + t.getMessage());
-                log.error("--> Error {}", t);
+                log.error("\n--> Error {}", t);
                 loadingProgressBar.setVisibility(View.INVISIBLE);
                 getWindow().setSoftInputMode(
                         WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN

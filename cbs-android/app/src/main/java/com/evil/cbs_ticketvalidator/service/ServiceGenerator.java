@@ -1,5 +1,8 @@
 package com.evil.cbs_ticketvalidator.service;
 
+import android.app.Activity;
+import android.content.Context;
+
 import com.evil.cbs_ticketvalidator.BuildConfig;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
@@ -38,7 +41,7 @@ public class ServiceGenerator {
 //        return adapter.create(serviceClass);
 //    }
 
-    public static <S> S createServiceWithInterceptor(Class<S> serviceClass) {
+    public static <S> S createServiceWithInterceptor(Class<S> serviceClass, Activity activity) {
 
         OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
         builder.readTimeout(10, TimeUnit.SECONDS);
@@ -50,12 +53,13 @@ public class ServiceGenerator {
             builder.addInterceptor(interceptor);
         }
 
+        String token = activity.getSharedPreferences("session", Context.MODE_PRIVATE).getString("token", "");
+        String type = activity.getSharedPreferences("session", Context.MODE_PRIVATE).getString("type", "");
+
         builder.addInterceptor(chain -> {
             Request request = chain.request().newBuilder()
                     .addHeader("Accept", "application/json")
-                    .addHeader("Authorization",
-                            "Bearer" + " " +
-                                    "Kisda măsă")
+                    .addHeader("Authorization", type + " " + token)
                     .build();
             return chain.proceed(request);
         });

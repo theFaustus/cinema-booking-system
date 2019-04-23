@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/attend-attempt-history/")
+@RequestMapping(value = "/v1/api/attend-attempt-history/")
 public class AttendAttemptHistoryResource {
 
     private final AttendAttemptHistoryService historyService;

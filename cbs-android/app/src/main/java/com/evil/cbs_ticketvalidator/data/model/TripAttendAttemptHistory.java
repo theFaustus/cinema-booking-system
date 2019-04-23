@@ -1,11 +1,11 @@
-package com.evil.cbs.ticket.validator.domain;
+package com.evil.cbs_ticketvalidator.data.model;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -13,3 +13,4 @@ import java.util.List;
 public class TripAttendAttemptHistory {
     private List<TripAttendAttempt> attempts = new ArrayList<>();
 }
+

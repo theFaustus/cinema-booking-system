@@ -1,4 +1,4 @@
-package com.evil.cbs.ticket.validator.domain;
+package com.evil.cbs_ticketvalidator.data.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

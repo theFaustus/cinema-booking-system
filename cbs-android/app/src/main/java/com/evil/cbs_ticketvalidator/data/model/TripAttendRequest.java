@@ -2,10 +2,11 @@ package com.evil.cbs_ticketvalidator.data.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
-    private String username;
-    private String password;
+public class TripAttendRequest {
+    private String encryptedOrderId;
 }
