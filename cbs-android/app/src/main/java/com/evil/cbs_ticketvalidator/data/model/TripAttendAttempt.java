@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TripAttendAttempt {
-    private LocalDate attendDate;
+    private String attendDate;
     private String attemptStatus;
 }

@@ -3,7 +3,9 @@ package com.evil.cbs_ticketvalidator.ui.login;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -23,6 +25,8 @@ import com.evil.cbs_ticketvalidator.data.security.JwtResponse;
 import com.evil.cbs_ticketvalidator.data.model.User;
 import com.evil.cbs_ticketvalidator.service.LoginService;
 import com.evil.cbs_ticketvalidator.service.ServiceGenerator;
+import com.evil.cbs_ticketvalidator.ui.main.MainActivity;
+import com.evil.cbs_ticketvalidator.util.NetworkChangeReceiver;
 
 import lombok.extern.slf4j.Slf4j;
 import retrofit2.Call;
@@ -41,12 +45,14 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginButton;
     private EditText usernameEditText;
     private EditText passwordEditText;
+    private NetworkChangeReceiver mNetworkReceiver;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        mNetworkReceiver = new NetworkChangeReceiver();
+        registerReceiver(mNetworkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{(Manifest.permission.CAMERA)}, REQUEST_CAMERA_PERMISION_OPEN_CAMERA);
@@ -155,5 +161,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showLoginFailed(String errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mNetworkReceiver);
     }
 }

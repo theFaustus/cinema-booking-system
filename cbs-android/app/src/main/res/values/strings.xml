@@ -25,4 +25,6 @@
     <string name="menu_send">Send</string>
     <string name="ticket_validator_for_operators">Ticket Validator For Operators</string>
     <string name="cbs_ticket_validator_login">CBS - Ticket Validator - Login</string>
+    <string name="ticketIsAllowed">The customer is allowed to enter.</string>
+    <string name="ticketIsNotAllowed">The customer is not allowed to enter</string>
 </resources>

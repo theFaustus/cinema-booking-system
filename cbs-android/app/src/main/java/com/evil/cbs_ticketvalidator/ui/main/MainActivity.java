@@ -1,10 +1,13 @@
-package com.evil.cbs_ticketvalidator.ui.login;
+package com.evil.cbs_ticketvalidator.ui.main;
 
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -12,22 +15,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.evil.cbs_ticketvalidator.R;
-import com.evil.cbs_ticketvalidator.data.model.TripAttendAttemptHistory;
-import com.evil.cbs_ticketvalidator.data.model.TripAttendRequest;
-import com.evil.cbs_ticketvalidator.data.model.ValidatorVerdict;
 import com.evil.cbs_ticketvalidator.service.AttendAttemptHistoryService;
 import com.evil.cbs_ticketvalidator.service.ServiceGenerator;
 import com.evil.cbs_ticketvalidator.service.ValidatorService;
-
-import org.json.JSONObject;
+import com.evil.cbs_ticketvalidator.ui.history.HistoryActivity;
+import com.evil.cbs_ticketvalidator.util.NetworkChangeReceiver;
 
 import lombok.extern.slf4j.Slf4j;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 @Slf4j
 public class MainActivity extends AppCompatActivity
@@ -35,6 +33,7 @@ public class MainActivity extends AppCompatActivity
 
     private AttendAttemptHistoryService attendAttemptHistoryService;
     private ValidatorService validatorService;
+    private NetworkChangeReceiver mNetworkReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,40 +41,14 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        attendAttemptHistoryService = ServiceGenerator.createServiceWithInterceptor(AttendAttemptHistoryService.class, MainActivity.this);
+        mNetworkReceiver = new NetworkChangeReceiver();
+        registerReceiver(mNetworkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+
+
         validatorService = ServiceGenerator.createServiceWithInterceptor(ValidatorService.class, MainActivity.this);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
-            //TODO remove these from here
-            attendAttemptHistoryService.getAttendAttemptHistoryFor("085806C9A4DD313F")
-                    .enqueue(new Callback<TripAttendAttemptHistory>() {
-                        @Override
-                        public void onResponse(Call<TripAttendAttemptHistory> call, Response<TripAttendAttemptHistory> response) {
-                            log.info("\n--> TripAttendAttemptHistory {}", response.body());
-                            Snackbar.make(view, "TripAttendAttemptHistory received!", Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
-                        }
-
-                        @Override
-                        public void onFailure(Call<TripAttendAttemptHistory> call, Throwable t) {
-                            log.error("\n--> Error {}", t);
-                        }
-                    });
-
-            validatorService.validate(new TripAttendRequest("085806C9A4DD313F"))
-                    .enqueue(new Callback<ValidatorVerdict>() {
-                        @Override
-                        public void onResponse(Call<ValidatorVerdict> call, Response<ValidatorVerdict> response) {
-                            log.info("\n--> ValidatorVerdict {}", response.body());
-                            Snackbar.make(view, response.body().getEncryptedOrderId() + " " + response.body().isAllowedToEnter(), Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
-                        }
-
-                        @Override
-                        public void onFailure(Call<ValidatorVerdict> call, Throwable t) {
-                            log.info("\n--> Error {}", t);
-                        }
-                    });
+            toHistoryActivity();
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -151,5 +124,36 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mNetworkReceiver);
+    }
+
+    private interface DialogInputListener {
+        void onClick(String encryptedOrderId);
+    }
+
+    private void toHistoryActivity() {
+        showOrderInputDialog("View entry attempts for ticket", encryptedOrderId -> {
+            Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+            intent.putExtra("encryptedOrderId", encryptedOrderId);
+            startActivity(intent);
+        });
+    }
+
+    private void showOrderInputDialog(String title, DialogInputListener okAction) {
+        EditText orderIdEditText = new EditText(MainActivity.this);
+        orderIdEditText.setPadding(60, 60, 60, 60);
+        orderIdEditText.setHint("Order id:");
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle(title)
+                .setView(orderIdEditText)
+                .setCancelable(false)
+                .setPositiveButton("Check", (dialogInterface, i) -> okAction.onClick(orderIdEditText.getText().toString()))
+                .setNegativeButton("Cancel", (dialogInterface, i) -> {})
+                .show();
     }
 }
