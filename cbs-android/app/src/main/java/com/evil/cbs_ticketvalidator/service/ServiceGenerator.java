@@ -18,28 +18,7 @@ public class ServiceGenerator {
     private static Retrofit.Builder builder =
             new Retrofit.Builder().client(new OkHttpClient());
 
-    public static final String BASE_URL = "http://10.0.2.2:8083/v1/api/";
-
-
-//    public static <S> S createService(Class<S> serviceClass, final AccessToken accessToken) {
-//
-//        builder.baseUrl(BASE_URL);
-//
-//        if (accessToken != null) {
-//            builder.(new RequestInterceptor() {
-//                @Override
-//                public void intercept(RequestFacade request) {
-//                    request.addHeader("Accept", "application/json");
-//                    request.addHeader("Authorization",
-//                            accessToken.getTokenType() + " " +
-//                                    accessToken.getAccessToken());
-//                }
-//            });
-//        }
-//
-//        Retrofit adapter = builder.build();
-//        return adapter.create(serviceClass);
-//    }
+    public static final String BASE_URL = "http://172.17.41.42:8083/v1/api/";
 
     public static <S> S createServiceWithInterceptor(Class<S> serviceClass, Activity activity) {
 

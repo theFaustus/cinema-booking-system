@@ -1,9 +1,13 @@
 package com.evil.cbs_ticketvalidator.ui.main;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,17 +19,28 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.evil.cbs_ticketvalidator.R;
+import com.evil.cbs_ticketvalidator.data.model.TripAttendRequest;
+import com.evil.cbs_ticketvalidator.data.model.ValidatorVerdict;
 import com.evil.cbs_ticketvalidator.service.AttendAttemptHistoryService;
 import com.evil.cbs_ticketvalidator.service.ServiceGenerator;
 import com.evil.cbs_ticketvalidator.service.ValidatorService;
 import com.evil.cbs_ticketvalidator.ui.history.HistoryActivity;
+import com.evil.cbs_ticketvalidator.ui.scan.QrCodeScanningActivity;
+import com.evil.cbs_ticketvalidator.util.ErrorDialogPresenter;
 import com.evil.cbs_ticketvalidator.util.NetworkChangeReceiver;
 
+import java.util.Objects;
+
 import lombok.extern.slf4j.Slf4j;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 @Slf4j
 public class MainActivity extends AppCompatActivity
@@ -48,7 +63,7 @@ public class MainActivity extends AppCompatActivity
         validatorService = ServiceGenerator.createServiceWithInterceptor(ValidatorService.class, MainActivity.this);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
-            toHistoryActivity();
+            toHistoryActivity(null);
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -77,6 +92,35 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == QrCodeScanningActivity.SCAN_QR_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                String encryptedOrderId = data.getStringExtra(QrCodeScanningActivity.SCANNED_QR_CODE);
+
+                validatorService.validate(new TripAttendRequest(encryptedOrderId))
+                        .enqueue(new Callback<ValidatorVerdict>() {
+                            @Override
+                            public void onResponse(Call<ValidatorVerdict> call, Response<ValidatorVerdict> response) {
+                                if (response.isSuccessful()) {
+                                    log.info("\n--> ValidatorVerdict {}", response.body());
+                                    Toast.makeText(MainActivity.this, response.body().getEncryptedOrderId() + " - Allowed to enter: " + response.body().isAllowedToEnter(), Toast.LENGTH_SHORT).show();
+                                    new ValidatorVerdictDialogPresenter(MainActivity.this, response.body()).showDialog();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ValidatorVerdict> call, Throwable t) {
+                                log.info("\n--> Error {}", t);
+                                new ErrorDialogPresenter(MainActivity.this, "Ooops, error!", t.getMessage()).showDialog();
+
+                            }
+                        });
+            }
+        }
+
     }
 
     @Override
@@ -136,14 +180,6 @@ public class MainActivity extends AppCompatActivity
         void onClick(String encryptedOrderId);
     }
 
-    private void toHistoryActivity() {
-        showOrderInputDialog("View entry attempts for ticket", encryptedOrderId -> {
-            Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
-            intent.putExtra("encryptedOrderId", encryptedOrderId);
-            startActivity(intent);
-        });
-    }
-
     private void showOrderInputDialog(String title, DialogInputListener okAction) {
         EditText orderIdEditText = new EditText(MainActivity.this);
         orderIdEditText.setPadding(60, 60, 60, 60);
@@ -153,7 +189,70 @@ public class MainActivity extends AppCompatActivity
                 .setView(orderIdEditText)
                 .setCancelable(false)
                 .setPositiveButton("Check", (dialogInterface, i) -> okAction.onClick(orderIdEditText.getText().toString()))
-                .setNegativeButton("Cancel", (dialogInterface, i) -> {})
+                .setNegativeButton("Cancel", (dialogInterface, i) -> {
+                })
                 .show();
     }
+
+    public void toHistoryActivity(String encryptedOrderId) {
+        if (encryptedOrderId == null) {
+            showOrderInputDialog("View entry attempts for ticket", id -> {
+                Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+                intent.putExtra("encryptedOrderId", id);
+                startActivity(intent);
+            });
+        } else {
+            Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+            intent.putExtra("encryptedOrderId", encryptedOrderId);
+            startActivity(intent);
+        }
+    }
+
+    public void toHistoryActivityView(View view) {
+        toHistoryActivity(null);
+    }
+
+
+    public void toScanningTicket() {
+        Intent intent = new Intent(MainActivity.this, QrCodeScanningActivity.class);
+        startActivityForResult(intent, QrCodeScanningActivity.SCAN_QR_CODE);
+    }
+
+    public void toScanningTicketView(View view) {
+        Intent intent = new Intent(MainActivity.this, QrCodeScanningActivity.class);
+        startActivityForResult(intent, QrCodeScanningActivity.SCAN_QR_CODE);
+    }
+
+
+    private class ValidatorVerdictDialogPresenter {
+        private final Context context;
+        private final ValidatorVerdict verdict;
+
+        private ValidatorVerdictDialogPresenter(Context context, ValidatorVerdict verdict) {
+            this.context = context;
+            this.verdict = verdict;
+        }
+
+        public void showDialog() {
+            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+            int messageId = verdict.isAllowedToEnter() ? R.string.ticketIsAllowed : R.string.ticketIsNotAllowed;
+            int iconId = verdict.isAllowedToEnter() ? R.drawable.ic_thumb_up_black_24dp :
+                    R.drawable.ic_thumb_down_black_24dp;
+            android.app.AlertDialog.Builder dialog = builder.setMessage(context.getResources().getString(messageId))
+                    .setIcon(iconId)
+                    .setTitle("Validator verdict")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", (d, which) -> {
+                        d.dismiss();
+                    });
+            if (!verdict.isAllowedToEnter())
+                dialog.setNegativeButton("View entry attempts", (d, which) -> {
+                    d.dismiss();
+                    toHistoryActivity(verdict.getEncryptedOrderId());
+                });
+            dialog.show();
+        }
+    }
+
+
 }

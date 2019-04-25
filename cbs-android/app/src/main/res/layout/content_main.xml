@@ -42,7 +42,8 @@
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:onClick="toScanningTicketView"/>
 
     <ImageView
         android:id="@+id/imageView3"
@@ -72,6 +73,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintVertical_bias="0.237"
-        app:srcCompat="@drawable/qr_code" />
+        app:srcCompat="@drawable/qr_code"
+        android:onClick="toScanningTicketView"/>
 
 </android.support.constraint.ConstraintLayout>
