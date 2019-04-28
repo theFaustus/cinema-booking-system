@@ -63,10 +63,7 @@ public class MainActivity extends AppCompatActivity
 
 
         validatorService = ServiceGenerator.createServiceWithInterceptor(ValidatorService.class, MainActivity.this);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> {
-            toHistoryActivity(null);
-        });
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

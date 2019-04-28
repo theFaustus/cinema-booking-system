@@ -4,10 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.evil.cbs_ticketvalidator.BuildConfig;
+import com.evil.cbs_ticketvalidator.util.ContextHolder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -18,11 +22,14 @@ public class ServiceGenerator {
     private static Retrofit.Builder builder =
             new Retrofit.Builder().client(new OkHttpClient());
 
-    public static final String BASE_URL = "http://172.17.41.42:8083/v1/api/";
+    public static final String BASE_URL = "http://172.17.41.42:8083/v1/api/";// 10 MB
+    public static final int CACHE_SIZE = 10 * 1024 * 1024;
 
     public static <S> S createServiceWithInterceptor(Class<S> serviceClass, Activity activity) {
+        Cache cache = new Cache(ContextHolder.getContext().getCacheDir(), CACHE_SIZE);
 
         OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
+        builder.cache(cache);
         builder.readTimeout(10, TimeUnit.SECONDS);
         builder.connectTimeout(5, TimeUnit.SECONDS);
 
