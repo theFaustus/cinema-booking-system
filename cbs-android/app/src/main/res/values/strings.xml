@@ -27,4 +27,12 @@
     <string name="cbs_ticket_validator_login">CBS - Ticket Validator - Login</string>
     <string name="ticketIsAllowed">The customer is allowed to enter.</string>
     <string name="ticketIsNotAllowed">The customer is not allowed to enter</string>
+    <string name="about">About</string>
+    <string name="report_a_bug">Report a bug</string>
+    <string name="view_entry_attempts">View entry attempts</string>
+    <string name="scan_a_ticket">Scan a ticket</string>
+    <string name="other">Other</string>
+    <string name="account">Account</string>
+    <string name="sign_out">Sign out</string>
+    <string name="cbs_ticket_validator_info">CBS - Ticket Validator - Info</string>
 </resources>

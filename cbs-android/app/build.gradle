@@ -50,5 +50,4 @@ dependencies {
     implementation group: 'com.dlazaro66.qrcodereaderview', name: 'qrcodereaderview', version: '2.0.2'
 
 
-
 }

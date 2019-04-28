@@ -31,6 +31,8 @@ import com.evil.cbs_ticketvalidator.service.AttendAttemptHistoryService;
 import com.evil.cbs_ticketvalidator.service.ServiceGenerator;
 import com.evil.cbs_ticketvalidator.service.ValidatorService;
 import com.evil.cbs_ticketvalidator.ui.history.HistoryActivity;
+import com.evil.cbs_ticketvalidator.ui.info.InfoActivity;
+import com.evil.cbs_ticketvalidator.ui.login.LoginActivity;
 import com.evil.cbs_ticketvalidator.ui.scan.QrCodeScanningActivity;
 import com.evil.cbs_ticketvalidator.util.ErrorDialogPresenter;
 import com.evil.cbs_ticketvalidator.util.NetworkChangeReceiver;
@@ -151,18 +153,14 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_tools) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.nav_scan) {
+            toScanningTicket();
+        } else if (id == R.id.nav_info) {
+            toInformation();
+        } else if (id == R.id.nav_list) {
+            toHistoryActivityView(null);
+        } else if (id == R.id.nav_signout) {
+            toSignout();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -216,6 +214,15 @@ public class MainActivity extends AppCompatActivity
     public void toScanningTicket() {
         Intent intent = new Intent(MainActivity.this, QrCodeScanningActivity.class);
         startActivityForResult(intent, QrCodeScanningActivity.SCAN_QR_CODE);
+    }
+
+    public void toInformation() {
+        startActivity(new Intent(this, InfoActivity.class));
+    }
+
+    public void toSignout() {
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
     }
 
     public void toScanningTicketView(View view) {
