@@ -14,6 +14,10 @@ import {NotifierService} from "angular-notifier";
 export class AddUserModalComponent implements OnInit {
 
   form: any = {};
+  firstName: string;
+  lastName: string;
+  invalid: string;
+  telephoneNumber: string;
   signupInfo: SignUpInfo;
   isSignUpFailed = false;
   errorMessage = '';

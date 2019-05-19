@@ -1,6 +1,7 @@
 package com.evil.cbs.config;
 
 import com.fasterxml.classmate.TypeResolver;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -18,6 +19,7 @@ import java.util.Collections;
 
 @Configuration
 @EnableSwagger2
+@EnableAutoConfiguration
 public class SwaggerConfiguration extends WebMvcConfigurationSupport {
     @Bean
     public Docket api() {
