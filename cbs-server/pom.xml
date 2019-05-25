@@ -240,6 +240,7 @@
                 <configuration>
                     <changeLogFile>src/main/resources/liquibase/master.xml</changeLogFile>
                     <propertyFile>src/main/resources/config/liquibase.properties</propertyFile>
+                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
                 </configuration>
                 <executions>
                     <execution>
