@@ -225,9 +225,6 @@
                             <directory>../cbs-client/dist/cbs-client</directory>
                         </resource>
                         <resource>
-                            <directory>/src/main/resources</directory>
-                        </resource>
-                        <resource>
                             <directory>src/main/resources</directory>
                         </resource>
                     </webResources>
