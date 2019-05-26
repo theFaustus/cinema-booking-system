@@ -17,7 +17,7 @@ import java.util.Arrays;
 @Slf4j
 public class LoggingAspect {
     /**
-     * Pointcut that matches all repositories, services and Web REST endpoints.
+     * Pointcut that matches all repositories, services and Web REST endpoints
      */
     @Pointcut("within(@org.springframework.stereotype.Repository *)" +
             " || within(@org.springframework.stereotype.Service *)" +
