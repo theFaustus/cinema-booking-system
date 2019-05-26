@@ -37,7 +37,7 @@ public class CbsConfiguration extends WebMvcConfigurationSupport {
     @Bean
     public DriverManagerDataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setUrl("jdbc:postgresql://35.187.16.163:5432/cbs");
+        dataSource.setUrl("jdbc:postgresql://34.76.3.212:5432/cbs");
         dataSource.setUsername("postgres");
         dataSource.setPassword("123456");
         dataSource.setDriverClassName("org.postgresql.Driver");
