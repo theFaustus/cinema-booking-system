@@ -3,6 +3,7 @@ package com.evil.cbs.service.impl;
 import com.evil.cbs.service.QrService;
 import com.evil.cbs.util.FileUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.glxn.qrgen.core.image.ImageType;
 import net.glxn.qrgen.javase.QRCode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import java.nio.file.Paths;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class QrServiceImpl implements QrService {
 
     private final ServletContext servletContext;
@@ -32,14 +34,20 @@ public class QrServiceImpl implements QrService {
                 .to(ImageType.PNG)
                 .stream();
         writeTo(stream, qrFile.getAbsolutePath());
+        log.info("qrFile.getAbsolutePath() - " + qrFile.getAbsolutePath());
         String destination = null;
-        destination = new File(getClass().getResource("/images").getPath()).getAbsolutePath();
+        destination = getClass().getResource("/images").getPath().replace("file:/", "");
+        log.info("destination - " + destination);
         return moveFile(qrFile, destination);
     }
 
     private File moveFile(File qrFile, String destination) {
         try {
+            log.info("qrFile - " + qrFile);
             String filePath = destination + "/" + qrFile.getName();
+            log.info("destination - " + destination);
+            log.info("qrFile.getName() - " + qrFile.getName());
+            log.info("filePath - " + filePath);
             if (!Files.exists(Paths.get(filePath)))
                 Files.createDirectories(Paths.get(filePath).getParent());
             Files.move(qrFile.toPath(), Paths.get(filePath));

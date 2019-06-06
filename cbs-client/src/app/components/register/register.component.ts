@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
       },
       error => {
         console.log(error);
-        this.errorMessage = error.error.message;
+        this.errorMessage = error.message;
         this.isSignUpFailed = true;
       }
     );

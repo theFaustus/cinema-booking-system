@@ -19,19 +19,19 @@ export class ActuatorService {
 
 
   getInfo() {
-    return this.http.get<Info>('/server/actuator/info', httpOptions);
+    return this.http.get<Info>('/actuator/info', httpOptions);
   }
 
   getHealth() {
-    return this.http.get<Health>('/server/actuator/health', httpOptions);
+    return this.http.get<Health>('/actuator/health', httpOptions);
   }
 
   getHttpServerRequestMetrics() {
-    return this.http.get<HttpServerRequest>('/server/actuator/metrics/http.server.requests', httpOptions);
+    return this.http.get<HttpServerRequest>('/actuator/metrics/http.server.requests', httpOptions);
   }
 
   getHttpProcessUpTimeMetrics() {
-    return this.http.get<HttpServerRequest>('/server/actuator/metrics/process.uptime', httpOptions);
+    return this.http.get<HttpServerRequest>('/actuator/metrics/process.uptime', httpOptions);
   }
 
 }
