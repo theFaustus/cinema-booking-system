@@ -20,18 +20,18 @@ export class HallService {
 
 
   getSeatsByHallId(hallId: number) {
-    return this.http.get<Seat[]>('/server/v1/api/halls/' + hallId + "/seats", httpOptions);
+    return this.http.get<Seat[]>('/v1/api/halls/' + hallId + "/seats", httpOptions);
   }
 
   getHalls() {
-    return this.http.get<Hall[]>('/server/v1/api/halls', httpOptions);
+    return this.http.get<Hall[]>('/v1/api/halls', httpOptions);
   }
 
   deleteHall(hall: Hall) {
-    return this.http.delete('/server/v1/api/halls/' + hall.id + '/', httpOptions);
+    return this.http.delete('/v1/api/halls/' + hall.id + '/', httpOptions);
   }
 
   createHall(hall: Hall, numberOfSeats: number): Observable<string> {
-    return this.http.post<string>('/server/v1/api/halls?numberOfSeats=' + numberOfSeats, hall, httpOptions);
+    return this.http.post<string>('/v1/api/halls?numberOfSeats=' + numberOfSeats, hall, httpOptions);
   }
 }

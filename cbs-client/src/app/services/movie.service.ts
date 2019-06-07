@@ -17,15 +17,15 @@ export class MovieService {
   constructor(private http: HttpClient) { }
 
   getMovies() {
-    return this.http.get<Movie[]>('/server/v1/api/movies', httpOptions);
+    return this.http.get<Movie[]>('/v1/api/movies', httpOptions);
   }
 
   deleteMovie(movie: Movie) {
-    return this.http.delete('/server/v1/api/movies/' + movie.id + '/', httpOptions);
+    return this.http.delete('/v1/api/movies/' + movie.id + '/', httpOptions);
   }
 
   createMovie(movie: Movie): Observable<string> {
-    return this.http.post<string>('/server/v1/api/movies', movie, httpOptions);
+    return this.http.post<string>('/v1/api/movies', movie, httpOptions);
   }
 }
 

@@ -19,27 +19,27 @@ export class MovieSessionService {
   constructor(private http: HttpClient) { }
 
   getMovieSessionsByMovieId(movieId: number) {
-    return this.http.get<MovieSession[]>('/server/v1/api/movies/' + movieId + "/sessions", httpOptions);
+    return this.http.get<MovieSession[]>('/v1/api/movies/' + movieId + "/sessions", httpOptions);
   }
 
   bookMovie(bookedMovie: BookedMovie): Observable<Ticket> {
-    return this.http.post<Ticket>('/server/v1/api/movie-sessions/' + bookedMovie.movieSessionId + "/booked-movies", bookedMovie, httpOptions);
+    return this.http.post<Ticket>('/v1/api/movie-sessions/' + bookedMovie.movieSessionId + "/booked-movies", bookedMovie, httpOptions);
   }
 
   deleteMovieSession(movieSession: MovieSession) {
-    return this.http.delete('/server/v1/api/movie-sessions/' + movieSession.movieSessionId + '/', httpOptions);
+    return this.http.delete('/v1/api/movie-sessions/' + movieSession.movieSessionId + '/', httpOptions);
   }
 
   deleteMovieSessionsByMovieId(movie: Movie) {
-    return this.http.delete('/server/v1/api/movies/' + movie.id + '/sessions', httpOptions);
+    return this.http.delete('/v1/api/movies/' + movie.id + '/sessions', httpOptions);
   }
 
   deleteMovieSessionById(movieSession: MovieSession) {
-    return this.http.delete('/server/v1/api/movie-sessions/' + movieSession.movieSessionId + '/', httpOptions);
+    return this.http.delete('/v1/api/movie-sessions/' + movieSession.movieSessionId + '/', httpOptions);
   }
 
   createMovieSession(movieSession: MovieSession): Observable<string> {
-    return this.http.post<string>('/server/v1/api/movie-sessions/', movieSession, httpOptions);
+    return this.http.post<string>('/v1/api/movie-sessions/', movieSession, httpOptions);
   }
 
 
