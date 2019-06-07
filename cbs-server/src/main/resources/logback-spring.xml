@@ -3,7 +3,6 @@
     <!--<statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" />-->
     <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
 
-    <jmxConfigurator/>
     <!-- set general log patterns to be used by all modules -->
     <property scope="context" name="log.pattern" value="%d{HH:mm:ss.SSS}-%.-1level-[%thread] %logger{0} - %msg%n"/>
     <property scope="context" name="log.pattern.mdc" value="%d{HH:mm:ss.SSS}-%.-1level-[%thread] %msg%n"/>
