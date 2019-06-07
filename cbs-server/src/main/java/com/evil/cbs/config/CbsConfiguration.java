@@ -88,21 +88,21 @@ public class CbsConfiguration extends WebMvcConfigurationSupport {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/*.html", "/*.js", "/*.map",
                 "/assets/**", "/favicon.ico", "/*.xml", "/images/**", "/config/**", "/templates/**")
-                .addResourceLocations("classpath:/")
+                .addResourceLocations("classpath:/static/")
                 .setCachePeriod(0)
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver() {
                     @Override
                     protected Resource getResource(String resourcePath, Resource location) throws IOException {
                         Resource requestedResource = location.createRelative(resourcePath);
-                        return requestedResource.exists() && requestedResource.isReadable() ? requestedResource : new ClassPathResource("/static/index.html");
+                        return requestedResource.exists() && requestedResource.isReadable() ? requestedResource : new ClassPathResource("/index.html");
                     }
                 });
     }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("forward:/static/index.html");
+        registry.addViewController("/").setViewName("forward:/index.html");
     }
 
 
