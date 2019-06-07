@@ -13,7 +13,7 @@
     <property scope="context" name="MAX_FILE_SIZE" value="50MB"/>
     <property scope="context" name="TOTAL_FILE_SIZE" value="15GB"/>
     <property scope="context" name="FILE_EXTENSION" value="log"/>
-    <property scope="context" name="log.directory" value="./"/>
+    <property scope="context" name="log.directory" value="${catalina.base}/logs"/>
     <property scope="context" name="log.stdout.fileName" value="cbs.out"/>
     <property scope="context" name="log.stderr.fileName" value="cbs.err"/>
     <property scope="context" name="log.fileName" value="cbs"/>
