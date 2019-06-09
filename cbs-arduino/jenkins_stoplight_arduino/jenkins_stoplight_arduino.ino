@@ -20,6 +20,7 @@
 * | GET     | HTTP://board_IP/nok/   | HTTP 200 OK                 | Turn only RED color on 
 * | GET     | HTTP://board_IP/xmas/  | HTTP 200 OK                 | Turn all 3 colors on in a pattern
 * | GET     | HTTP://board_IP/all/   | HTTP 200 OK                 | Turn all 3 colors on 
+* | GET     | HTTP://board_IP/warn/  | HTTP 200 OK                 | Alert yellow color for deploy
 * | ANY     | any                    | HTTP 405 Method Not Allowed | Any other call is not allowed, board won't do anything
 * 
 *************************************************************/
@@ -232,8 +233,10 @@ boolean handleRequest (char* msg) {
   } else if(strcmp(msg, "GET /all/ HTTP/1.1") == 0) {
     handleAllRequest();
     result = true;
-  }
-  else {
+  } else if(strcmp(msg, "GET /warn/ HTTP/1.1") == 0) {
+    handleWarnRequest();
+    result = true;
+  } else {
     result = false;
   }
 
@@ -336,6 +339,20 @@ void handleAllRequest() {
         delay(100);
     digitalWrite(RED_LED, LOW);    // turn the LED on
     digitalWrite(GREEN_LED, LOW);    // turn the LED on
+    digitalWrite(YELLOW_LED, LOW);    // turn the LED on
+    }
+      disableStopLight();
+}
+
+/////////////////////////////////////////////////////////////
+// Handle the WARN request by enabling the lights
+/////////////////////////////////////////////////////////////
+void handleWarnRequest() {
+  disableStopLight();
+    for (int i = 0; i <= 10; i++) {
+        delay(100);
+    digitalWrite(YELLOW_LED, HIGH);    // turn the LED on
+        delay(100);
     digitalWrite(YELLOW_LED, LOW);    // turn the LED on
     }
       disableStopLight();
