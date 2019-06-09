@@ -22,7 +22,7 @@ public class ServiceGenerator {
     private static Retrofit.Builder builder =
             new Retrofit.Builder().client(new OkHttpClient());
 
-    public static final String BASE_URL = "http://172.17.41.42:8083/v1/api/";// 10 MB
+    public static final String BASE_URL = "http://35.241.177.112:8080/v1/api/";// 10 MB
     public static final int CACHE_SIZE = 10 * 1024 * 1024;
 
     public static <S> S createServiceWithInterceptor(Class<S> serviceClass, Activity activity) {
