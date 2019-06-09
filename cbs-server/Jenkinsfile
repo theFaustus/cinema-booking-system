@@ -4,10 +4,13 @@ pipeline {
 
 		stage('Build') {
 			steps {
-				try {
-					sh 'curl  --request GET http://c9b6b6f1.ngrok.io/start/'
-				} catch (Exception e) {
-					echo 'Check the host...'
+
+				script {
+					try {
+						sh 'curl  --request GET http://c9b6b6f1.ngrok.io/start/'
+					} catch (Exception e) {
+						echo 'Check the host...'
+					}
 				}
 				sh 'mvn clean package'
 				archiveArtifacts 'cbs-server/target/*.war'
@@ -24,10 +27,12 @@ pipeline {
 
 		stage('Deploy') {
 			steps {
-				try {
-					sh 'curl  --request GET http://c9b6b6f1.ngrok.io/warn/'
-				} catch (Exception e) {
-					echo 'Check the host...'
+				script {
+					try {
+						sh 'curl  --request GET http://c9b6b6f1.ngrok.io/warn/'
+					} catch (Exception e) {
+						echo 'Check the host...'
+					}
 				}
 				input 'Are you sure?'
 				echo 'Deploying...'
@@ -59,10 +64,12 @@ pipeline {
 		}
 		success {
 			echo 'Job succeeeded!'
-			try {
-				sh 'curl  --request GET http://c9b6b6f1.ngrok.io/ok/'
-			} catch (Exception e) {
-				echo 'Check the host...'
+			script {
+				try {
+					sh 'curl  --request GET http://c9b6b6f1.ngrok.io/ok/'
+				} catch (Exception e) {
+					echo 'Check the host...'
+				}
 			}
 		}
 		unstable {
@@ -70,10 +77,12 @@ pipeline {
 		}
 		failure {
 			echo 'I failed :('
-			try {
-				sh 'curl --request GET http://c9b6b6f1.ngrok.io/nok/'
-			} catch (Exception e) {
-				echo 'Check the host...'
+			script {
+				try {
+					sh 'curl --request GET http://c9b6b6f1.ngrok.io/nok/'
+				} catch (Exception e) {
+					echo 'Check the host...'
+				}
 			}
 		}
 		changed {
