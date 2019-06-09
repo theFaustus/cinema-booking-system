@@ -56,10 +56,12 @@ pipeline {
 	post {
 		always {
 			echo 'I have finished.'
-			try {
-				sh 'curl  --request GET http://c9b6b6f1.ngrok.io/xmas/'
-			} catch (Exception e) {
-				echo 'Check the host...'
+			script {
+				try {
+					sh 'curl  --request GET http://c9b6b6f1.ngrok.io/xmas/'
+				} catch (Exception e) {
+					echo 'Check the host...'
+				}
 			}
 		}
 		success {
