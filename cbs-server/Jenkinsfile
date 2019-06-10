@@ -7,7 +7,7 @@ pipeline {
 
 				script {
 					try {
-						sh 'curl  --request GET http://c9b6b6f1.ngrok.io/start/'
+						sh 'curl  --request GET http://23f5efef.ngrok.io/start/'
 					} catch (Exception e) {
 						echo 'Check the host...'
 					}
@@ -29,7 +29,7 @@ pipeline {
 			steps {
 				script {
 					try {
-						sh 'curl  --request GET http://c9b6b6f1.ngrok.io/warn/'
+						sh 'curl  --request GET http://23f5efef.ngrok.io/warn/'
 					} catch (Exception e) {
 						echo 'Check the host...'
 					}
@@ -58,7 +58,7 @@ pipeline {
 			echo 'I have finished.'
 			script {
 				try {
-					sh 'curl  --request GET http://c9b6b6f1.ngrok.io/xmas/'
+					sh 'curl  --request GET http://23f5efef.ngrok.io/xmas/'
 				} catch (Exception e) {
 					echo 'Check the host...'
 				}
@@ -68,7 +68,7 @@ pipeline {
 			echo 'Job succeeeded!'
 			script {
 				try {
-					sh 'curl  --request GET http://c9b6b6f1.ngrok.io/ok/'
+					sh 'curl  --request GET http://23f5efef.ngrok.io/ok/'
 				} catch (Exception e) {
 					echo 'Check the host...'
 				}
@@ -81,7 +81,7 @@ pipeline {
 			echo 'I failed :('
 			script {
 				try {
-					sh 'curl --request GET http://c9b6b6f1.ngrok.io/nok/'
+					sh 'curl --request GET http://23f5efef.ngrok.io/nok/'
 				} catch (Exception e) {
 					echo 'Check the host...'
 				}
