@@ -27,8 +27,9 @@ public class PdfServiceImpl implements PdfService {
 
     try (OutputStream os = new FileOutputStream(destinationPdf)) {
       PdfRendererBuilder builder = new PdfRendererBuilder();
-      String baseUri = getClass().getResource("/images").toString();
+      String baseUri = servletContext.getResource("/images/").toString();
       log.info("baseUri - " + baseUri);
+      log.info("content - " + servletContext.getResource("/images/").getContent());
       builder.withHtmlContent(html, baseUri);
       builder.toStream(os);
       builder.run();
