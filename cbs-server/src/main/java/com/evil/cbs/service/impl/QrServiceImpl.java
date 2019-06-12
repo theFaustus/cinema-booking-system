@@ -44,7 +44,7 @@ public class QrServiceImpl implements QrService {
     private File moveFile(File qrFile, String destination) {
         try {
             log.info("qrFile - " + qrFile);
-            String filePath = destination + "/" + qrFile.getName();
+            String filePath = destination + qrFile.getName();
             log.info("destination - " + destination);
             log.info("qrFile.getName() - " + qrFile.getName());
             log.info("filePath - " + filePath);
