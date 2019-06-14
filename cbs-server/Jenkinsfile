@@ -39,18 +39,6 @@ pipeline {
 				build job: 'cbs-deployment'
 			}
 		}
-
-		stage('Release') {
-			steps {
-				echo 'Releasing...'
-			}
-		}
-
-		stage('Deploy @ Prod') {
-			steps {
-				echo 'Deploying @ Prod...'
-			}
-		}
 	}
 
 	post {
